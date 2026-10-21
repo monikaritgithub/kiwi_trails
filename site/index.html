@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,19 +16,13 @@
   --bg: #f6f7f4; --surface: #ffffff; --text: #1d2a22; --muted: #5d6b62; --line: #dfe4dc;
   --accent: #1f7a4d; --accent-soft: #e3f2e9; --todo: #c9d0c8; --doing: #e0a526;
   --review: #4a7fd6; --done: #1f7a4d; --code-bg: #eef1ec;
-}
-:root:not([data-theme="light"]) { color-scheme: light dark; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #131a16; --surface: #1b241f; --text: #e6ece7; --muted: #9aaa9f; --line: #2c3932;
-    --accent: #4cc387; --accent-soft: #1f3328; --todo: #3a4640; --doing: #e8b43a;
-    --review: #6f9be6; --done: #4cc387; --code-bg: #222d27;
-  }
+  color-scheme: light;
 }
 :root[data-theme="dark"] {
   --bg: #131a16; --surface: #1b241f; --text: #e6ece7; --muted: #9aaa9f; --line: #2c3932;
   --accent: #4cc387; --accent-soft: #1f3328; --todo: #3a4640; --doing: #e8b43a;
-  --review: #6f9be6; --done: #4cc387; --code-bg: #222d27; color-scheme: dark;
+  --review: #6f9be6; --done: #4cc387; --code-bg: #222d27;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-padding-top: 5rem; }
@@ -342,9 +336,8 @@ async function start() {
 
 document.getElementById("theme").addEventListener("click", () => {
   const root = document.documentElement;
-  const dark = root.dataset.theme === "dark" ||
-    (!root.dataset.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  root.dataset.theme = dark ? "light" : "dark";
+  const current = root.dataset.theme || "light";
+  root.dataset.theme = current === "dark" ? "light" : "dark";
 });
 window.addEventListener("hashchange", route);
 start();
