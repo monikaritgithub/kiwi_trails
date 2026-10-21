@@ -193,3 +193,109 @@ class TourDetailSerializer(serializers.ModelSerializer):
                 start_datetime__gte=timezone.now(),
             ).order_by("start_datetime")
         return TourDepartureSerializer(deps, many=True).data
+
+
+class TourWriteSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=150)
+    description = serializers.CharField()
+    location = serializers.CharField(max_length=100)
+    category_id = serializers.IntegerField()
+    price_per_person = serializers.DecimalField(max_digits=10, decimal_places=2)
+    duration_days = serializers.IntegerField()
+    itinerary = serializers.CharField()
+    accessibility_info = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    visitor_guidelines = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    meeting_point_name = serializers.CharField(
+        max_length=150, required=False, allow_blank=True, allow_null=True
+    )
+    meeting_lat = serializers.DecimalField(
+        max_digits=9, decimal_places=6, required=False, allow_null=True
+    )
+    meeting_lng = serializers.DecimalField(
+        max_digits=9, decimal_places=6, required=False, allow_null=True
+    )
+    guide_id = serializers.IntegerField(required=False, allow_null=True)
+    cancellation_days = serializers.IntegerField(required=False)
+
+    def validate_category_id(self, value):
+        if not Category.objects.filter(id=value).exists():
+            raise serializers.ValidationError("Category does not exist.")
+        return value
+
+    def validate_price_per_person(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Must be above 0.")
+        return value
+
+    def validate_duration_days(self, value):
+        if value < 1:
+            raise serializers.ValidationError("Must be at least 1.")
+        return value
+
+    def validate_cancellation_days(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Must be at least 0.")
+        return value
+
+    def validate_meeting_lat(self, value):
+        if value is not None and (value < -90 or value > 90):
+            raise serializers.ValidationError("Latitude must be between -90 and 90.")
+        return value
+
+    def validate_meeting_lng(self, value):
+        if value is not None and (value < -180 or value > 180):
+            raise serializers.ValidationError("Longitude must be between -180 and 180.")
+        return value
+
+    def validate_guide_id(self, value):
+        if value is not None and not Guide.objects.filter(id=value).exists():
+            raise serializers.ValidationError("Guide does not exist.")
+        return value
+
+
+class TourStatusSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(choices=["active", "archived"])
+
+
+class TourImageCreateSerializer(serializers.Serializer):
+    image = serializers.FileField()
+    alt_text = serializers.CharField(max_length=150, required=False, allow_blank=True, default="")
+    sort_order = serializers.IntegerField(required=False, default=0)
+
+    def validate_image(self, value):
+        import os
+
+        max_size = 5 * 1024 * 1024
+        if value.size > max_size:
+            raise serializers.ValidationError("File must be under 5 MB.")
+        ext = os.path.splitext(value.name)[1].lower()
+        if ext not in [".jpg", ".jpeg", ".png", ".webp"]:
+            raise serializers.ValidationError("File must be JPG, PNG or WebP.")
+        return value
+
+
+class FaqWriteSerializer(serializers.Serializer):
+    question = serializers.CharField(max_length=255)
+    answer = serializers.CharField()
+    sort_order = serializers.IntegerField(required=False)
+
+
+class GuideWriteSerializer(serializers.Serializer):
+    full_name = serializers.CharField(max_length=100)
+    bio = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    photo_url = serializers.CharField(
+        max_length=255, required=False, allow_blank=True, allow_null=True
+    )
+    languages = serializers.ListField(child=serializers.CharField(), required=False)
+
+
+class CategoryWriteSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=60)
+
+    def validate_name(self, value):
+        clean_name = value.strip()
+        if not clean_name:
+            raise serializers.ValidationError("Category name cannot be blank.")
+        if Category.objects.filter(name__iexact=clean_name).exists():
+            raise serializers.ValidationError("Category name already exists.")
+        return clean_name
