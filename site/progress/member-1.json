@@ -1,0 +1,201 @@
+{
+  "member": "Member 1",
+  "name": "",
+  "role": "Frontend and sample pictures",
+  "updated": "2026-10-21",
+  "groups": [
+    {
+      "title": "Setup and request file",
+      "tasks": [
+        {
+          "id": "m1-set-1",
+          "title": "Frontend folders, config.js and the USE_MOCK switch",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-set-2",
+          "title": "api.js: the only file that calls fetch, token header, wrapper unpacking",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-set-3",
+          "title": "auth.js and helpers.js (token, NZ time, NZD money)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-set-4",
+          "title": "Mock JSON copied from the API file for every call",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-set-5",
+          "title": "File downloads for invoice and calendar",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Customer screens",
+      "tasks": [
+        {
+          "id": "m1-cus-01",
+          "title": "Register",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-02",
+          "title": "Login and logout",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-03",
+          "title": "Profile",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-04",
+          "title": "Tour list with filters and paging",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-05",
+          "title": "Tour page (images, guide, FAQs, reviews, departures)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-06",
+          "title": "Departure calendar",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-07",
+          "title": "Booking form with price quote and coupon",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-08",
+          "title": "My bookings and booking page",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-cus-09",
+          "title": "Review form",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Admin screens",
+      "tasks": [
+        {
+          "id": "m1-adm-01",
+          "title": "Dashboard",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-02",
+          "title": "Tours (list, create, edit, archive)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-03",
+          "title": "Images and FAQs",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-04",
+          "title": "Guides and categories",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-05",
+          "title": "Departures",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-06",
+          "title": "Bookings and status changes",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-07",
+          "title": "Attendance",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-08",
+          "title": "Coupons",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-adm-09",
+          "title": "Reviews",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Pictures",
+      "tasks": [
+        {
+          "id": "m1-pic-1",
+          "title": "Sample pictures for the 9 tours in media/seed/",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-pic-2",
+          "title": "Guide photos in media/seed/guides/",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Final check",
+      "tasks": [
+        {
+          "id": "m1-fin-1",
+          "title": "Every mock switched to the real server and USE_MOCK is false",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-fin-2",
+          "title": "Seeded cases checked on every screen: full, closed, archived, rejected, completed with and without review, empty list",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m1-fin-3",
+          "title": "Accessibility check: alt text, labels, keyboard use",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

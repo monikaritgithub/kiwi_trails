@@ -1,0 +1,182 @@
+{
+  "member": "Member 3",
+  "name": "",
+  "role": "Bookings, attendance, invoices and dashboard",
+  "updated": "2026-10-21",
+  "groups": [
+    {
+      "title": "Before building",
+      "tasks": [
+        {
+          "id": "m3-pre-1",
+          "title": "Write tests for the booking calls from the API file",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-pre-2",
+          "title": "Confirm or change the proposed formats in section 6 of the API file",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Customer booking calls (7)",
+      "tasks": [
+        {
+          "id": "m3-cust-01",
+          "title": "POST /bookings/quote",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-02",
+          "title": "POST /bookings",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-03",
+          "title": "GET /bookings/my",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-04",
+          "title": "GET /bookings/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-05",
+          "title": "POST /bookings/{id}/cancel",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-06",
+          "title": "GET /bookings/{id}/invoice",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-cust-07",
+          "title": "GET /bookings/{id}/calendar",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Admin calls (5)",
+      "tasks": [
+        {
+          "id": "m3-adm-01",
+          "title": "GET /admin/bookings",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-adm-02",
+          "title": "PATCH /admin/bookings/{id}/status",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-adm-03",
+          "title": "GET /admin/departures/{id}/attendance",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-adm-04",
+          "title": "PUT /admin/bookings/{id}/attendance",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-adm-05",
+          "title": "GET /admin/dashboard",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Helpers for Member 2",
+      "tasks": [
+        {
+          "id": "m3-help-1",
+          "title": "complete_bookings_for_departure (replace the stub)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-help-2",
+          "title": "get_completed_booking_for_user (replace the stub)",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Tests",
+      "tasks": [
+        {
+          "id": "m3-test-1",
+          "title": "Success and error tests for every call",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-test-2",
+          "title": "Overbooking test: two requests for the last seats, only one succeeds",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-test-3",
+          "title": "Coupon used-up test",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-test-4",
+          "title": "Every allowed and refused status change",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Seed and final check",
+      "tasks": [
+        {
+          "id": "m3-seed-1",
+          "title": "seed_bookings: 16 bookings in the five statuses and the full departure filled",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-seed-2",
+          "title": "seed_bookings: 4 attendance records and 1 completed booking without one",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-fin-1",
+          "title": "No STUB: line left in the bookings app",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m3-fin-2",
+          "title": "Reset and seed_all give 16 bookings on every laptop",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

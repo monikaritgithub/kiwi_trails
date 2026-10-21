@@ -1,0 +1,330 @@
+{
+  "member": "Member 2",
+  "name": "",
+  "role": "Foundation, accounts, catalog, departures, coupons, reviews and seeds",
+  "updated": "2026-10-21",
+  "groups": [
+    {
+      "title": "Phase 0: skeleton",
+      "tasks": [
+        {
+          "id": "m2-step-0",
+          "title": "Step 0: folders, GitHub repository, tracker site and GitHub Pages",
+          "status": "done",
+          "note": ""
+        },
+        {
+          "id": "m2-step-1",
+          "title": "Step 1: settings, URLs and root files",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-step-2",
+          "title": "Step 2: core app (errors, response wrapper, paging, permissions, token check)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-step-3",
+          "title": "Step 3: models part 1 (accounts, catalog)",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-step-4",
+          "title": "Step 4: models part 2 (departures, coupons, bookings, reviews) and migrations",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-step-5",
+          "title": "Step 5: helper stubs, empty URL files, empty seed commands, Phase 0 pull request",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 6: Accounts (5 calls)",
+      "tasks": [
+        {
+          "id": "m2-acc-01",
+          "title": "POST /auth/register",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-acc-02",
+          "title": "POST /auth/login",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-acc-03",
+          "title": "POST /auth/logout",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-acc-04",
+          "title": "GET /users/me",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-acc-05",
+          "title": "PUT /users/me",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 7: Tours, public side (4 calls)",
+      "tasks": [
+        {
+          "id": "m2-catp-01",
+          "title": "GET /tours",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-catp-02",
+          "title": "GET /tours/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-catp-03",
+          "title": "GET /categories",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-catp-04",
+          "title": "GET /guides/{id}",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 8: Tours, admin side (12 calls)",
+      "tasks": [
+        {
+          "id": "m2-cata-01",
+          "title": "GET /admin/tours",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-02",
+          "title": "POST /admin/tours",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-03",
+          "title": "PUT /admin/tours/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-04",
+          "title": "PATCH /admin/tours/{id}/status",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-05",
+          "title": "POST /admin/tours/{id}/images",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-06",
+          "title": "DELETE /admin/tour-images/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-07",
+          "title": "POST /admin/tours/{id}/faqs",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-08",
+          "title": "PUT /admin/faqs/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-09",
+          "title": "DELETE /admin/faqs/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-10",
+          "title": "POST /admin/guides",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-11",
+          "title": "PUT /admin/guides/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cata-12",
+          "title": "POST /admin/categories",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 9: Departures (5 calls and 2 helpers)",
+      "tasks": [
+        {
+          "id": "m2-dep-01",
+          "title": "GET /tours/{id}/departures",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-dep-02",
+          "title": "GET /departures/calendar",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-dep-03",
+          "title": "POST /admin/tours/{id}/departures",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-dep-04",
+          "title": "PUT /admin/departures/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-dep-05",
+          "title": "PATCH /admin/departures/{id}/status",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-dep-h1",
+          "title": "Helpers get_seats_taken and is_booking_open (replace the stubs)",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 10: Coupons (4 calls and 2 helpers)",
+      "tasks": [
+        {
+          "id": "m2-cou-01",
+          "title": "POST /coupons/validate",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cou-02",
+          "title": "GET /admin/coupons",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cou-03",
+          "title": "POST /admin/coupons",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cou-04",
+          "title": "PUT /admin/coupons/{id}",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-cou-h1",
+          "title": "Helpers apply_coupon and mark_coupon_used (replace the stubs)",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Step 11: Reviews (3 calls)",
+      "tasks": [
+        {
+          "id": "m2-rev-01",
+          "title": "GET /tours/{id}/reviews",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-rev-02",
+          "title": "POST /reviews",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-rev-03",
+          "title": "GET /admin/reviews",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "title": "Seeds, README and join up",
+      "tasks": [
+        {
+          "id": "m2-step-12",
+          "title": "Step 12: seed_core, seed_reviews, seed_all and constants.py",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-step-13",
+          "title": "Step 13: README",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-join-1",
+          "title": "Phase 2: no STUB: line left in any file",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-join-2",
+          "title": "Phase 2: reset steps give the same counts on all three laptops",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-join-3",
+          "title": "Phase 2: seeded cases walked through with the team",
+          "status": "todo",
+          "note": ""
+        },
+        {
+          "id": "m2-join-4",
+          "title": "Phase 3: git tag v1.0",
+          "status": "todo",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

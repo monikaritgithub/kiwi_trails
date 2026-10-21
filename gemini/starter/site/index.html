@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiwi Trails: Team Progress and Docs</title>
+<!--
+  Kiwi Trails team tracker.
+  Shows the progress of each member (from progress/member-N.json) and the five
+  team documents (from docs/ on GitHub Pages, or ../gemini/ when served locally).
+  To try it on your laptop: run "python -m http.server 8000" in the repository
+  root and open http://localhost:8000/site/
+-->
+<style>
+:root {
+  --bg: #f6f7f4; --surface: #ffffff; --text: #1d2a22; --muted: #5d6b62; --line: #dfe4dc;
+  --accent: #1f7a4d; --accent-soft: #e3f2e9; --todo: #c9d0c8; --doing: #e0a526;
+  --review: #4a7fd6; --done: #1f7a4d; --code-bg: #eef1ec;
+}
+:root:not([data-theme="light"]) { color-scheme: light dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131a16; --surface: #1b241f; --text: #e6ece7; --muted: #9aaa9f; --line: #2c3932;
+    --accent: #4cc387; --accent-soft: #1f3328; --todo: #3a4640; --doing: #e8b43a;
+    --review: #6f9be6; --done: #4cc387; --code-bg: #222d27;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131a16; --surface: #1b241f; --text: #e6ece7; --muted: #9aaa9f; --line: #2c3932;
+  --accent: #4cc387; --accent-soft: #1f3328; --todo: #3a4640; --doing: #e8b43a;
+  --review: #6f9be6; --done: #4cc387; --code-bg: #222d27; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 5rem; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: var(--accent); }
+header {
+  position: sticky; top: 0; z-index: 10; background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.bar-top { max-width: 1200px; margin: 0 auto; padding: .7rem 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.brand { font-weight: 700; font-size: 1.1rem; margin-right: auto; }
+nav { display: flex; gap: .25rem; flex-wrap: wrap; }
+nav a, .btn {
+  text-decoration: none; color: var(--text); padding: .35rem .8rem; border-radius: 999px;
+  border: 1px solid transparent; font-size: .92rem; background: none; cursor: pointer; font-family: inherit;
+}
+nav a:hover, .btn:hover { border-color: var(--line); }
+nav a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+main { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+h1 { font-size: 1.6rem; margin: 0 0 .3rem; }
+.sub { color: var(--muted); margin: 0 0 1.5rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.2rem; }
+.card h2, .card h3 { margin: 0 0 .2rem; font-size: 1.1rem; }
+.meta { color: var(--muted); font-size: .88rem; }
+.progress { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: var(--todo); margin: .7rem 0 .4rem; }
+.progress span { display: block; height: 100%; }
+.seg-done { background: var(--done); } .seg-review { background: var(--review); } .seg-doing { background: var(--doing); }
+.big { font-size: 2rem; font-weight: 700; line-height: 1; }
+.counts { display: flex; gap: .8rem; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+.dot { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .3rem; }
+.dot.todo { background: var(--todo); } .dot.doing { background: var(--doing); }
+.dot.review { background: var(--review); } .dot.done { background: var(--done); }
+.next { margin: .8rem 0 0; padding: 0; list-style: none; font-size: .9rem; }
+.next li { padding: .25rem 0; border-top: 1px solid var(--line); }
+.chips { display: flex; gap: .4rem; flex-wrap: wrap; margin: 1rem 0; }
+.chip { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 999px; padding: .25rem .8rem; cursor: pointer; font: inherit; font-size: .88rem; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+details.group { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin: .7rem 0; }
+details.group summary { cursor: pointer; padding: .8rem 1.1rem; font-weight: 600; display: flex; gap: .8rem; align-items: center; }
+details.group summary .meta { margin-left: auto; font-weight: 400; }
+.tasks { list-style: none; margin: 0; padding: 0 1.1rem .6rem; }
+.tasks li { display: flex; gap: .7rem; align-items: baseline; padding: .45rem 0; border-top: 1px solid var(--line); }
+.pill { font-size: .75rem; padding: .05rem .6rem; border-radius: 999px; color: #fff; white-space: nowrap; min-width: 4.2rem; text-align: center; }
+.pill.todo { background: var(--todo); color: var(--text); } .pill.doing { background: var(--doing); color: #1d2a22; }
+.pill.review { background: var(--review); } .pill.done { background: var(--done); }
+.note { color: var(--muted); font-size: .85rem; }
+.help { margin-top: 1.5rem; }
+.help code, .docs code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+.docs-layout { display: grid; gap: 1.5rem; grid-template-columns: 250px minmax(0, 1fr); align-items: start; }
+.side { position: sticky; top: 5rem; max-height: calc(100vh - 6rem); overflow: auto; }
+.side h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 1rem 0 .4rem; }
+.side a { display: block; text-decoration: none; color: var(--text); padding: .25rem .6rem; border-radius: 6px; font-size: .9rem; }
+.side a:hover { background: var(--accent-soft); }
+.side a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.side a.sub2 { padding-left: 1.4rem; font-size: .85rem; color: var(--muted); }
+.docs { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem 1.6rem; overflow-wrap: anywhere; }
+.docs h1 { font-size: 1.7rem; } .docs h2 { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid var(--line); }
+.docs pre { background: var(--code-bg); padding: .9rem 1rem; border-radius: 8px; overflow-x: auto; font-size: .85rem; line-height: 1.5; }
+.docs pre code { background: none; padding: 0; }
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+.docs table { border-collapse: collapse; font-size: .9rem; min-width: 100%; }
+.docs th, .docs td { border: 1px solid var(--line); padding: .4rem .7rem; text-align: left; vertical-align: top; }
+.docs th { background: var(--code-bg); }
+.error { background: var(--surface); border: 1px solid var(--doing); border-radius: 12px; padding: 1rem 1.2rem; }
+@media (max-width: 800px) { .docs-layout { grid-template-columns: 1fr; } .side { position: static; max-height: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar-top">
+    <span class="brand">Kiwi Trails</span>
+    <nav id="nav"></nav>
+    <button class="btn" id="theme" type="button" aria-label="Switch colour theme">Theme</button>
+  </div>
+</header>
+<main id="app"><p>Loading...</p></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+const REPO_URL = "https://github.com/monikaritgithub/kiwi_trails";
+const MEMBERS = [
+  { id: "member-1", label: "Member 1", file: "progress/member-1.json" },
+  { id: "member-2", label: "Member 2", file: "progress/member-2.json" },
+  { id: "member-3", label: "Member 3", file: "progress/member-3.json" }
+];
+const DOCS = [
+  { file: "kiwi-trails-01-database-design.md", title: "1. Database design" },
+  { file: "kiwi-trails-02-api-design.md", title: "2. API design" },
+  { file: "kiwi-trails-03-coding-rules-and-folders.md", title: "3. Coding rules and folders" },
+  { file: "kiwi-trails-04-success-criteria.md", title: "4. Success criteria" },
+  { file: "kiwi-trails-05-member2-gemini-guide.md", title: "5. Member 2 build guide" }
+];
+const STATUSES = ["todo", "doing", "review", "done"];
+const STATUS_LABEL = { todo: "To do", doing: "Doing", review: "Review", done: "Done" };
+const data = {};
+let filter = "all";
+
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "class") el.className = v;
+    else if (k === "text") el.textContent = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v);
+  }
+  kids.flat().forEach(kid => { if (kid) el.append(kid); });
+  return el;
+}
+
+function allTasks(member) {
+  return member.groups.flatMap(g => g.tasks);
+}
+
+function countTasks(tasks) {
+  const c = { todo: 0, doing: 0, review: 0, done: 0 };
+  tasks.forEach(t => { c[STATUSES.includes(t.status) ? t.status : "todo"]++; });
+  return c;
+}
+
+function percent(c, total) {
+  return total ? Math.round((c.done / total) * 100) : 0;
+}
+
+function progressBar(c, total) {
+  const w = n => (total ? (n / total) * 100 : 0) + "%";
+  return h("div", { class: "progress", role: "img", "aria-label": percent(c, total) + " percent done" },
+    h("span", { class: "seg-done", style: "width:" + w(c.done) }),
+    h("span", { class: "seg-review", style: "width:" + w(c.review) }),
+    h("span", { class: "seg-doing", style: "width:" + w(c.doing) }));
+}
+
+function countsRow(c) {
+  return h("div", { class: "counts" }, STATUSES.map(s =>
+    h("span", {}, h("span", { class: "dot " + s }), STATUS_LABEL[s] + " " + c[s])));
+}
+
+function renderNav(active) {
+  const nav = document.getElementById("nav");
+  nav.replaceChildren();
+  const items = [["overview", "Overview"], ...MEMBERS.map(m => [m.id, m.label]), ["docs", "Documentation"]];
+  items.forEach(([id, label]) => {
+    nav.append(h("a", { href: "#" + id, class: active === id ? "active" : "", text: label }));
+  });
+  nav.append(h("a", { href: REPO_URL, target: "_blank", rel: "noopener", text: "GitHub" }));
+}
+
+function memberCard(m) {
+  const member = data[m.id];
+  if (!member) return h("div", { class: "card" }, h("h2", { text: m.label }), h("p", { class: "meta", text: "Progress file not found." }));
+  const tasks = allTasks(member);
+  const c = countTasks(tasks);
+  const next = tasks.filter(t => t.status === "doing").concat(tasks.filter(t => t.status === "todo")).slice(0, 3);
+  const title = member.name ? member.member + " (" + member.name + ")" : member.member;
+  return h("div", { class: "card" },
+    h("h2", {}, h("a", { href: "#" + m.id, text: title })),
+    h("div", { class: "meta", text: member.role }),
+    h("div", { class: "big", text: percent(c, tasks.length) + "%" }),
+    progressBar(c, tasks.length),
+    countsRow(c),
+    h("ul", { class: "next" }, next.map(t => h("li", {}, h("span", { class: "pill " + t.status, text: STATUS_LABEL[t.status] || t.status }), " " + t.title))),
+    h("p", { class: "meta", text: "Updated " + member.updated }));
+}
+
+function renderOverview() {
+  const loaded = MEMBERS.filter(m => data[m.id]);
+  const all = loaded.flatMap(m => allTasks(data[m.id]));
+  const c = countTasks(all);
+  const app = document.getElementById("app");
+  app.replaceChildren(
+    h("h1", { text: "Team progress" }),
+    h("p", { class: "sub", text: "Each member updates only their own progress file. Percent means tasks marked done." }),
+    h("div", { class: "card" },
+      h("div", { class: "big", text: percent(c, all.length) + "%" }),
+      h("div", { class: "meta", text: "Whole team: " + c.done + " of " + all.length + " tasks done" }),
+      progressBar(c, all.length),
+      countsRow(c)),
+    h("p", {}),
+    h("div", { class: "grid" }, MEMBERS.map(memberCard)),
+    h("div", { class: "card help" },
+      h("h3", { text: "How to update your progress" }),
+      h("p", {}, "Open your own file in ", h("code", { text: "site/progress/member-N.json" }),
+        ", change the ", h("code", { text: "status" }), " of a task to ", h("code", { text: "todo" }), ", ",
+        h("code", { text: "doing" }), ", ", h("code", { text: "review" }), " or ", h("code", { text: "done" }),
+        ", set ", h("code", { text: "updated" }), " to today, and include the file in your pull request. "
+        + "The page updates a minute or two after the merge into main.")));
+}
+
+function renderMember(m) {
+  const member = data[m.id];
+  const app = document.getElementById("app");
+  if (!member) {
+    app.replaceChildren(h("div", { class: "error", text: "Could not load " + m.file + "." }));
+    return;
+  }
+  const tasks = allTasks(member);
+  const c = countTasks(tasks);
+  const chips = h("div", { class: "chips" }, ["all", ...STATUSES].map(s =>
+    h("button", {
+      type: "button", class: "chip" + (filter === s ? " on" : ""),
+      text: s === "all" ? "All " + tasks.length : STATUS_LABEL[s] + " " + c[s],
+      onclick: () => { filter = s; renderMember(m); }
+    })));
+  const groups = member.groups.map(g => {
+    const shown = g.tasks.filter(t => filter === "all" || t.status === filter);
+    if (!shown.length) return null;
+    const gc = countTasks(g.tasks);
+    const open = filter !== "all" || gc.done < g.tasks.length;
+    const details = h("details", { class: "group" },
+      h("summary", {}, h("span", { text: g.title }), h("span", { class: "meta", text: gc.done + " / " + g.tasks.length + " done" })),
+      h("ul", { class: "tasks" }, shown.map(t => h("li", {},
+        h("span", { class: "pill " + t.status, text: STATUS_LABEL[t.status] || t.status }),
+        h("span", {}, t.title, t.note ? h("div", { class: "note", text: t.note }) : null)))));
+    if (open) details.setAttribute("open", "");
+    return details;
+  });
+  app.replaceChildren(
+    h("h1", { text: member.name ? member.member + " (" + member.name + ")" : member.member }),
+    h("p", { class: "sub", text: member.role + ". Updated " + member.updated + "." }),
+    h("div", { class: "card" },
+      h("div", { class: "big", text: percent(c, tasks.length) + "%" }),
+      progressBar(c, tasks.length),
+      countsRow(c)),
+    chips,
+    ...groups.filter(Boolean));
+}
+
+function slug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+async function fetchDoc(file) {
+  for (const base of ["docs/", "../gemini/"]) {
+    try {
+      const res = await fetch(base + file, { cache: "no-store" });
+      if (res.ok) return await res.text();
+    } catch (e) {
+      continue;
+    }
+  }
+  throw new Error("Document not found: " + file);
+}
+
+async function renderDocs(file) {
+  const app = document.getElementById("app");
+  const current = DOCS.find(d => d.file === file) || DOCS[0];
+  const list = h("div", {}, h("h3", { text: "Documents" }), DOCS.map(d =>
+    h("a", { href: "#docs/" + d.file, class: d.file === current.file ? "active" : "", text: d.title })));
+  const toc = h("div", {});
+  const content = h("article", { class: "docs", text: "Loading..." });
+  app.replaceChildren(h("div", { class: "docs-layout" }, h("aside", { class: "side" }, list, toc), content));
+  try {
+    const text = await fetchDoc(current.file);
+    if (typeof marked === "undefined") {
+      content.replaceChildren(h("div", { class: "error", text: "The Markdown reader could not load (no internet?). Showing the plain text." }), h("pre", { text: text }));
+      return;
+    }
+    content.innerHTML = marked.parse(text);
+  } catch (e) {
+    content.replaceChildren(h("div", { class: "error", text: e.message + ". On GitHub Pages the documents appear after the first deploy." }));
+    return;
+  }
+  const used = {};
+  const headings = [...content.querySelectorAll("h1, h2, h3")];
+  toc.append(h("h3", { text: "On this page" }));
+  headings.forEach(el => {
+    let id = slug(el.textContent) || "section";
+    used[id] = (used[id] || 0) + 1;
+    if (used[id] > 1) id += "-" + used[id];
+    el.id = id;
+    if (el.tagName === "H1") return;
+    toc.append(h("a", {
+      href: "#docs/" + current.file, class: el.tagName === "H3" ? "sub2" : "", text: el.textContent,
+      onclick: ev => { ev.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
+    }));
+  });
+  content.querySelectorAll("table").forEach(t => {
+    const wrap = h("div", { class: "table-wrap" });
+    t.replaceWith(wrap);
+    wrap.append(t);
+  });
+  window.scrollTo(0, 0);
+}
+
+function route() {
+  const hash = location.hash.slice(1) || "overview";
+  const slash = hash.indexOf("/");
+  const page = slash === -1 ? hash : hash.slice(0, slash);
+  const arg = slash === -1 ? "" : hash.slice(slash + 1);
+  renderNav(page);
+  const member = MEMBERS.find(m => m.id === page);
+  if (member) { filter = "all"; renderMember(member); }
+  else if (page === "docs") renderDocs(arg);
+  else renderOverview();
+}
+
+async function start() {
+  await Promise.all(MEMBERS.map(async m => {
+    try {
+      const res = await fetch(m.file, { cache: "no-store" });
+      data[m.id] = res.ok ? await res.json() : null;
+    } catch (e) {
+      data[m.id] = null;
+    }
+  }));
+  route();
+}
+
+document.getElementById("theme").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme === "dark" ||
+    (!root.dataset.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  root.dataset.theme = dark ? "light" : "dark";
+});
+window.addEventListener("hashchange", route);
+start();
+</script>
+</body>
+</html>
