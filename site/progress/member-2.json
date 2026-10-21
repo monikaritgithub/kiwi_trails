@@ -51,31 +51,31 @@
         {
           "id": "m2-acc-01",
           "title": "POST /auth/register",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-acc-02",
           "title": "POST /auth/login",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-acc-03",
           "title": "POST /auth/logout",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-acc-04",
           "title": "GET /users/me",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-acc-05",
           "title": "PUT /users/me",
-          "status": "todo",
+          "status": "review",
           "note": ""
         }
       ]
