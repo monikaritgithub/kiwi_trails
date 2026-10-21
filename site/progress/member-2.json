@@ -22,7 +22,7 @@
         {
           "id": "m2-step-2",
           "title": "Step 2: core app (errors, response wrapper, paging, permissions, token check)",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
