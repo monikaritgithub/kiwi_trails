@@ -16,31 +16,31 @@
         {
           "id": "m2-step-1",
           "title": "Step 1: settings, URLs and root files",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-step-2",
           "title": "Step 2: core app (errors, response wrapper, paging, permissions, token check)",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-step-3",
           "title": "Step 3: models part 1 (accounts, catalog)",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-step-4",
           "title": "Step 4: models part 2 (departures, coupons, bookings, reviews) and migrations",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
           "id": "m2-step-5",
           "title": "Step 5: helper stubs, empty URL files, empty seed commands, Phase 0 pull request",
-          "status": "todo",
+          "status": "review",
           "note": ""
         }
       ]
