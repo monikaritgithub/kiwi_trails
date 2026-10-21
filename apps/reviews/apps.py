@@ -1,5 +1,11 @@
+"""
+Application configuration for the reviews app.
+Manages tour reviews, ratings, and moderation.
+"""
+
 from django.apps import AppConfig
 
 
 class ReviewsConfig(AppConfig):
-    name = 'reviews'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.reviews"
