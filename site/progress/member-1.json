@@ -9,33 +9,33 @@
       "tasks": [
         {
           "id": "m1-set-1",
-          "title": "Frontend folders, config.js and the USE_MOCK switch",
+          "title": "Frontend folders and config.js (API URL and mock switch)",
           "status": "todo",
-          "note": ""
+          "note": "Set up frontend folders and config.js to choose between mock test data or live Django backend."
         },
         {
           "id": "m1-set-2",
-          "title": "api.js: the only file that calls fetch, token header, wrapper unpacking",
+          "title": "API helper functions in api.js (send requests and receive data)",
           "status": "todo",
-          "note": ""
+          "note": "A helper file with fetch functions to talk to backend endpoints and automatically attach auth tokens."
         },
         {
           "id": "m1-set-3",
-          "title": "auth.js and helpers.js (token, NZ time, NZD money)",
+          "title": "Authentication state and display helpers (auth.js, helpers.js)",
           "status": "todo",
-          "note": ""
+          "note": "Helper functions to store user login tokens and format dates and NZD currency ($)."
         },
         {
           "id": "m1-set-4",
-          "title": "Mock JSON copied from the API file for every call",
+          "title": "Sample mock responses for testing screens offline",
           "status": "todo",
-          "note": ""
+          "note": "Sample test data matching backend JSON so you can build and preview screens before backend APIs are ready."
         },
         {
           "id": "m1-set-5",
-          "title": "File downloads for invoice and calendar",
+          "title": "Frontend file download handlers (trigger invoice PDF and calendar .ics download)",
           "status": "todo",
-          "note": ""
+          "note": "Browser click handlers to download invoice PDFs and calendar (.ics) files returned from backend endpoints."
         }
       ]
     },
@@ -162,38 +162,15 @@
       "tasks": [
         {
           "id": "m1-pic-1",
-          "title": "Sample pictures for the 9 tours in media/seed/",
-          "status": "todo",
-          "note": ""
+          "title": "Sample pictures for tours in media/seed/tours",
+          "status": "done",
+          "note": "30 landscape pictures provided for all 15 tours"
         },
         {
           "id": "m1-pic-2",
-          "title": "Guide photos in media/seed/guides/",
-          "status": "todo",
-          "note": ""
-        }
-      ]
-    },
-    {
-      "title": "Final check",
-      "tasks": [
-        {
-          "id": "m1-fin-1",
-          "title": "Every mock switched to the real server and USE_MOCK is false",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m1-fin-2",
-          "title": "Seeded cases checked on every screen: full, closed, archived, rejected, completed with and without review, empty list",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m1-fin-3",
-          "title": "Accessibility check: alt text, labels, keyboard use",
-          "status": "todo",
-          "note": ""
+          "title": "Guide photos in media/seed/guides",
+          "status": "done",
+          "note": "3 portrait photos provided for guides"
         }
       ]
     }

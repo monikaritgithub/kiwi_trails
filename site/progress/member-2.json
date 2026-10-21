@@ -16,31 +16,31 @@
         {
           "id": "m2-step-1",
           "title": "Step 1: settings, URLs and root files",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-step-2",
           "title": "Step 2: core app (errors, response wrapper, paging, permissions, token check)",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-step-3",
           "title": "Step 3: models part 1 (accounts, catalog)",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-step-4",
           "title": "Step 4: models part 2 (departures, coupons, bookings, reviews) and migrations",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-step-5",
           "title": "Step 5: helper stubs, empty URL files, empty seed commands, Phase 0 pull request",
-          "status": "review",
+          "status": "done",
           "note": ""
         }
       ]
@@ -51,31 +51,31 @@
         {
           "id": "m2-acc-01",
           "title": "POST /auth/register",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-acc-02",
           "title": "POST /auth/login",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-acc-03",
           "title": "POST /auth/logout",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-acc-04",
           "title": "GET /users/me",
-          "status": "review",
+          "status": "done",
           "note": ""
         },
         {
           "id": "m2-acc-05",
           "title": "PUT /users/me",
-          "status": "review",
+          "status": "done",
           "note": ""
         }
       ]
@@ -86,26 +86,26 @@
         {
           "id": "m2-catp-01",
           "title": "GET /tours",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Filtered and sorted active tour summaries with single annotated query"
         },
         {
           "id": "m2-catp-02",
           "title": "GET /tours/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Full tour detail with images, faqs, guide and upcoming departures"
         },
         {
           "id": "m2-catp-03",
           "title": "GET /categories",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Category list sorted alphabetically by name"
         },
         {
           "id": "m2-catp-04",
           "title": "GET /guides/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Guide profile with languages returned as list"
         }
       ]
     },
@@ -187,7 +187,7 @@
       ]
     },
     {
-      "title": "Step 9: Departures (5 calls and 2 helpers)",
+      "title": "Step 9: Departures (5 calls)",
       "tasks": [
         {
           "id": "m2-dep-01",
@@ -218,17 +218,11 @@
           "title": "PATCH /admin/departures/{id}/status",
           "status": "todo",
           "note": ""
-        },
-        {
-          "id": "m2-dep-h1",
-          "title": "Helpers get_seats_taken and is_booking_open (replace the stubs)",
-          "status": "todo",
-          "note": ""
         }
       ]
     },
     {
-      "title": "Step 10: Coupons (4 calls and 2 helpers)",
+      "title": "Step 10: Coupons (4 calls)",
       "tasks": [
         {
           "id": "m2-cou-01",
@@ -251,12 +245,6 @@
         {
           "id": "m2-cou-04",
           "title": "PUT /admin/coupons/{id}",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-cou-h1",
-          "title": "Helpers apply_coupon and mark_coupon_used (replace the stubs)",
           "status": "todo",
           "note": ""
         }
@@ -286,43 +274,19 @@
       ]
     },
     {
-      "title": "Seeds, README and join up",
+      "title": "Step 12 & 13: Seeds and documentation",
       "tasks": [
         {
           "id": "m2-step-12",
           "title": "Step 12: seed_core, seed_reviews, seed_all and constants.py",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "15 tours with 30 images, 5 users, 5 categories, 3 guides, 45 departures, 5 coupons"
         },
         {
           "id": "m2-step-13",
           "title": "Step 13: README",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-1",
-          "title": "Phase 2: no STUB: line left in any file",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-2",
-          "title": "Phase 2: reset steps give the same counts on all three laptops",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-3",
-          "title": "Phase 2: seeded cases walked through with the team",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-4",
-          "title": "Phase 3: git tag v1.0",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Documented 15 tours, image assets, seed commands, and Postman collection"
         }
       ]
     }
