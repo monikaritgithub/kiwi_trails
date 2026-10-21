@@ -1,6 +1,14 @@
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+exclude = [
+    "gemini",
+    "site",
+    ".venv",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*" = ["E501"]

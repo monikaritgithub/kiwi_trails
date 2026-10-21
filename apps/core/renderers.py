@@ -20,4 +20,6 @@ class ApiRenderer(JSONRenderer):
             "success": True,
             "data": data,
         }
+        if renderer_context and "response" in renderer_context:
+            renderer_context["response"].data = wrapped_data
         return super().render(wrapped_data, accepted_media_type, renderer_context)

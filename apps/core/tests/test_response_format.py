@@ -5,6 +5,7 @@ Verifies success and error payloads match Kiwi Trails specifications.
 
 from django.test import SimpleTestCase
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory
 from rest_framework.views import APIView
@@ -14,6 +15,7 @@ from apps.core.renderers import ApiRenderer
 
 
 class DummySuccessView(APIView):
+    permission_classes = [AllowAny]
     renderer_classes = [ApiRenderer]
 
     def get(self, request):
@@ -21,6 +23,7 @@ class DummySuccessView(APIView):
 
 
 class DummyErrorView(APIView):
+    permission_classes = [AllowAny]
     renderer_classes = [ApiRenderer]
 
     def get(self, request):
