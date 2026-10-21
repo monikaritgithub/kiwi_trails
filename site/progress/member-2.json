@@ -86,25 +86,25 @@
         {
           "id": "m2-catp-01",
           "title": "GET /tours",
-          "status": "review",
+          "status": "done",
           "note": "Filtered and sorted active tour summaries with single annotated query"
         },
         {
           "id": "m2-catp-02",
           "title": "GET /tours/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Full tour detail with images, faqs, guide and upcoming departures"
         },
         {
           "id": "m2-catp-03",
           "title": "GET /categories",
-          "status": "review",
+          "status": "done",
           "note": "Category list sorted alphabetically by name"
         },
         {
           "id": "m2-catp-04",
           "title": "GET /guides/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Guide profile with languages returned as list"
         }
       ]
@@ -115,74 +115,74 @@
         {
           "id": "m2-cata-01",
           "title": "GET /admin/tours",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Admin list including archived tours with status and search filters"
         },
         {
           "id": "m2-cata-02",
           "title": "POST /admin/tours",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Create active tour returning full detail representation"
         },
         {
           "id": "m2-cata-03",
           "title": "PUT /admin/tours/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Partial and full tour updates with immutable pricing on existing bookings"
         },
         {
           "id": "m2-cata-04",
           "title": "PATCH /admin/tours/{id}/status",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Update status to active or archived"
         },
         {
           "id": "m2-cata-05",
           "title": "POST /admin/tours/{id}/images",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Multipart file upload with size and format validation under media/tours/"
         },
         {
           "id": "m2-cata-06",
           "title": "DELETE /admin/tour-images/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Delete tour image and remove file from storage"
         },
         {
           "id": "m2-cata-07",
           "title": "POST /admin/tours/{id}/faqs",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Create FAQ item for specific tour"
         },
         {
           "id": "m2-cata-08",
           "title": "PUT /admin/faqs/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Update FAQ question, answer or sort order"
         },
         {
           "id": "m2-cata-09",
           "title": "DELETE /admin/faqs/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Delete FAQ item by ID"
         },
         {
           "id": "m2-cata-10",
           "title": "POST /admin/guides",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Create guide with languages list stored as comma separated text"
         },
         {
           "id": "m2-cata-11",
           "title": "PUT /admin/guides/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Update guide profile and language skills"
         },
         {
           "id": "m2-cata-12",
           "title": "POST /admin/categories",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Create category with unique case-insensitive name validation"
         }
       ]
     },
