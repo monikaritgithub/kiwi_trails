@@ -2,7 +2,7 @@
   "member": "Member 2",
   "name": "Smriti",
   "role": "Foundation, accounts, catalog, departures, coupons, reviews and seeds",
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "groups": [
     {
       "title": "Phase 0: skeleton",
@@ -192,31 +192,31 @@
         {
           "id": "m2-dep-01",
           "title": "GET /tours/{id}/departures",
-          "status": "review",
+          "status": "done",
           "note": "Upcoming scheduled departures soonest first with seats taken and open flag"
         },
         {
           "id": "m2-dep-02",
           "title": "GET /departures/calendar",
-          "status": "review",
+          "status": "done",
           "note": "Monthly departures calendar excluding cancelled departures with tour titles"
         },
         {
           "id": "m2-dep-03",
           "title": "POST /admin/tours/{id}/departures",
-          "status": "review",
+          "status": "done",
           "note": "Create scheduled departure with future date and deadline validation"
         },
         {
           "id": "m2-dep-04",
           "title": "PUT /admin/departures/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Update capacity with conflict check preventing reduction below seats taken"
         },
         {
           "id": "m2-dep-05",
           "title": "PATCH /admin/departures/{id}/status",
-          "status": "review",
+          "status": "done",
           "note": "Status change with atomic completion cascading to approved bookings"
         }
       ]
@@ -227,26 +227,26 @@
         {
           "id": "m2-cou-01",
           "title": "POST /coupons/validate",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Validate coupon code against subtotal returning discount and new total"
         },
         {
           "id": "m2-cou-02",
           "title": "GET /admin/coupons",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Admin coupon list ordered by newest created first"
         },
         {
           "id": "m2-cou-03",
           "title": "POST /admin/coupons",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Admin create coupon with unique uppercase code and discount validation"
         },
         {
           "id": "m2-cou-04",
           "title": "PUT /admin/coupons/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Admin coupon update supporting partial field changes"
         }
       ]
     },
