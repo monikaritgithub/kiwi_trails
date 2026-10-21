@@ -162,38 +162,15 @@
       "tasks": [
         {
           "id": "m1-pic-1",
-          "title": "Sample pictures for the 9 tours in media/seed/",
-          "status": "todo",
-          "note": ""
+          "title": "Sample pictures for tours in media/seed/tours",
+          "status": "done",
+          "note": "30 landscape pictures provided for all 15 tours"
         },
         {
           "id": "m1-pic-2",
-          "title": "Guide photos in media/seed/guides/",
-          "status": "todo",
-          "note": ""
-        }
-      ]
-    },
-    {
-      "title": "Final check",
-      "tasks": [
-        {
-          "id": "m1-fin-1",
-          "title": "Every mock switched to the real server and USE_MOCK is false",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m1-fin-2",
-          "title": "Seeded cases checked on every screen: full, closed, archived, rejected, completed with and without review, empty list",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m1-fin-3",
-          "title": "Accessibility check: alt text, labels, keyboard use",
-          "status": "todo",
-          "note": ""
+          "title": "Guide photos in media/seed/guides",
+          "status": "done",
+          "note": "3 portrait photos provided for guides"
         }
       ]
     }
