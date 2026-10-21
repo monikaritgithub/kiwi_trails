@@ -87,77 +87,13 @@
       ]
     },
     {
-      "title": "Helpers for Member 2",
+      "title": "Seed data",
       "tasks": [
         {
-          "id": "m3-help-1",
-          "title": "complete_bookings_for_departure (replace the stub)",
+          "id": "m3-seed-01",
+          "title": "seed_bookings: create test bookings and attendance data",
           "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-help-2",
-          "title": "get_completed_booking_for_user (replace the stub)",
-          "status": "todo",
-          "note": ""
-        }
-      ]
-    },
-    {
-      "title": "Tests",
-      "tasks": [
-        {
-          "id": "m3-test-1",
-          "title": "Success and error tests for every call",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-test-2",
-          "title": "Overbooking test: two requests for the last seats, only one succeeds",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-test-3",
-          "title": "Coupon used-up test",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-test-4",
-          "title": "Every allowed and refused status change",
-          "status": "todo",
-          "note": ""
-        }
-      ]
-    },
-    {
-      "title": "Seed and final check",
-      "tasks": [
-        {
-          "id": "m3-seed-1",
-          "title": "seed_bookings: 16 bookings in the five statuses and the full departure filled",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-seed-2",
-          "title": "seed_bookings: 4 attendance records and 1 completed booking without one",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-fin-1",
-          "title": "No STUB: line left in the bookings app",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-fin-2",
-          "title": "Reset and seed_all give 16 bookings on every laptop",
-          "status": "todo",
-          "note": ""
+          "note": "Management command to populate test bookings and attendance across different statuses"
         }
       ]
     }

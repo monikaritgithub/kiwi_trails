@@ -187,7 +187,7 @@
       ]
     },
     {
-      "title": "Step 9: Departures (5 calls and 2 helpers)",
+      "title": "Step 9: Departures (5 calls)",
       "tasks": [
         {
           "id": "m2-dep-01",
@@ -218,17 +218,11 @@
           "title": "PATCH /admin/departures/{id}/status",
           "status": "todo",
           "note": ""
-        },
-        {
-          "id": "m2-dep-h1",
-          "title": "Helpers get_seats_taken and is_booking_open (replace the stubs)",
-          "status": "todo",
-          "note": ""
         }
       ]
     },
     {
-      "title": "Step 10: Coupons (4 calls and 2 helpers)",
+      "title": "Step 10: Coupons (4 calls)",
       "tasks": [
         {
           "id": "m2-cou-01",
@@ -251,12 +245,6 @@
         {
           "id": "m2-cou-04",
           "title": "PUT /admin/coupons/{id}",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-cou-h1",
-          "title": "Helpers apply_coupon and mark_coupon_used (replace the stubs)",
           "status": "todo",
           "note": ""
         }
@@ -286,7 +274,7 @@
       ]
     },
     {
-      "title": "Seeds, README and join up",
+      "title": "Step 12 & 13: Seeds and documentation",
       "tasks": [
         {
           "id": "m2-step-12",
@@ -299,30 +287,6 @@
           "title": "Step 13: README",
           "status": "review",
           "note": "Documented 15 tours, image assets, seed commands, and Postman collection"
-        },
-        {
-          "id": "m2-join-1",
-          "title": "Phase 2: no STUB: line left in any file",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-2",
-          "title": "Phase 2: reset steps give the same counts on all three laptops",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-3",
-          "title": "Phase 2: seeded cases walked through with the team",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m2-join-4",
-          "title": "Phase 3: git tag v1.0",
-          "status": "todo",
-          "note": ""
         }
       ]
     }
