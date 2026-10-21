@@ -34,7 +34,7 @@
         {
           "id": "m2-step-4",
           "title": "Step 4: models part 2 (departures, coupons, bookings, reviews) and migrations",
-          "status": "todo",
+          "status": "review",
           "note": ""
         },
         {
