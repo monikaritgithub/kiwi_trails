@@ -1,11 +1,13 @@
 """Booking service helpers for reservations and attendance.
-STUB: complete_bookings_for_departure, get_completed_booking_for_user
-Processes departure booking completions and validates completed bookings.
+Provides departure booking completion and completed booking retrieval.
+Processes status transitions for tour bookings.
 """
+
+from apps.bookings.models import BookingStatus
 
 
 def complete_bookings_for_departure(departure):
-    pass
+    departure.bookings.filter(status=BookingStatus.APPROVED).update(status=BookingStatus.COMPLETED)
 
 
 def get_completed_booking_for_user(booking_id, user):

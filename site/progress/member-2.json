@@ -115,73 +115,73 @@
         {
           "id": "m2-cata-01",
           "title": "GET /admin/tours",
-          "status": "review",
+          "status": "done",
           "note": "Admin list including archived tours with status and search filters"
         },
         {
           "id": "m2-cata-02",
           "title": "POST /admin/tours",
-          "status": "review",
+          "status": "done",
           "note": "Create active tour returning full detail representation"
         },
         {
           "id": "m2-cata-03",
           "title": "PUT /admin/tours/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Partial and full tour updates with immutable pricing on existing bookings"
         },
         {
           "id": "m2-cata-04",
           "title": "PATCH /admin/tours/{id}/status",
-          "status": "review",
+          "status": "done",
           "note": "Update status to active or archived"
         },
         {
           "id": "m2-cata-05",
           "title": "POST /admin/tours/{id}/images",
-          "status": "review",
+          "status": "done",
           "note": "Multipart file upload with size and format validation under media/tours/"
         },
         {
           "id": "m2-cata-06",
           "title": "DELETE /admin/tour-images/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Delete tour image and remove file from storage"
         },
         {
           "id": "m2-cata-07",
           "title": "POST /admin/tours/{id}/faqs",
-          "status": "review",
+          "status": "done",
           "note": "Create FAQ item for specific tour"
         },
         {
           "id": "m2-cata-08",
           "title": "PUT /admin/faqs/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Update FAQ question, answer or sort order"
         },
         {
           "id": "m2-cata-09",
           "title": "DELETE /admin/faqs/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Delete FAQ item by ID"
         },
         {
           "id": "m2-cata-10",
           "title": "POST /admin/guides",
-          "status": "review",
+          "status": "done",
           "note": "Create guide with languages list stored as comma separated text"
         },
         {
           "id": "m2-cata-11",
           "title": "PUT /admin/guides/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Update guide profile and language skills"
         },
         {
           "id": "m2-cata-12",
           "title": "POST /admin/categories",
-          "status": "review",
+          "status": "done",
           "note": "Create category with unique case-insensitive name validation"
         }
       ]
@@ -192,32 +192,32 @@
         {
           "id": "m2-dep-01",
           "title": "GET /tours/{id}/departures",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Upcoming scheduled departures soonest first with seats taken and open flag"
         },
         {
           "id": "m2-dep-02",
           "title": "GET /departures/calendar",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Monthly departures calendar excluding cancelled departures with tour titles"
         },
         {
           "id": "m2-dep-03",
           "title": "POST /admin/tours/{id}/departures",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Create scheduled departure with future date and deadline validation"
         },
         {
           "id": "m2-dep-04",
           "title": "PUT /admin/departures/{id}",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Update capacity with conflict check preventing reduction below seats taken"
         },
         {
           "id": "m2-dep-05",
           "title": "PATCH /admin/departures/{id}/status",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Status change with atomic completion cascading to approved bookings"
         }
       ]
     },
