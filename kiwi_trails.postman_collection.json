@@ -1,0 +1,1738 @@
+{
+  "info": {
+    "_postman_id": "c1f62b10-8b1b-4b68-9a3c-b26a5789f9e1",
+    "name": "Kiwi Trails API",
+    "description": "Complete Postman collection for all 45 Kiwi Trails REST API endpoints. Includes environment variables, request bodies with examples from the API contract, and auto-token extraction scripts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "customer_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_email",
+      "value": "admin@kiwitrails.test",
+      "type": "string"
+    },
+    {
+      "key": "admin_password",
+      "value": "Password123!",
+      "type": "string"
+    },
+    {
+      "key": "customer_email",
+      "value": "aroha@kiwitrails.test",
+      "type": "string"
+    },
+    {
+      "key": "customer_password",
+      "value": "Password123!",
+      "type": "string"
+    },
+    {
+      "key": "tour_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "departure_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "guide_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "category_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "faq_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "tour_image_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "coupon_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "01 - Accounts & Authentication",
+      "description": "User registration, login, logout, and profile management.",
+      "item": [
+        {
+          "name": "POST /auth/register (Create Customer Account)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Aroha Smith\",\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"021 123 4567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Public · RegisterView. Creates a customer account (does not log the person in)."
+          }
+        },
+        {
+          "name": "POST /auth/login (Customer Login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.success && jsonData.data && jsonData.data.token) {",
+                  "        pm.collectionVariables.set('token', jsonData.data.token);",
+                  "        pm.collectionVariables.set('customer_token', jsonData.data.token);",
+                  "        console.log('Customer token stored in {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customer_email}}\",\n  \"password\": \"{{customer_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Public · LoginView. Deletes old token and creates new one valid for 24h. Saves token to {{token}}."
+          }
+        },
+        {
+          "name": "POST /auth/login (Admin Login)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.success && jsonData.data && jsonData.data.token) {",
+                  "        pm.collectionVariables.set('token', jsonData.data.token);",
+                  "        pm.collectionVariables.set('admin_token', jsonData.data.token);",
+                  "        console.log('Admin token stored in {{token}}');",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Public · LoginView for Admin. Deletes old token and creates new one valid for 24h. Saves admin token to {{token}}."
+          }
+        },
+        {
+          "name": "POST /auth/logout (Logout)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Logged in · LogoutView. Deletes the current authentication token."
+          }
+        },
+        {
+          "name": "GET /users/me (Get Profile)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            },
+            "description": "Logged in · MeView. Retrieves the current logged in user profile."
+          }
+        },
+        {
+          "name": "PUT /users/me (Update Profile / Password)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Aroha Smith-Wiremu\",\n  \"phone\": \"021 987 6543\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            },
+            "description": "Logged in · MeView. Updates full name, phone (or null to clear), or change password with current_password + new_password."
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Tours & Catalog (Public)",
+      "description": "Public browsing of tours, categories, and guides.",
+      "item": [
+        {
+          "name": "GET /tours (List Active Tours)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tours?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tours"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "lake",
+                  "disabled": true
+                },
+                {
+                  "key": "location",
+                  "value": "Taupō",
+                  "disabled": true
+                },
+                {
+                  "key": "category_id",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "min_price",
+                  "value": "100.00",
+                  "disabled": true
+                },
+                {
+                  "key": "max_price",
+                  "value": "300.00",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "price_asc",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Public · TourListView. Lists active tours with average rating, review count, next departure, and seats left."
+          }
+        },
+        {
+          "name": "GET /tours/:id (Tour Detail)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tours/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tours",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Public · TourDetailView. Retrieves full tour details, images, guide, faqs, and upcoming departures."
+          }
+        },
+        {
+          "name": "GET /categories (List Categories)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ]
+            },
+            "description": "Public · CategoryListView. Returns all categories sorted by name."
+          }
+        },
+        {
+          "name": "GET /guides/:id (Guide Detail)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/guides/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "guides",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Public · GuideDetailView. Retrieves guide profile, bio, languages list, and photo."
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Tours & Catalog (Admin)",
+      "description": "Admin catalog management: tours, image uploads, FAQs, guides, and categories.",
+      "item": [
+        {
+          "name": "GET /admin/tours (List All Tours including Archived)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "archived",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Admin · AdminTourListCreateView. Lists all tours with optional status filter."
+          }
+        },
+        {
+          "name": "POST /admin/tours (Create Tour)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Waitomo Glowworm Caves Adventure\",\n  \"description\": \"Float through subterranean caverns under magical bioluminescence.\",\n  \"location\": \"Waitomo\",\n  \"category_id\": 5,\n  \"price_per_person\": 129.0,\n  \"duration_days\": 1,\n  \"itinerary\": \"10:00 Meet at the visitor centre. 11:00 Cave tour.\",\n  \"accessibility_info\": \"Stairs required to reach boat dock.\",\n  \"visitor_guidelines\": \"Consistent 16 degrees Celsius. Light sweater recommended.\",\n  \"meeting_point_name\": \"Waitomo Caves Discovery Centre\",\n  \"meeting_lat\": -38.2612,\n  \"meeting_lng\": 175.111,\n  \"guide_id\": 1,\n  \"cancellation_days\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours"
+              ]
+            },
+            "description": "Admin · AdminTourListCreateView. Creates a new active tour."
+          }
+        },
+        {
+          "name": "PUT /admin/tours/:id (Update Tour)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price_per_person\": 139.0,\n  \"cancellation_days\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminTourUpdateView. Updates specified tour fields."
+          }
+        },
+        {
+          "name": "PATCH /admin/tours/:id/status (Set Tour Status)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"archived\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours/:id/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminTourStatusView. Changes tour status to 'active' or 'archived'."
+          }
+        },
+        {
+          "name": "POST /admin/tours/:id/images (Upload Tour Image)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "alt_text",
+                  "value": "Tour scenic view",
+                  "type": "text"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours/:id/images",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours",
+                ":id",
+                "images"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminTourImageCreateView. Uploads a JPG/PNG/WebP image up to 5MB."
+          }
+        },
+        {
+          "name": "DELETE /admin/tour-images/:id (Delete Tour Image)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/tour-images/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tour-images",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminTourImageDeleteView. Deletes a tour image."
+          }
+        },
+        {
+          "name": "POST /admin/tours/:id/faqs (Create Tour FAQ)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"Is lunch included?\",\n  \"answer\": \"Yes, a light lunch and hot drinks are provided.\",\n  \"sort_order\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours/:id/faqs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours",
+                ":id",
+                "faqs"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminFaqCreateView. Adds an FAQ entry to the tour."
+          }
+        },
+        {
+          "name": "PUT /admin/faqs/:id (Update FAQ)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answer\": \"Yes, a light lunch and barista coffee are included.\",\n  \"sort_order\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/faqs/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "faqs",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminFaqDetailView. Updates an existing FAQ."
+          }
+        },
+        {
+          "name": "DELETE /admin/faqs/:id (Delete FAQ)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/faqs/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "faqs",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminFaqDetailView. Deletes an FAQ."
+          }
+        },
+        {
+          "name": "POST /admin/guides (Create Guide)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Tane Mahuta\",\n  \"bio\": \"Experienced forest and cultural guide.\",\n  \"photo_url\": \"/media/seed/guides/hemi-walker.jpg\",\n  \"languages\": [\n    \"English\",\n    \"Te Reo M\\u0101ori\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/guides",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "guides"
+              ]
+            },
+            "description": "Admin · AdminGuideCreateView. Creates a new tour guide."
+          }
+        },
+        {
+          "name": "PUT /admin/guides/:id (Update Guide)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bio\": \"Over 15 years guiding across New Zealand national parks.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/guides/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "guides",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminGuideUpdateView. Updates guide details."
+          }
+        },
+        {
+          "name": "POST /admin/categories (Create Category)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Culinary\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "categories"
+              ]
+            },
+            "description": "Admin · AdminCategoryCreateView. Creates a new category."
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Departures & Calendar",
+      "description": "Tour departures, monthly availability calendar, and admin departure scheduling.",
+      "item": [
+        {
+          "name": "GET /tours/:id/departures (Upcoming Departures)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tours/:id/departures",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tours",
+                ":id",
+                "departures"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Public · TourDepartureListView. Lists upcoming scheduled departures for a tour."
+          }
+        },
+        {
+          "name": "GET /departures/calendar (Monthly Calendar)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/departures/calendar?month=2026-11",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "departures",
+                "calendar"
+              ],
+              "query": [
+                {
+                  "key": "month",
+                  "value": "2026-11",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Public · DepartureCalendarView. Returns all scheduled departures for a month (YYYY-MM)."
+          }
+        },
+        {
+          "name": "POST /admin/tours/:id/departures (Create Departure)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_datetime\": \"2026-12-15T09:00:00Z\",\n  \"capacity\": 20,\n  \"booking_deadline\": \"2026-12-13T09:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/tours/:id/departures",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "tours",
+                ":id",
+                "departures"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminDepartureCreateView. Schedules a new departure for a tour."
+          }
+        },
+        {
+          "name": "PUT /admin/departures/:id (Update Departure)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacity\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/departures/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "departures",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminDepartureUpdateView. Updates departure capacity or deadlines (capacity cannot drop below held seats)."
+          }
+        },
+        {
+          "name": "PATCH /admin/departures/:id/status (Set Departure Status)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/departures/:id/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "departures",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminDepartureStatusView. Status 'completed' or 'cancelled'. 'completed' marks approved bookings as completed."
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Reviews",
+      "description": "Public tour reviews, customer review submission, and admin review moderation.",
+      "item": [
+        {
+          "name": "GET /tours/:id/reviews (List Tour Reviews)",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tours/:id/reviews?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tours",
+                ":id",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Public · TourReviewListView. Lists customer reviews for a tour, newest first."
+          }
+        },
+        {
+          "name": "POST /reviews (Submit Review)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": 1,\n  \"rating\": 5,\n  \"comment\": \"Unbelievable day, spectacular views and our guide was wonderful!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ]
+            },
+            "description": "Customer · ReviewCreateView. Submits a review for the caller's own completed booking."
+          }
+        },
+        {
+          "name": "GET /admin/reviews (List All Reviews)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/reviews?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "tour_id",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "rating",
+                  "value": "5",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Admin · AdminReviewListView. Admin view of all reviews with customer IDs and tour titles."
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Coupons",
+      "description": "Coupon validation for checkout and admin coupon management.",
+      "item": [
+        {
+          "name": "POST /coupons/validate (Validate Coupon Code)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"SUMMER10\",\n  \"subtotal\": 498.0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/coupons/validate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "coupons",
+                "validate"
+              ]
+            },
+            "description": "Customer · CouponValidateView. Verifies code, expiry, active status, and computes discount amount."
+          }
+        },
+        {
+          "name": "GET /admin/coupons (List Coupons)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/coupons?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "coupons"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Admin · AdminCouponListCreateView. Lists all coupons newest first."
+          }
+        },
+        {
+          "name": "POST /admin/coupons (Create Coupon)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"AUTUMN15\",\n  \"discount_type\": \"percent\",\n  \"discount_value\": 15.0,\n  \"expires_at\": \"2027-05-31T23:59:59Z\",\n  \"max_uses\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/coupons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "coupons"
+              ]
+            },
+            "description": "Admin · AdminCouponListCreateView. Creates a new percent or fixed discount coupon."
+          }
+        },
+        {
+          "name": "PUT /admin/coupons/:id (Update Coupon)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/coupons/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "coupons",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminCouponUpdateView. Updates coupon properties (code cannot be modified)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Bookings (Customer)",
+      "description": "Customer booking preview, creation, listing, cancellation, PDF invoice, and calendar invite.",
+      "item": [
+        {
+          "name": "POST /bookings/quote (Price Quote Preview)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings/quote",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "quote"
+              ]
+            },
+            "description": "Customer · BookingQuoteView. Previews total price and discounts without booking seats."
+          }
+        },
+        {
+          "name": "POST /bookings (Create Booking)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\",\n  \"pickup_preference\": \"Central Hotel Pickup\",\n  \"dietary_requirements\": \"Vegetarian\",\n  \"accessibility_needs\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings"
+              ]
+            },
+            "description": "Customer · BookingCreateView. Reserves seats and generates unique booking reference (KT-XXXXXX)."
+          }
+        },
+        {
+          "name": "GET /bookings/my (List My Bookings)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/my?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                "my"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Customer · BookingMyListView. Retrieves the caller's bookings, newest first."
+          }
+        },
+        {
+          "name": "GET /bookings/:id (Booking Detail)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Owner or Admin · BookingDetailView. Retrieves booking details with cancellation status."
+          }
+        },
+        {
+          "name": "POST /bookings/:id/cancel (Cancel Booking)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Change of travel dates\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                ":id",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Owner · BookingCancelView. Cancels booking if before tour cancellation deadline."
+          }
+        },
+        {
+          "name": "GET /bookings/:id/invoice (Download PDF Invoice)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id/invoice",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                ":id",
+                "invoice"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Owner or Admin · BookingInvoiceView. Generates and downloads PDF tax invoice."
+          }
+        },
+        {
+          "name": "GET /bookings/:id/calendar (Download ICS Calendar)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id/calendar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bookings",
+                ":id",
+                "calendar"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Owner · BookingCalendarView. Downloads iCalendar .ics event file."
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Bookings & Operations (Admin)",
+      "description": "Admin booking management, approvals, attendance tracking, and metrics dashboard.",
+      "item": [
+        {
+          "name": "GET /admin/bookings (List All Bookings)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/bookings?page=1&page_size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "bookings"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "KT-",
+                  "disabled": true
+                },
+                {
+                  "key": "tour_id",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "departure_id",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "date_from",
+                  "value": "2026-11-01",
+                  "disabled": true
+                },
+                {
+                  "key": "date_to",
+                  "value": "2026-12-31",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "page_size",
+                  "value": "10",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Admin · AdminBookingListView. Lists bookings with customer details and attendance marks."
+          }
+        },
+        {
+          "name": "PATCH /admin/bookings/:id/status (Set Booking Status)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\",\n  \"reason\": \"Payment verified\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/bookings/:id/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "bookings",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminBookingStatusView. Changes status (approved, rejected, cancelled, completed)."
+          }
+        },
+        {
+          "name": "GET /admin/departures/:id/attendance (Departure Attendance List)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/departures/:id/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "departures",
+                ":id",
+                "attendance"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminAttendanceListView. Lists approved/completed bookings for attendance roll call."
+          }
+        },
+        {
+          "name": "PUT /admin/bookings/:id/attendance (Mark Attendance)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"present\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/bookings/:id/attendance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "bookings",
+                ":id",
+                "attendance"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}"
+                }
+              ]
+            },
+            "description": "Admin · AdminAttendanceUpdateView. Marks passenger status as 'present' or 'absent'."
+          }
+        },
+        {
+          "name": "GET /admin/dashboard (Dashboard Metrics)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "dashboard"
+              ]
+            },
+            "description": "Admin · AdminDashboardView. Returns active tours, upcoming departures, bookings by status, and total revenue."
+          }
+        }
+      ]
+    }
+  ]
+}

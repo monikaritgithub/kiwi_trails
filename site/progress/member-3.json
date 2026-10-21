@@ -5,23 +5,6 @@
   "updated": "2026-10-21",
   "groups": [
     {
-      "title": "Before building",
-      "tasks": [
-        {
-          "id": "m3-pre-1",
-          "title": "Write tests for the booking calls from the API file",
-          "status": "todo",
-          "note": ""
-        },
-        {
-          "id": "m3-pre-2",
-          "title": "Confirm or change the proposed formats in section 6 of the API file",
-          "status": "todo",
-          "note": ""
-        }
-      ]
-    },
-    {
       "title": "Customer booking calls (7)",
       "tasks": [
         {
