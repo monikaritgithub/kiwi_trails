@@ -256,19 +256,19 @@
         {
           "id": "m2-rev-01",
           "title": "GET /tours/{id}/reviews",
-          "status": "review",
+          "status": "done",
           "note": "Public tour reviews list with paging and formatted reviewer names"
         },
         {
           "id": "m2-rev-02",
           "title": "POST /reviews",
-          "status": "review",
+          "status": "done",
           "note": "Customer review creation validated against completed booking"
         },
         {
           "id": "m2-rev-03",
           "title": "GET /admin/reviews",
-          "status": "review",
+          "status": "done",
           "note": "Admin review list with filters for tour and rating"
         }
       ]
@@ -279,13 +279,13 @@
         {
           "id": "m2-step-12",
           "title": "Step 12: seed_core, seed_reviews, seed_all and constants.py",
-          "status": "review",
+          "status": "done",
           "note": "15 tours with 30 images, 5 users, 5 categories, 3 guides, 45 departures, 5 coupons"
         },
         {
           "id": "m2-step-13",
           "title": "Step 13: README",
-          "status": "review",
+          "status": "done",
           "note": "Documented 15 tours, image assets, seed commands, and Postman collection"
         }
       ]
