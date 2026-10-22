@@ -2,7 +2,7 @@
   "member": "Member 3",
   "name": "Mehrin",
   "role": "Bookings, attendance, invoices and dashboard",
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "groups": [
     {
       "title": "Customer booking calls (7)",
@@ -11,43 +11,64 @@
           "id": "m3-cust-01",
           "title": "POST /bookings/quote",
           "status": "todo",
-          "note": ""
+          "note": "Calculate booking price preview without creating a record",
+          "instruction": "Calculate price quote preview for departure passenger count and coupon code without creating database booking.",
+          "request": "POST /api/v1/bookings/quote\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"subtotal\": 300.00,\n    \"discount_amount\": 30.00,\n    \"total_price\": 270.00\n  }\n}"
         },
         {
           "id": "m3-cust-02",
           "title": "POST /bookings",
           "status": "todo",
-          "note": ""
+          "note": "Create reservation with atomic seat check and pending status",
+          "instruction": "Create customer booking reservation. Check seat availability apply coupon atomically and set initial status to pending.",
+          "request": "POST /api/v1/bookings\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\",\n  \"pickup_preference\": \"Hotel Grand\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"booking_reference\": \"BK-0041\",\n    \"status\": \"pending\",\n    \"total_price\": 270.00\n  }\n}"
         },
         {
           "id": "m3-cust-03",
           "title": "GET /bookings/my",
           "status": "todo",
-          "note": ""
+          "note": "Retrieve bookings belonging to the authenticated customer",
+          "instruction": "Return list of all bookings belonging to the authenticated customer ordered newest first.",
+          "request": "GET /api/v1/bookings/my\nAuthorization: Bearer <customer_token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"status\": \"approved\",\n        \"total_price\": 270.00\n      }\n    ],\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m3-cust-04",
           "title": "GET /bookings/{id}",
           "status": "todo",
-          "note": ""
+          "note": "Retrieve single booking details for owner or admin",
+          "instruction": "Return full booking details. Only the booking owner or an administrator can access this record.",
+          "request": "GET /api/v1/bookings/41\nAuthorization: Bearer <token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"booking_reference\": \"BK-0041\",\n    \"status\": \"approved\",\n    \"traveller_count\": 2,\n    \"total_price\": 270.00\n  }\n}"
         },
         {
           "id": "m3-cust-05",
           "title": "POST /bookings/{id}/cancel",
           "status": "todo",
-          "note": ""
+          "note": "Cancel booking and release reserved seats back to capacity",
+          "instruction": "Cancel pending or approved booking if tour cancellation deadline allows it and return reserved seats to capacity.",
+          "request": "POST /api/v1/bookings/41/cancel\nAuthorization: Bearer <customer_token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"cancelled\",\n    \"message\": \"Booking cancelled successfully.\"\n  }\n}"
         },
         {
           "id": "m3-cust-06",
           "title": "GET /bookings/{id}/invoice",
           "status": "todo",
-          "note": ""
+          "note": "Download PDF invoice for approved or completed booking",
+          "instruction": "Generate and return downloadable PDF invoice for an approved or completed tour booking.",
+          "request": "GET /api/v1/bookings/41/invoice\nAuthorization: Bearer <token>",
+          "response": "Status 200 OK\nContent-Type: application/pdf\nContent-Disposition: attachment; filename=\"invoice.pdf\"\n\n<binary PDF data>"
         },
         {
           "id": "m3-cust-07",
           "title": "GET /bookings/{id}/calendar",
           "status": "todo",
-          "note": ""
+          "note": "Download ICS calendar invite for scheduled departure",
+          "instruction": "Generate and return ICS calendar file for adding the tour departure schedule to a calendar.",
+          "request": "GET /api/v1/bookings/41/calendar\nAuthorization: Bearer <token>",
+          "response": "Status 200 OK\nContent-Type: text/calendar; charset=utf-8\nContent-Disposition: attachment; filename=\"departure.ics\"\n\nBEGIN:VCALENDAR\n..."
         }
       ]
     },
@@ -58,31 +79,46 @@
           "id": "m3-adm-01",
           "title": "GET /admin/bookings",
           "status": "todo",
-          "note": ""
+          "note": "Admin bookings list with status date and customer filters",
+          "instruction": "List all customer bookings for administrators with filtering by status departure date range or customer.",
+          "request": "GET /api/v1/admin/bookings?status=pending\nAuthorization: Bearer <admin_token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"customer_name\": \"Aroha Smith\",\n        \"status\": \"pending\"\n      }\n    ],\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m3-adm-02",
           "title": "PATCH /admin/bookings/{id}/status",
           "status": "todo",
-          "note": ""
+          "note": "Update booking status to approved or rejected",
+          "instruction": "Change booking status to approved or rejected. When rejected return reserved seats back to capacity.",
+          "request": "PATCH /api/v1/admin/bookings/41/status\nAuthorization: Bearer <admin_token>\n{\n  \"status\": \"approved\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"approved\"\n  }\n}"
         },
         {
           "id": "m3-adm-03",
           "title": "GET /admin/departures/{id}/attendance",
           "status": "todo",
-          "note": ""
+          "note": "Passenger attendance roster for departure",
+          "instruction": "Return passenger attendance sheet for a departure listing all approved and completed bookings.",
+          "request": "GET /api/v1/admin/departures/1/attendance\nAuthorization: Bearer <admin_token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"departure_id\": 1,\n    \"items\": [\n      {\n        \"booking_id\": 41,\n        \"customer_name\": \"Aroha Smith\",\n        \"attendance\": \"unmarked\"\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m3-adm-04",
           "title": "PUT /admin/bookings/{id}/attendance",
           "status": "todo",
-          "note": ""
+          "note": "Mark customer attendance as present or absent",
+          "instruction": "Mark customer booking attendance status as present or absent on the day of departure.",
+          "request": "PUT /api/v1/admin/bookings/41/attendance\nAuthorization: Bearer <admin_token>\n{\n  \"attendance\": \"present\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"attendance\": \"present\"\n  }\n}"
         },
         {
           "id": "m3-adm-05",
           "title": "GET /admin/dashboard",
           "status": "todo",
-          "note": ""
+          "note": "Admin metrics dashboard summary metrics",
+          "instruction": "Compute and return key operational metrics including revenue booking status counts and upcoming departures.",
+          "request": "GET /api/v1/admin/dashboard\nAuthorization: Bearer <admin_token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"total_revenue\": 14850.00,\n    \"total_bookings\": 45,\n    \"pending_bookings\": 2,\n    \"approved_bookings\": 38\n  }\n}"
         }
       ]
     },
@@ -93,7 +129,10 @@
           "id": "m3-seed-01",
           "title": "seed_bookings: create test bookings and attendance data",
           "status": "todo",
-          "note": "Management command to populate test bookings and attendance across different statuses"
+          "note": "Command to populate test bookings across different statuses",
+          "instruction": "Write the Django management command seed bookings to populate sample reservations across all statuses.",
+          "request": "python manage.py seed_bookings --reset",
+          "response": "Successfully seeded bookings and attendance records."
         }
       ]
     }

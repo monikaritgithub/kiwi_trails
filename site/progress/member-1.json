@@ -2,7 +2,7 @@
   "member": "Member 1",
   "name": "Gaurani",
   "role": "Frontend and sample pictures",
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "groups": [
     {
       "title": "Setup and request file",
@@ -11,31 +11,46 @@
           "id": "m1-set-1",
           "title": "Frontend folders and config.js (API URL and mock switch)",
           "status": "todo",
-          "note": "Set up frontend folders and config.js to choose between mock test data or live Django backend."
+          "note": "Set up frontend folders and config JavaScript file with mock switch",
+          "instruction": "Create the frontend folder structure with index HTML and config JavaScript. Provide a switch variable named USE MOCK to toggle between local mock data and the live Django backend API.",
+          "request": "Open config.js or inspect the window config object in browser",
+          "response": "export const CONFIG = { API_BASE_URL: 'http://127.0.0.1:8000/api/v1', USE_MOCK: false };"
         },
         {
           "id": "m1-set-2",
           "title": "API helper functions in api.js (send requests and receive data)",
           "status": "todo",
-          "note": "A helper file with fetch functions to talk to backend endpoints and automatically attach auth tokens."
+          "note": "A helper file with fetch functions to talk to backend endpoints",
+          "instruction": "Write fetch wrapper functions in api JavaScript. Automatically attach the authorization bearer token from browser storage to request headers and unpack the standard backend response envelope.",
+          "request": "apiFetch('/tours', { method: 'GET' })",
+          "response": "Returns unpacked response data directly or throws an error object when request fails."
         },
         {
           "id": "m1-set-3",
           "title": "Authentication state and display helpers (auth.js, helpers.js)",
           "status": "todo",
-          "note": "Helper functions to store user login tokens and format dates and NZD currency ($)."
+          "note": "Helper functions to store user login tokens and format currency",
+          "instruction": "Write helper functions to save the auth token to local storage and retrieve the current user role. Add helper functions to format New Zealand currency and New Zealand dates.",
+          "request": "formatMoney(150.00) and getAuthToken()",
+          "response": "Returns formatted text string NZ$150.00 and the active token string or null."
         },
         {
           "id": "m1-set-4",
           "title": "Sample mock responses for testing screens offline",
           "status": "todo",
-          "note": "Sample test data matching backend JSON so you can build and preview screens before backend APIs are ready."
+          "note": "Sample test data matching backend JSON to preview screens offline",
+          "instruction": "Copy sample mock JSON files for every endpoint into a mocks folder. Use these offline fixtures when the mock switch is turned on so you can build screens before backend APIs are ready.",
+          "request": "apiFetch('/tours/1') with USE MOCK set to true",
+          "response": "Returns offline mock tour JSON data without calling the live backend."
         },
         {
           "id": "m1-set-5",
           "title": "Frontend file download handlers (trigger invoice PDF and calendar .ics download)",
           "status": "todo",
-          "note": "Browser click handlers to download invoice PDFs and calendar (.ics) files returned from backend endpoints."
+          "note": "Click handlers to download invoice PDFs and calendar files",
+          "instruction": "Write functions to handle binary file downloads. When the customer clicks download invoice or add to calendar fetch the binary blob and trigger a browser file download.",
+          "request": "GET /api/v1/bookings/1/invoice or GET /api/v1/bookings/1/calendar",
+          "response": "Browser triggers file download for booking 1 invoice PDF or kiwi trails departure calendar ICS."
         }
       ]
     },
@@ -46,55 +61,82 @@
           "id": "m1-cus-01",
           "title": "Register",
           "status": "todo",
-          "note": ""
+          "note": "Customer account registration screen",
+          "instruction": "Build the customer registration form with inputs for full name email password and optional phone number. Validate that password has at least eight characters and send data to register.",
+          "request": "POST /api/v1/auth/register\n{\n  \"full_name\": \"Aroha Smith\",\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"021 123 4567\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Smith\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 123 4567\",\n    \"role\": \"customer\"\n  }\n}"
         },
         {
           "id": "m1-cus-02",
           "title": "Login and logout",
           "status": "todo",
-          "note": ""
+          "note": "Customer login form and logout button",
+          "instruction": "Build the login form for email and password. Store the returned token and user profile in local storage and add a logout button that clears storage and redirects to home.",
+          "request": "POST /api/v1/auth/login\n{\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"sessiontoken123\",\n    \"user\": {\n      \"id\": 3,\n      \"full_name\": \"Aroha Smith\",\n      \"email\": \"aroha@example.com\",\n      \"role\": \"customer\"\n    }\n  }\n}"
         },
         {
           "id": "m1-cus-03",
           "title": "Profile",
           "status": "todo",
-          "note": ""
+          "note": "Customer profile view and edit screen",
+          "instruction": "Build a profile screen showing the logged in user details. Allow customers to edit their full name and phone number and submit changes to the update profile endpoint.",
+          "request": "PUT /api/v1/users/me\n{\n  \"full_name\": \"Aroha Williams\",\n  \"phone\": \"021 987 6543\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Williams\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 987 6543\",\n    \"role\": \"customer\"\n  }\n}"
         },
         {
           "id": "m1-cus-04",
           "title": "Tour list with filters and paging",
           "status": "todo",
-          "note": ""
+          "note": "Public tours catalog page with search and category filters",
+          "instruction": "Build the public tours catalog page with search input category dropdown price range filters and sorting. Display cards with tour title price image seats left and next departure date.",
+          "request": "GET /api/v1/tours?search=cruise&category_id=1&sort=price_asc&page=1",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"title\": \"Taupo Lake Cruise\",\n        \"price_per_person\": 150.00,\n        \"duration_days\": 1,\n        \"category_name\": \"Scenic Walks\"\n      }\n    ],\n    \"page\": 1,\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m1-cus-05",
           "title": "Tour page (images, guide, FAQs, reviews, departures)",
           "status": "todo",
-          "note": ""
+          "note": "Comprehensive tour detail screen",
+          "instruction": "Build the detailed tour overview page. Render the gallery of tour pictures guide card accordion FAQs list of recent customer reviews and available departure dates with book buttons.",
+          "request": "GET /api/v1/tours/1",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"title\": \"Taupo Lake Cruise\",\n    \"description\": \"Scenic cruise across the lake\",\n    \"images\": [],\n    \"faqs\": [],\n    \"guide\": {\n      \"name\": \"Hemi Walker\"\n    }\n  }\n}"
         },
         {
           "id": "m1-cus-06",
           "title": "Departure calendar",
           "status": "todo",
-          "note": ""
+          "note": "Monthly departures availability calendar",
+          "instruction": "Build a calendar grid showing tour departures across days of the selected month. Highlight open departures and let customers click a date to view available tours and book.",
+          "request": "GET /api/v1/departures/calendar?month=2026-11",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"month\": \"2026-11\",\n    \"items\": [\n      {\n        \"id\": 1,\n        \"tour_id\": 1,\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"start_datetime\": \"2026-11-05T09:00:00Z\",\n        \"seats_left\": 12\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m1-cus-07",
           "title": "Booking form with price quote and coupon",
           "status": "todo",
-          "note": ""
+          "note": "Checkout reservation form with price preview",
+          "instruction": "Build the reservation checkout form. When traveller count or coupon code changes call the quote endpoint to preview price breakdown before submitting the final booking.",
+          "request": "POST /api/v1/bookings/quote\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"subtotal\": 300.00,\n    \"discount_amount\": 30.00,\n    \"total_price\": 270.00\n  }\n}"
         },
         {
           "id": "m1-cus-08",
           "title": "My bookings and booking page",
           "status": "todo",
-          "note": ""
+          "note": "Customer booking history and detail view",
+          "instruction": "Build a customer bookings list showing status pills reference codes and dates. Provide a detail modal with invoice download calendar invite download and cancel booking button.",
+          "request": "GET /api/v1/bookings/my",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"status\": \"approved\",\n        \"total_price\": 270.00\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m1-cus-09",
           "title": "Review form",
           "status": "todo",
-          "note": ""
+          "note": "Customer feedback form for completed tours",
+          "instruction": "Build a modal or page for customers to submit feedback on completed bookings. Provide five star rating selection and an optional comment text box.",
+          "request": "POST /api/v1/reviews\n{\n  \"booking_id\": 41,\n  \"rating\": 5,\n  \"comment\": \"Wonderful day on the lake.\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 9,\n    \"tour_id\": 1,\n    \"booking_id\": 41,\n    \"rating\": 5,\n    \"reviewer_name\": \"Aroha S.\"\n  }\n}"
         }
       ]
     },
@@ -105,55 +147,82 @@
           "id": "m1-adm-01",
           "title": "Dashboard",
           "status": "todo",
-          "note": ""
+          "note": "Administrator analytics and metrics dashboard",
+          "instruction": "Build the administrator dashboard displaying summary metric cards for total bookings revenue monthly departures occupancy rate and quick links to review pending requests.",
+          "request": "GET /api/v1/admin/dashboard",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"total_bookings\": 24,\n    \"total_revenue\": 6480.00,\n    \"pending_bookings\": 3,\n    \"upcoming_departures\": 8\n  }\n}"
         },
         {
           "id": "m1-adm-02",
           "title": "Tours (list, create, edit, archive)",
           "status": "todo",
-          "note": ""
+          "note": "Tour management console for staff",
+          "instruction": "Build the tour management console. Display all tours including archived ones with buttons to create new tours edit tour content and toggle status between active and archived.",
+          "request": "GET /api/v1/admin/tours?status=active",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"title\": \"Taupo Lake Cruise\",\n        \"status\": \"active\",\n        \"price_per_person\": 150.00\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m1-adm-03",
           "title": "Images and FAQs",
           "status": "todo",
-          "note": ""
+          "note": "Tour picture upload and question management",
+          "instruction": "Build photo upload and FAQ management panels for each tour. Allow admins to upload picture files set captions sort orders and add edit or delete tour questions and answers.",
+          "request": "POST /api/v1/admin/tours/1/faqs\n{\n  \"question\": \"What should I bring?\",\n  \"answer\": \"Warm jacket and sunscreen.\",\n  \"sort_order\": 1\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 5,\n    \"question\": \"What should I bring?\",\n    \"answer\": \"Warm jacket and sunscreen.\"\n  }\n}"
         },
         {
           "id": "m1-adm-04",
           "title": "Guides and categories",
           "status": "todo",
-          "note": ""
+          "note": "Guide profile and category creation forms",
+          "instruction": "Build interfaces to manage tour guides and categories. Provide forms to create new tour categories and add guides with names bios and spoken languages.",
+          "request": "POST /api/v1/admin/guides\n{\n  \"name\": \"Sarah Jenkins\",\n  \"bio\": \"Experienced alpine guide\",\n  \"languages\": [\"English\", \"Maori\"]\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 2,\n    \"name\": \"Sarah Jenkins\",\n    \"languages\": [\"English\", \"Maori\"]\n  }\n}"
         },
         {
           "id": "m1-adm-05",
           "title": "Departures",
           "status": "todo",
-          "note": ""
+          "note": "Departure schedule calendar and capacity editor",
+          "instruction": "Build the departures schedule manager. Allow admins to add new departure dates set passenger capacities update booking deadlines and complete or cancel departures.",
+          "request": "POST /api/v1/admin/tours/1/departures\n{\n  \"start_datetime\": \"2026-11-20T09:00:00Z\",\n  \"booking_deadline\": \"2026-11-13T09:00:00Z\",\n  \"capacity\": 20\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 15,\n    \"tour_id\": 1,\n    \"capacity\": 20,\n    \"status\": \"scheduled\"\n  }\n}"
         },
         {
           "id": "m1-adm-06",
           "title": "Bookings and status changes",
           "status": "todo",
-          "note": ""
+          "note": "Admin booking management and approval workflow",
+          "instruction": "Build the admin bookings table with filters for status date range and customer. Provide buttons to approve or reject pending bookings and view customer special requirements.",
+          "request": "PATCH /api/v1/admin/bookings/41/status\n{\n  \"status\": \"approved\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"approved\"\n  }\n}"
         },
         {
           "id": "m1-adm-07",
           "title": "Attendance",
           "status": "todo",
-          "note": ""
+          "note": "Departure attendance sheet for guides and staff",
+          "instruction": "Build the attendance roster for a specific departure. Show list of passengers with check boxes to mark each customer present or absent on the day of the trip.",
+          "request": "PUT /api/v1/admin/bookings/41/attendance\n{\n  \"attendance\": \"present\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"attendance\": \"present\"\n  }\n}"
         },
         {
           "id": "m1-adm-08",
           "title": "Coupons",
           "status": "todo",
-          "note": ""
+          "note": "Voucher creation and discount code list",
+          "instruction": "Build the discount voucher management page. Display all coupons with usage counts and expiry dates and provide a form to create percentage or fixed discount coupons.",
+          "request": "POST /api/v1/admin/coupons\n{\n  \"code\": \"SPRING20\",\n  \"discount_type\": \"percent\",\n  \"discount_value\": 20.00,\n  \"expires_at\": \"2027-01-01T00:00:00Z\",\n  \"max_uses\": 100\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 8,\n    \"code\": \"SPRING20\",\n    \"discount_value\": 20.00,\n    \"is_active\": true\n  }\n}"
         },
         {
           "id": "m1-adm-09",
           "title": "Reviews",
           "status": "todo",
-          "note": ""
+          "note": "Customer review moderation panel",
+          "instruction": "Build the admin customer review moderation table with filters for tour and rating. Allow staff to view review comments ratings dates and reviewer names.",
+          "request": "GET /api/v1/admin/reviews?rating=5",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 9,\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"rating\": 5,\n        \"comment\": \"Wonderful day on the lake.\",\n        \"reviewer_name\": \"Aroha S.\"\n      }\n    ]\n  }\n}"
         }
       ]
     },
@@ -164,13 +233,19 @@
           "id": "m1-pic-1",
           "title": "Sample pictures for tours in media/seed/tours",
           "status": "done",
-          "note": "30 landscape pictures provided for all 15 tours"
+          "note": "Thirty landscape pictures provided for all fifteen tours",
+          "instruction": "Collect and place thirty high quality landscape photographs into the media seed tours folder with two distinct pictures for each of the fifteen tours.",
+          "request": "Save images under media/seed/tours/ matching tour slugs",
+          "response": "Thirty image files verified under media/seed/tours/"
         },
         {
           "id": "m1-pic-2",
           "title": "Guide photos in media/seed/guides",
           "status": "done",
-          "note": "3 portrait photos provided for guides"
+          "note": "Three portrait photos provided for guides",
+          "instruction": "Collect and place three portrait photographs into media seed guides representing the tour guides Hemi Walker Sarah Jenkins and Rangi Bennett.",
+          "request": "Save guide portraits under media/seed/guides/",
+          "response": "Three guide portrait photos verified under media/seed/guides/"
         }
       ]
     }
