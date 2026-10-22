@@ -227,25 +227,25 @@
         {
           "id": "m2-cou-01",
           "title": "POST /coupons/validate",
-          "status": "review",
+          "status": "done",
           "note": "Validate coupon code against subtotal returning discount and new total"
         },
         {
           "id": "m2-cou-02",
           "title": "GET /admin/coupons",
-          "status": "review",
+          "status": "done",
           "note": "Admin coupon list ordered by newest created first"
         },
         {
           "id": "m2-cou-03",
           "title": "POST /admin/coupons",
-          "status": "review",
+          "status": "done",
           "note": "Admin create coupon with unique uppercase code and discount validation"
         },
         {
           "id": "m2-cou-04",
           "title": "PUT /admin/coupons/{id}",
-          "status": "review",
+          "status": "done",
           "note": "Admin coupon update supporting partial field changes"
         }
       ]
@@ -256,20 +256,20 @@
         {
           "id": "m2-rev-01",
           "title": "GET /tours/{id}/reviews",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Public tour reviews list with paging and formatted reviewer names"
         },
         {
           "id": "m2-rev-02",
           "title": "POST /reviews",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Customer review creation validated against completed booking"
         },
         {
           "id": "m2-rev-03",
           "title": "GET /admin/reviews",
-          "status": "todo",
-          "note": ""
+          "status": "review",
+          "note": "Admin review list with filters for tour and rating"
         }
       ]
     },
