@@ -73,6 +73,16 @@ details.group summary .meta { margin-left: auto; font-weight: 400; }
 .pill.todo { background: var(--todo); color: var(--text); } .pill.doing { background: var(--doing); color: #1d2a22; }
 .pill.review { background: var(--review); } .pill.done { background: var(--done); }
 .note { color: var(--muted); font-size: .85rem; }
+.task-content { flex: 1; min-width: 0; }
+.task-title { font-weight: 500; }
+.task-dropdown { margin-top: .4rem; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); font-size: .88rem; overflow: hidden; }
+.task-dropdown summary { cursor: pointer; padding: .35rem .7rem; font-weight: 600; color: var(--accent); user-select: none; font-size: .82rem; }
+.task-dropdown summary:hover { text-decoration: underline; }
+.task-dropdown-body { padding: .7rem .8rem; border-top: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; gap: .6rem; }
+.task-instruction p { margin: .2rem 0 0; color: var(--text); line-height: 1.5; font-size: .88rem; }
+.task-block strong, .task-instruction strong { display: block; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+.task-block pre { margin: .2rem 0 0; padding: .5rem .7rem; background: var(--code-bg); border-radius: 6px; overflow-x: auto; font-size: .82rem; line-height: 1.4; color: var(--text); }
+.task-block code { background: none; padding: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
 .help { margin-top: 1.5rem; }
 .help code, .docs code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
 .docs-layout { display: grid; gap: 1.5rem; grid-template-columns: 250px minmax(0, 1fr); align-items: start; }
@@ -236,9 +246,30 @@ function renderMember(m) {
     const open = filter !== "all" || gc.done < g.tasks.length;
     const details = h("details", { class: "group" },
       h("summary", {}, h("span", { text: g.title }), h("span", { class: "meta", text: gc.done + " / " + g.tasks.length + " done" })),
-      h("ul", { class: "tasks" }, shown.map(t => h("li", {},
-        h("span", { class: "pill " + t.status, text: STATUS_LABEL[t.status] || t.status }),
-        h("span", {}, t.title, t.note ? h("div", { class: "note", text: t.note }) : null)))));
+      h("ul", { class: "tasks" }, shown.map(t => {
+        const hasDetails = Boolean(t.instruction || t.request || t.response);
+        return h("li", {},
+          h("span", { class: "pill " + t.status, text: STATUS_LABEL[t.status] || t.status }),
+          h("div", { class: "task-content" },
+            h("div", { class: "task-title", text: t.title }),
+            t.note ? h("div", { class: "note", text: t.note }) : null,
+            hasDetails ? h("details", { class: "task-dropdown" },
+              h("summary", { text: "Instructions and request response details" }),
+              h("div", { class: "task-dropdown-body" },
+                t.instruction ? h("div", { class: "task-instruction" },
+                  h("strong", { text: "What to do" }),
+                  h("p", { text: t.instruction })) : null,
+                t.request ? h("div", { class: "task-block" },
+                  h("strong", { text: "Request" }),
+                  h("pre", {}, h("code", { text: t.request }))) : null,
+                t.response ? h("div", { class: "task-block" },
+                  h("strong", { text: "Response" }),
+                  h("pre", {}, h("code", { text: t.response }))) : null
+              )
+            ) : null
+          )
+        );
+      }))));
     if (open) details.setAttribute("open", "");
     return details;
   });

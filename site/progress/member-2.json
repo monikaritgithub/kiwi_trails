@@ -11,37 +11,55 @@
           "id": "m2-step-0",
           "title": "Step 0: folders, GitHub repository, tracker site and GitHub Pages",
           "status": "done",
-          "note": ""
+          "note": "Initial repository setup and automated pages publishing",
+          "instruction": "Set up the git repository folder structure tracker web site and configure GitHub Pages automated workflow.",
+          "request": "git push origin main and verify GitHub Pages workflow",
+          "response": "GitHub Pages publishes tracker site successfully at project URL."
         },
         {
           "id": "m2-step-1",
           "title": "Step 1: settings, URLs and root files",
           "status": "done",
-          "note": ""
+          "note": "Django project settings and base routing",
+          "instruction": "Configure Django project settings installed apps base URL routing and environment variable handling.",
+          "request": "python manage.py check",
+          "response": "System check identified no issues."
         },
         {
           "id": "m2-step-2",
           "title": "Step 2: core app (errors, response wrapper, paging, permissions, token check)",
           "status": "done",
-          "note": ""
+          "note": "Core response renderer exceptions and pagination",
+          "instruction": "Build the core shared application with standard JSON response renderer error handlers custom exceptions and pagination classes.",
+          "request": "Trigger application exception or request paginated page",
+          "response": "Standard JSON envelope returned with success boolean and data or error details."
         },
         {
           "id": "m2-step-3",
           "title": "Step 3: models part 1 (accounts, catalog)",
           "status": "done",
-          "note": ""
+          "note": "User and catalog database schema definitions",
+          "instruction": "Create database models for custom user accounts categories guides tours tour pictures and FAQs.",
+          "request": "python manage.py makemigrations accounts catalog",
+          "response": "Migrations created for accounts and catalog tables."
         },
         {
           "id": "m2-step-4",
           "title": "Step 4: models part 2 (departures, coupons, bookings, reviews) and migrations",
           "status": "done",
-          "note": ""
+          "note": "Departures coupons bookings and reviews database models",
+          "instruction": "Create database models for tour departures discount coupons customer bookings and reviews.",
+          "request": "python manage.py migrate",
+          "response": "All database tables created successfully in SQLite."
         },
         {
           "id": "m2-step-5",
           "title": "Step 5: helper stubs, empty URL files, empty seed commands, Phase 0 pull request",
           "status": "done",
-          "note": ""
+          "note": "Helper function stubs and empty route definitions",
+          "instruction": "Set up empty URL files helper stubs and empty seed commands then create the Phase 0 pull request.",
+          "request": "python manage.py test apps.core",
+          "response": "Core test suite passes and Phase 0 pull request merged."
         }
       ]
     },
@@ -52,31 +70,46 @@
           "id": "m2-acc-01",
           "title": "POST /auth/register",
           "status": "done",
-          "note": ""
+          "note": "Customer account registration endpoint",
+          "instruction": "Create new customer accounts with validated full name email and password. Save email in lowercase and ensure email is not already taken.",
+          "request": "POST /api/v1/auth/register\n{\n  \"full_name\": \"Aroha Smith\",\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"021 123 4567\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Smith\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 123 4567\",\n    \"role\": \"customer\",\n    \"created_at\": \"2026-10-21T02:15:00Z\"\n  }\n}"
         },
         {
           "id": "m2-acc-02",
           "title": "POST /auth/login",
           "status": "done",
-          "note": ""
+          "note": "User authentication and token generation",
+          "instruction": "Authenticate user credentials and generate a bearer token. Return the token and user profile.",
+          "request": "POST /api/v1/auth/login\n{\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"tokenstring\",\n    \"user\": {\n      \"id\": 3,\n      \"full_name\": \"Aroha Smith\",\n      \"email\": \"aroha@example.com\",\n      \"role\": \"customer\"\n    }\n  }\n}"
         },
         {
           "id": "m2-acc-03",
           "title": "POST /auth/logout",
           "status": "done",
-          "note": ""
+          "note": "Session logout and token invalidation",
+          "instruction": "Log out the active user session and invalidate or delete their auth token.",
+          "request": "POST /api/v1/auth/logout\nAuthorization: Bearer <token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Logged out successfully.\"\n  }\n}"
         },
         {
           "id": "m2-acc-04",
           "title": "GET /users/me",
           "status": "done",
-          "note": ""
+          "note": "Active user profile retrieval",
+          "instruction": "Return the authenticated user profile information matching the bearer token.",
+          "request": "GET /api/v1/users/me\nAuthorization: Bearer <token>",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Smith\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 123 4567\",\n    \"role\": \"customer\"\n  }\n}"
         },
         {
           "id": "m2-acc-05",
           "title": "PUT /users/me",
           "status": "done",
-          "note": ""
+          "note": "User profile update endpoint",
+          "instruction": "Update the authenticated user profile fields such as full name and phone number.",
+          "request": "PUT /api/v1/users/me\nAuthorization: Bearer <token>\n{\n  \"full_name\": \"Aroha Williams\",\n  \"phone\": \"021 987 6543\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Williams\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 987 6543\",\n    \"role\": \"customer\"\n  }\n}"
         }
       ]
     },
@@ -87,25 +120,37 @@
           "id": "m2-catp-01",
           "title": "GET /tours",
           "status": "done",
-          "note": "Filtered and sorted active tour summaries with single annotated query"
+          "note": "Public tours listing with filtering and sorting",
+          "instruction": "List active tours with filtering by search keyword location category minimum price maximum price and sorting.",
+          "request": "GET /api/v1/tours?search=cruise&sort=price_asc",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"title\": \"Taupo Lake Cruise\",\n        \"price_per_person\": 150.00,\n        \"seats_left\": 12\n      }\n    ],\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m2-catp-02",
           "title": "GET /tours/{id}",
           "status": "done",
-          "note": "Full tour detail with images, faqs, guide and upcoming departures"
+          "note": "Single tour detailed overview",
+          "instruction": "Retrieve detailed information for a single active tour including images guide FAQs and upcoming departures.",
+          "request": "GET /api/v1/tours/1",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"title\": \"Taupo Lake Cruise\",\n    \"price_per_person\": 150.00,\n    \"guide\": {\n      \"name\": \"Hemi Walker\"\n    }\n  }\n}"
         },
         {
           "id": "m2-catp-03",
           "title": "GET /categories",
           "status": "done",
-          "note": "Category list sorted alphabetically by name"
+          "note": "Alphabetical category list",
+          "instruction": "Return all tour categories sorted alphabetically by category name.",
+          "request": "GET /api/v1/categories",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"name\": \"Culture\"\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Scenic Walks\"\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m2-catp-04",
           "title": "GET /guides/{id}",
           "status": "done",
-          "note": "Guide profile with languages returned as list"
+          "note": "Guide profile with language skills",
+          "instruction": "Return guide profile by identifier with spoken languages formatted as a list.",
+          "request": "GET /api/v1/guides/1",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Hemi Walker\",\n    \"bio\": \"Local cultural expert\",\n    \"languages\": [\"English\", \"Maori\"]\n  }\n}"
         }
       ]
     },
@@ -116,73 +161,109 @@
           "id": "m2-cata-01",
           "title": "GET /admin/tours",
           "status": "done",
-          "note": "Admin list including archived tours with status and search filters"
+          "note": "Admin list including archived tours with search filters",
+          "instruction": "Return paginated list of all tours including archived ones with status and keyword filters for administrators.",
+          "request": "GET /api/v1/admin/tours?status=archived",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 15,\n        \"title\": \"Arthurs Pass Scenic Train\",\n        \"status\": \"archived\"\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m2-cata-02",
           "title": "POST /admin/tours",
           "status": "done",
-          "note": "Create active tour returning full detail representation"
+          "note": "Create active tour returning full detail representation",
+          "instruction": "Create a new tour with title description location category price duration and meeting point details.",
+          "request": "POST /api/v1/admin/tours\n{\n  \"title\": \"Rotorua Geothermal Explorer\",\n  \"category_id\": 1,\n  \"price_per_person\": 160.00,\n  \"duration_days\": 1,\n  \"location\": \"Rotorua\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 16,\n    \"title\": \"Rotorua Geothermal Explorer\",\n    \"status\": \"active\"\n  }\n}"
         },
         {
           "id": "m2-cata-03",
           "title": "PUT /admin/tours/{id}",
           "status": "done",
-          "note": "Partial and full tour updates with immutable pricing on existing bookings"
+          "note": "Partial and full tour updates with immutable pricing on existing bookings",
+          "instruction": "Update tour details without mutating historical pricing already stored on confirmed bookings.",
+          "request": "PUT /api/v1/admin/tours/1\n{\n  \"price_per_person\": 175.00\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"price_per_person\": 175.00\n  }\n}"
         },
         {
           "id": "m2-cata-04",
           "title": "PATCH /admin/tours/{id}/status",
           "status": "done",
-          "note": "Update status to active or archived"
+          "note": "Update status to active or archived",
+          "instruction": "Change tour status between active and archived to hide or show it in public listings.",
+          "request": "PATCH /api/v1/admin/tours/1/status\n{\n  \"status\": \"archived\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"status\": \"archived\"\n  }\n}"
         },
         {
           "id": "m2-cata-05",
           "title": "POST /admin/tours/{id}/images",
           "status": "done",
-          "note": "Multipart file upload with size and format validation under media/tours/"
+          "note": "Multipart file upload with size and format validation",
+          "instruction": "Upload tour photograph file validate format and file size and store file under media tours folder.",
+          "request": "POST /api/v1/admin/tours/1/images\nContent-Type: multipart/form-data\n\nimage_file=@photo.jpg; alt_text=Lake view; sort_order=1",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 10,\n    \"image_url\": \"/media/tours/photo.jpg\",\n    \"alt_text\": \"Lake view\"\n  }\n}"
         },
         {
           "id": "m2-cata-06",
           "title": "DELETE /admin/tour-images/{id}",
           "status": "done",
-          "note": "Delete tour image and remove file from storage"
+          "note": "Delete tour image and remove file from storage",
+          "instruction": "Delete tour image record from database and clean up the stored file from media storage.",
+          "request": "DELETE /api/v1/admin/tour-images/10",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"deleted\": true\n  }\n}"
         },
         {
           "id": "m2-cata-07",
           "title": "POST /admin/tours/{id}/faqs",
           "status": "done",
-          "note": "Create FAQ item for specific tour"
+          "note": "Create FAQ item for specific tour",
+          "instruction": "Create frequently asked question and answer item for a specific tour.",
+          "request": "POST /api/v1/admin/tours/1/faqs\n{\n  \"question\": \"What to bring?\",\n  \"answer\": \"Warm clothes\",\n  \"sort_order\": 1\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 8,\n    \"question\": \"What to bring?\",\n    \"answer\": \"Warm clothes\"\n  }\n}"
         },
         {
           "id": "m2-cata-08",
           "title": "PUT /admin/faqs/{id}",
           "status": "done",
-          "note": "Update FAQ question, answer or sort order"
+          "note": "Update FAQ question answer or sort order",
+          "instruction": "Update question text answer text or display sort order for an existing tour FAQ item.",
+          "request": "PUT /api/v1/admin/faqs/8\n{\n  \"answer\": \"Warm clothes and rain jacket\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 8,\n    \"answer\": \"Warm clothes and rain jacket\"\n  }\n}"
         },
         {
           "id": "m2-cata-09",
           "title": "DELETE /admin/faqs/{id}",
           "status": "done",
-          "note": "Delete FAQ item by ID"
+          "note": "Delete FAQ item by ID",
+          "instruction": "Delete a tour FAQ item by identifier from the database.",
+          "request": "DELETE /api/v1/admin/faqs/8",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"deleted\": true\n  }\n}"
         },
         {
           "id": "m2-cata-10",
           "title": "POST /admin/guides",
           "status": "done",
-          "note": "Create guide with languages list stored as comma separated text"
+          "note": "Create guide with languages list stored as comma separated text",
+          "instruction": "Create a new guide profile with name bio picture URL and spoken languages.",
+          "request": "POST /api/v1/admin/guides\n{\n  \"name\": \"Rangi Bennett\",\n  \"bio\": \"Geothermal expert\",\n  \"languages\": [\"English\", \"Maori\"]\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"name\": \"Rangi Bennett\",\n    \"languages\": [\"English\", \"Maori\"]\n  }\n}"
         },
         {
           "id": "m2-cata-11",
           "title": "PUT /admin/guides/{id}",
           "status": "done",
-          "note": "Update guide profile and language skills"
+          "note": "Update guide profile and language skills",
+          "instruction": "Update an existing guide profile details and spoken language skills.",
+          "request": "PUT /api/v1/admin/guides/3\n{\n  \"bio\": \"Senior geothermal guide\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"bio\": \"Senior geothermal guide\"\n  }\n}"
         },
         {
           "id": "m2-cata-12",
           "title": "POST /admin/categories",
           "status": "done",
-          "note": "Create category with unique case-insensitive name validation"
+          "note": "Create category with unique case insensitive name validation",
+          "instruction": "Create a tour category ensuring category names are unique and not case sensitive.",
+          "request": "POST /api/v1/admin/categories\n{\n  \"name\": \"Wildlife\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 6,\n    \"name\": \"Wildlife\"\n  }\n}"
         }
       ]
     },
@@ -193,31 +274,46 @@
           "id": "m2-dep-01",
           "title": "GET /tours/{id}/departures",
           "status": "done",
-          "note": "Upcoming scheduled departures soonest first with seats taken and open flag"
+          "note": "Upcoming scheduled departures soonest first with seats taken",
+          "instruction": "Return scheduled upcoming departures for a tour ordered soonest first with seats taken and open status.",
+          "request": "GET /api/v1/tours/1/departures",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"start_datetime\": \"2026-11-05T09:00:00Z\",\n        \"seats_taken\": 3,\n        \"seats_left\": 12,\n        \"booking_open\": true\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m2-dep-02",
           "title": "GET /departures/calendar",
           "status": "done",
-          "note": "Monthly departures calendar excluding cancelled departures with tour titles"
+          "note": "Monthly departures calendar excluding cancelled departures",
+          "instruction": "Return monthly calendar of departures excluding cancelled trips with tour titles and seat counts.",
+          "request": "GET /api/v1/departures/calendar?month=2026-11",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"month\": \"2026-11\",\n    \"items\": [\n      {\n        \"id\": 1,\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"seats_left\": 12\n      }\n    ]\n  }\n}"
         },
         {
           "id": "m2-dep-03",
           "title": "POST /admin/tours/{id}/departures",
           "status": "done",
-          "note": "Create scheduled departure with future date and deadline validation"
+          "note": "Create scheduled departure with future date validation",
+          "instruction": "Create a scheduled departure validating future start date positive capacity and deadline before start date.",
+          "request": "POST /api/v1/admin/tours/1/departures\n{\n  \"start_datetime\": \"2026-11-20T09:00:00Z\",\n  \"booking_deadline\": \"2026-11-13T09:00:00Z\",\n  \"capacity\": 20\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 2,\n    \"tour_id\": 1,\n    \"capacity\": 20,\n    \"status\": \"scheduled\"\n  }\n}"
         },
         {
           "id": "m2-dep-04",
           "title": "PUT /admin/departures/{id}",
           "status": "done",
-          "note": "Update capacity with conflict check preventing reduction below seats taken"
+          "note": "Update capacity with conflict check preventing reduction below seats taken",
+          "instruction": "Update capacity start date or deadline preventing capacity reduction below already booked seats.",
+          "request": "PUT /api/v1/admin/departures/1\n{\n  \"capacity\": 25\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"capacity\": 25\n  }\n}"
         },
         {
           "id": "m2-dep-05",
           "title": "PATCH /admin/departures/{id}/status",
           "status": "done",
-          "note": "Status change with atomic completion cascading to approved bookings"
+          "note": "Status change with atomic completion cascading to approved bookings",
+          "instruction": "Update departure status to completed or cancelled. When marked completed cascade to approved bookings.",
+          "request": "PATCH /api/v1/admin/departures/1/status\n{\n  \"status\": \"completed\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"status\": \"completed\"\n  }\n}"
         }
       ]
     },
@@ -228,25 +324,37 @@
           "id": "m2-cou-01",
           "title": "POST /coupons/validate",
           "status": "done",
-          "note": "Validate coupon code against subtotal returning discount and new total"
+          "note": "Validate coupon code against subtotal returning discount and new total",
+          "instruction": "Validate coupon code without using it. Check expiry active flag and usage limit to calculate discount amount.",
+          "request": "POST /api/v1/coupons/validate\n{\n  \"code\": \"summer10\",\n  \"subtotal\": 498.00\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"code\": \"SUMMER10\",\n    \"discount_type\": \"percent\",\n    \"discount_value\": 10.0,\n    \"discount_amount\": 49.8,\n    \"new_total\": 448.2\n  }\n}"
         },
         {
           "id": "m2-cou-02",
           "title": "GET /admin/coupons",
           "status": "done",
-          "note": "Admin coupon list ordered by newest created first"
+          "note": "Admin coupon list ordered by newest created first",
+          "instruction": "Return paginated list of all coupons ordered newest first for administrators.",
+          "request": "GET /api/v1/admin/coupons?page=1",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 25,\n        \"code\": \"ONEUSE\",\n        \"discount_type\": \"fixed\",\n        \"discount_value\": 15.0,\n        \"max_uses\": 1,\n        \"times_used\": 1\n      }\n    ],\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m2-cou-03",
           "title": "POST /admin/coupons",
           "status": "done",
-          "note": "Admin create coupon with unique uppercase code and discount validation"
+          "note": "Admin create coupon with unique uppercase code and discount validation",
+          "instruction": "Create a new discount coupon saving code in capitals and validating discount value and future expiry.",
+          "request": "POST /api/v1/admin/coupons\n{\n  \"code\": \"AUTUMN25\",\n  \"discount_type\": \"percent\",\n  \"discount_value\": 25.00,\n  \"expires_at\": \"2027-04-30T10:00:00Z\",\n  \"max_uses\": 200\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 26,\n    \"code\": \"AUTUMN25\",\n    \"discount_value\": 25.0,\n    \"is_active\": true\n  }\n}"
         },
         {
           "id": "m2-cou-04",
           "title": "PUT /admin/coupons/{id}",
           "status": "done",
-          "note": "Admin coupon update supporting partial field changes"
+          "note": "Admin coupon update supporting partial field changes",
+          "instruction": "Update coupon attributes such as active flag discount value or usage limit while keeping code immutable.",
+          "request": "PUT /api/v1/admin/coupons/22\n{\n  \"is_active\": false,\n  \"max_uses\": 150\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 22,\n    \"code\": \"WELCOME20\",\n    \"is_active\": false,\n    \"max_uses\": 150\n  }\n}"
         }
       ]
     },
@@ -257,19 +365,28 @@
           "id": "m2-rev-01",
           "title": "GET /tours/{id}/reviews",
           "status": "done",
-          "note": "Public tour reviews list with paging and formatted reviewer names"
+          "note": "Public tour reviews list with paging and formatted reviewer names",
+          "instruction": "Return paginated customer reviews for a tour ordered newest first with reviewer formatted as first name and last initial.",
+          "request": "GET /api/v1/tours/5/reviews?page=1&page_size=10",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 9,\n        \"tour_id\": 5,\n        \"rating\": 5,\n        \"comment\": \"Wonderful day on the lake.\",\n        \"reviewer_name\": \"Aroha S.\"\n      }\n    ],\n    \"total\": 1\n  }\n}"
         },
         {
           "id": "m2-rev-02",
           "title": "POST /reviews",
           "status": "done",
-          "note": "Customer review creation validated against completed booking"
+          "note": "Customer review creation validated against completed booking",
+          "instruction": "Create a review for a completed tour booking. Check booking ownership completion and disallow duplicate reviews.",
+          "request": "POST /api/v1/reviews\n{\n  \"booking_id\": 41,\n  \"rating\": 5,\n  \"comment\": \"Wonderful day on the lake.\"\n}",
+          "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 9,\n    \"tour_id\": 5,\n    \"booking_id\": 41,\n    \"rating\": 5,\n    \"reviewer_name\": \"Aroha S.\"\n  }\n}"
         },
         {
           "id": "m2-rev-03",
           "title": "GET /admin/reviews",
           "status": "done",
-          "note": "Admin review list with filters for tour and rating"
+          "note": "Admin review list with filters for tour and rating",
+          "instruction": "Return paginated review list for administrators with optional tour identifier and rating filter.",
+          "request": "GET /api/v1/admin/reviews?tour_id=5&rating=5",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 9,\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"user_id\": 3,\n        \"rating\": 5,\n        \"reviewer_name\": \"Aroha S.\"\n      }\n    ]\n  }\n}"
         }
       ]
     },
@@ -280,13 +397,19 @@
           "id": "m2-step-12",
           "title": "Step 12: seed_core, seed_reviews, seed_all and constants.py",
           "status": "done",
-          "note": "15 tours with 30 images, 5 users, 5 categories, 3 guides, 45 departures, 5 coupons"
+          "note": "Populate fifteen tours thirty images accounts departures and coupons",
+          "instruction": "Build seed management commands to populate fifteen tours thirty pictures five users departures and five test coupons.",
+          "request": "python manage.py seed_all --reset",
+          "response": "Successfully seeded core catalog departures coupons and reviews without duplicates."
         },
         {
           "id": "m2-step-13",
           "title": "Step 13: README",
           "status": "done",
-          "note": "Documented 15 tours, image assets, seed commands, and Postman collection"
+          "note": "Project documentation folder layout seed commands and test guides",
+          "instruction": "Document setup instructions reset steps seeded user accounts test execution instructions and folder layout in simple English.",
+          "request": "View README.md in repository root",
+          "response": "Complete setup guide test guide seed tour catalog and Postman documentation."
         }
       ]
     }
