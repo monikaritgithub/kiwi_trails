@@ -205,7 +205,13 @@ function renderOverview() {
   const all = loaded.flatMap(m => allTasks(data[m.id]));
   const c = countTasks(all);
   const app = document.getElementById("app");
+  const localNotice = (location.protocol === "file:" && loaded.length === 0) ? h("div", { class: "card help" },
+    h("h3", { text: "Local browser notice" }),
+    h("p", {}, "Browsers block loading JSON files directly when opening HTML files from your disk. To see the team progress locally, please start a local server by running ",
+      h("code", { text: "python -m http.server 8000" }), " in the repository folder and open ",
+      h("code", { text: "http://localhost:8000/site/" }), ".")) : null;
   app.replaceChildren(
+    localNotice,
     h("h1", { text: "Team progress" }),
     h("p", { class: "sub", text: "Each member updates only their own progress file. Percent means tasks marked done." }),
     h("div", { class: "card" },
@@ -269,7 +275,7 @@ function renderMember(m) {
             ) : null
           )
         );
-      }))));
+      })));
     if (open) details.setAttribute("open", "");
     return details;
   });
@@ -353,16 +359,33 @@ function route() {
   else renderOverview();
 }
 
+function showError(msg) {
+  const app = document.getElementById("app");
+  if (app) {
+    app.replaceChildren(h("div", { class: "error" },
+      h("h2", { text: "Could not load tracker" }),
+      h("p", { text: msg })));
+  }
+}
+
+window.addEventListener("error", ev => {
+  showError(ev.message || "An unexpected error occurred.");
+});
+
 async function start() {
-  await Promise.all(MEMBERS.map(async m => {
-    try {
-      const res = await fetch(m.file, { cache: "no-store" });
-      data[m.id] = res.ok ? await res.json() : null;
-    } catch (e) {
-      data[m.id] = null;
-    }
-  }));
-  route();
+  try {
+    await Promise.all(MEMBERS.map(async m => {
+      try {
+        const res = await fetch(m.file, { cache: "no-store" });
+        data[m.id] = res.ok ? await res.json() : null;
+      } catch (e) {
+        data[m.id] = null;
+      }
+    }));
+    route();
+  } catch (err) {
+    showError(err && err.message ? err.message : String(err));
+  }
 }
 
 document.getElementById("theme").addEventListener("click", () => {
