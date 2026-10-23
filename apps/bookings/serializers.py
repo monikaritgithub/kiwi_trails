@@ -135,3 +135,14 @@ class BookingSerializer(serializers.ModelSerializer):
         ]:
             data[field] = data[field] or None
         return data
+
+
+class BookingCancelSerializer(serializers.Serializer):
+    reason = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        default=None,
+        trim_whitespace=True,
+    )

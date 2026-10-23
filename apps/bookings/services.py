@@ -6,6 +6,7 @@ Provides booking completion, retrieval, and SQLite lock retries.
 import secrets
 import sqlite3
 import string
+from datetime import timedelta
 from decimal import ROUND_HALF_UP, Decimal
 from time import sleep
 
@@ -18,6 +19,9 @@ from apps.catalog.models import TourStatus
 from apps.core.exceptions import (
     ApiError,
     BookingClosed,
+    CancellationNotAllowed,
+    Forbidden,
+    InvalidStatusChange,
     NotFound,
     SeatsUnavailable,
     ValidationFailed,
@@ -200,3 +204,68 @@ def get_booking_by_id(booking_id):
         raise NotFound("Booking not found.")
 
     return booking
+
+
+def _cancel_booking_once(user, booking_id, reason=None):
+    with transaction.atomic():
+        matched = Booking.objects.filter(id=booking_id).update(status=F("status"))
+        if not matched:
+            raise NotFound("Booking not found.")
+
+        booking = get_booking_by_id(booking_id)
+
+        if booking.user_id != user.pk:
+            raise Forbidden("You can only cancel your own bookings.")
+
+        if booking.status not in [
+            BookingStatus.PENDING,
+            BookingStatus.APPROVED,
+        ]:
+            raise InvalidStatusChange("Only pending or approved bookings can be cancelled.")
+
+        now = timezone.now()
+        cancel_deadline = booking.departure.start_datetime - timedelta(
+            days=booking.departure.tour.cancellation_days
+        )
+
+        if now >= cancel_deadline:
+            raise CancellationNotAllowed("This booking can no longer be cancelled online.")
+
+        booking.status = BookingStatus.CANCELLED
+        booking.status_reason = reason or ""
+        booking.cancelled_at = now
+        booking.save(
+            update_fields=[
+                "status",
+                "status_reason",
+                "cancelled_at",
+                "updated_at",
+            ]
+        )
+
+        return booking
+
+
+def cancel_booking(user, booking_id, reason=None):
+    for attempt in range(6):
+        try:
+            return _cancel_booking_once(
+                user=user,
+                booking_id=booking_id,
+                reason=reason,
+            )
+        except OperationalError as exc:
+            error_code = getattr(exc.__cause__, "sqlite_errorcode", None)
+            is_lock_error = (
+                connection.vendor == "sqlite"
+                and error_code is not None
+                and (error_code & 255) in (sqlite3.SQLITE_BUSY, sqlite3.SQLITE_LOCKED)
+            )
+
+            if not is_lock_error or connection.in_atomic_block:
+                raise
+
+            if attempt == 5:
+                raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
+
+            sleep(0.05 * (2**attempt))
