@@ -28,8 +28,8 @@
         {
           "id": "m3-cust-03",
           "title": "GET /bookings/my",
-          "status": "todo",
-          "note": "Retrieve bookings belonging to the authenticated customer",
+          "status": "review",
+          "note": "Customer booking history implemented with ownership checks, status filtering and pagination. All 14 history tests and all 193 project tests passed. Awaiting teammate review.",
           "instruction": "Return list of all bookings belonging to the authenticated customer ordered newest first.",
           "request": "GET /api/v1/bookings/my\nAuthorization: Bearer <customer_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"status\": \"approved\",\n        \"total_price\": 270.00\n      }\n    ],\n    \"total\": 1\n  }\n}"

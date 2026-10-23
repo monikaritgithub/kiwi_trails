@@ -2,7 +2,12 @@
 Validates quote input and optional traveller requirements.
 """
 
+from datetime import timedelta
+
+from django.utils import timezone
 from rest_framework import serializers
+
+from apps.bookings.models import Booking, BookingStatus
 
 
 class BookingQuoteSerializer(serializers.Serializer):
@@ -45,3 +50,88 @@ class BookingCreateSerializer(BookingQuoteSerializer):
         allow_null=True,
         default=None,
     )
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    price_per_person = serializers.DecimalField(
+        max_digits=10, decimal_places=2, coerce_to_string=False
+    )
+    subtotal = serializers.DecimalField(max_digits=10, decimal_places=2, coerce_to_string=False)
+    discount_amount = serializers.DecimalField(
+        max_digits=10, decimal_places=2, coerce_to_string=False
+    )
+    total_price = serializers.DecimalField(max_digits=10, decimal_places=2, coerce_to_string=False)
+    coupon_code = serializers.CharField(source="coupon.code", read_only=True, allow_null=True)
+    tour = serializers.SerializerMethodField()
+    departure = serializers.SerializerMethodField()
+    can_cancel = serializers.SerializerMethodField()
+    cancel_deadline = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = [
+            "id",
+            "booking_reference",
+            "status",
+            "traveller_count",
+            "price_per_person",
+            "subtotal",
+            "discount_amount",
+            "total_price",
+            "coupon_code",
+            "pickup_preference",
+            "dietary_requirements",
+            "accessibility_needs",
+            "status_reason",
+            "cancelled_at",
+            "can_cancel",
+            "cancel_deadline",
+            "tour",
+            "departure",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = fields
+
+    def get_tour(self, booking):
+        tour = booking.departure.tour
+        return {
+            "id": tour.id,
+            "title": tour.title,
+            "location": tour.location,
+        }
+
+    def get_departure(self, booking):
+        departure = booking.departure
+        return {
+            "id": departure.id,
+            "start_datetime": serializers.DateTimeField().to_representation(
+                departure.start_datetime
+            ),
+        }
+
+    def get_can_cancel(self, booking):
+        deadline = booking.departure.start_datetime - timedelta(
+            days=booking.departure.tour.cancellation_days
+        )
+        return (
+            booking.status in [BookingStatus.PENDING, BookingStatus.APPROVED]
+            and timezone.now() < deadline
+        )
+
+    def get_cancel_deadline(self, booking):
+        deadline = booking.departure.start_datetime - timedelta(
+            days=booking.departure.tour.cancellation_days
+        )
+        return serializers.DateTimeField().to_representation(deadline)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        for field in [
+            "pickup_preference",
+            "dietary_requirements",
+            "accessibility_needs",
+            "status_reason",
+        ]:
+            data[field] = data[field] or None
+        return data

@@ -15,7 +15,13 @@ from django.utils import timezone
 
 from apps.bookings.models import Booking, BookingStatus
 from apps.catalog.models import TourStatus
-from apps.core.exceptions import ApiError, BookingClosed, NotFound, SeatsUnavailable
+from apps.core.exceptions import (
+    ApiError,
+    BookingClosed,
+    NotFound,
+    SeatsUnavailable,
+    ValidationFailed,
+)
 from apps.coupons.models import Coupon
 from apps.coupons.services import apply_coupon, mark_coupon_used
 from apps.departures.models import Departure, DepartureStatus
@@ -163,3 +169,21 @@ def create_booking(user, departure_id, traveller_count, coupon_code=None, **pref
                 raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
 
             sleep(0.05 * (2**attempt))
+
+
+def list_customer_bookings(user, status=None):
+    bookings = (
+        Booking.objects.filter(user=user)
+        .select_related("departure__tour", "coupon")
+        .order_by("-created_at", "-id")
+    )
+
+    if status is not None:
+        if status not in BookingStatus.values:
+            raise ValidationFailed(
+                "Invalid booking status.",
+                {"status": "Use pending, approved, rejected, cancelled, or completed."},
+            )
+        bookings = bookings.filter(status=status)
+
+    return bookings
