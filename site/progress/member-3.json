@@ -2,7 +2,7 @@
   "member": "Member 3",
   "name": "Mehrin",
   "role": "Bookings, attendance, invoices and dashboard",
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "groups": [
     {
       "title": "Customer booking calls (7)",
@@ -10,8 +10,8 @@
         {
           "id": "m3-cust-01",
           "title": "POST /bookings/quote",
-          "status": "todo",
-          "note": "Calculate booking price preview without creating a record",
+          "status": "review",
+          "note": "Quote endpoint implemented. All 18 quote tests and all 166 project tests passed. Awaiting teammate review.",
           "instruction": "Calculate price quote preview for departure passenger count and coupon code without creating database booking.",
           "request": "POST /api/v1/bookings/quote\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"subtotal\": 300.00,\n    \"discount_amount\": 30.00,\n    \"total_price\": 270.00\n  }\n}"
