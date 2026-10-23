@@ -19,8 +19,8 @@
         {
           "id": "m3-cust-02",
           "title": "POST /bookings",
-          "status": "todo",
-          "note": "Create reservation with atomic seat check and pending status",
+          "status": "review",
+          "note": "Booking creation implemented. All 179 project tests passed, including rollback and concurrent last-seat booking tests. Awaiting teammate review.",
           "instruction": "Create customer booking reservation. Check seat availability apply coupon atomically and set initial status to pending.",
           "request": "POST /api/v1/bookings\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\",\n  \"pickup_preference\": \"Hotel Grand\"\n}",
           "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"booking_reference\": \"BK-0041\",\n    \"status\": \"pending\",\n    \"total_price\": 270.00\n  }\n}"
