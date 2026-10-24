@@ -9,7 +9,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.bookings.documents import build_booking_invoice
+from apps.bookings.documents import (
+    build_booking_calendar,
+    build_booking_invoice,
+)
 from apps.bookings.models import BookingStatus
 from apps.bookings.serializers import (
     BookingCancelSerializer,
@@ -27,6 +30,7 @@ from apps.bookings.services import (
 from apps.core.exceptions import Forbidden
 from apps.core.pagination import ApiPagination
 from apps.core.permissions import IsCustomer, IsOwnerOrAdmin
+from apps.departures.models import DepartureStatus
 
 
 class BookingQuoteView(APIView):
@@ -124,6 +128,41 @@ class BookingInvoiceView(APIView):
         response = HttpResponse(
             pdf_bytes,
             content_type="application/pdf",
+        )
+        response["Content-Disposition"] = content_disposition_header(
+            as_attachment=True,
+            filename=filename,
+        )
+        response["Cache-Control"] = "private, no-store"
+        return response
+
+
+class BookingCalendarView(APIView):
+    permission_classes = [IsAuthenticated, IsCustomer]
+
+    def get(self, request, booking_id):
+        booking = get_booking_by_id(booking_id)
+
+        if booking.user_id != request.user.pk:
+            raise Forbidden("You can only download calendars for your own bookings.")
+
+        if booking.status not in [
+            BookingStatus.PENDING,
+            BookingStatus.APPROVED,
+        ]:
+            raise Forbidden(
+                "Calendar downloads are available only for pending or approved bookings."
+            )
+
+        if booking.departure.status != DepartureStatus.SCHEDULED:
+            raise Forbidden("Calendar downloads are available only for scheduled departures.")
+
+        calendar_bytes = build_booking_calendar(booking)
+        filename = f"{booking.booking_reference}.ics"
+
+        response = HttpResponse(
+            calendar_bytes,
+            content_type="text/calendar; charset=utf-8",
         )
         response["Content-Disposition"] = content_disposition_header(
             as_attachment=True,

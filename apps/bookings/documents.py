@@ -1,5 +1,5 @@
-"""PDF document generation for tour bookings.
-Builds invoices using saved booking prices and a font supporting Māori macrons.
+"""Document generation for tour bookings.
+Builds PDF invoices and UTF-8 calendar downloads.
 """
 
 from datetime import timezone as datetime_timezone
@@ -7,6 +7,7 @@ from io import BytesIO
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+from django.utils import timezone
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_RIGHT
 from reportlab.lib.pagesizes import A4
@@ -162,3 +163,61 @@ def build_booking_invoice(booking):
     pdf_bytes = buffer.getvalue()
     buffer.close()
     return pdf_bytes
+
+
+def escape_calendar_text(value):
+    text = str(value or "")
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return text.replace("\\", "\\\\").replace("\n", "\\n").replace(";", "\\;").replace(",", "\\,")
+
+
+def fold_calendar_line(line):
+    parts = []
+    current = ""
+    byte_count = 0
+
+    for character in line:
+        character_size = len(character.encode("utf-8"))
+
+        if byte_count + character_size > 75:
+            parts.append(current)
+            current = " "
+            byte_count = 1
+
+        current += character
+        byte_count += character_size
+
+    parts.append(current)
+    return "\r\n".join(parts)
+
+
+def build_booking_calendar(booking):
+    departure = booking.departure
+    tour = departure.tour
+
+    start = departure.start_datetime.astimezone(datetime_timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    timestamp = timezone.now().astimezone(datetime_timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+    title = escape_calendar_text(tour.title)
+    location = escape_calendar_text(tour.meeting_point_name)
+    reference = escape_calendar_text(booking.booking_reference)
+    uid = escape_calendar_text(f"{booking.booking_reference}@kiwi-trails")
+
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Kiwi Trails//Tour Bookings//EN",
+        "CALSCALE:GREGORIAN",
+        "BEGIN:VEVENT",
+        f"UID:{uid}",
+        f"DTSTAMP:{timestamp}",
+        f"DTSTART:{start}",
+        f"SUMMARY:{title}",
+        f"LOCATION:{location}",
+        f"DESCRIPTION:Booking reference: {reference}",
+        "END:VEVENT",
+        "END:VCALENDAR",
+    ]
+
+    calendar_text = "\r\n".join(fold_calendar_line(line) for line in lines)
+    return (calendar_text + "\r\n").encode("utf-8")
