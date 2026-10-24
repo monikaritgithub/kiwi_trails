@@ -1,0 +1,107 @@
+<!-- Comprehensive Tour Detail Screen
+Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming departures, FAQs, and reviews.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Overview — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">All Tours</a>
+        <a href="/frontend/pages/departure-calendar.html" class="nav-link">Calendar</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link" id="nav-bookings" style="display:none;">My Bookings</a>
+        <a href="/frontend/pages/login.html" class="nav-link" id="nav-login">Login</a>
+        <a href="/frontend/pages/profile.html" class="nav-link" id="nav-profile" style="display:none;">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div id="loading-state" style="text-align: center; padding: 4rem 0;">
+      Loading tour details...
+    </div>
+
+    <div id="tour-content" style="display: none;">
+      <div style="margin-bottom: 1.5rem;">
+        <span id="tour-category-badge" class="badge badge-tikanga">Cultural Heritage</span>
+        <h1 id="tour-title" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Tour Title</h1>
+        <p id="tour-summary" style="color: var(--color-text-muted); font-size: 1.15rem; max-width: 800px;"></p>
+      </div>
+
+      <div class="grid-cols-2" style="margin-bottom: 3rem; align-items: start;">
+        <div>
+          <div class="card-img-wrap" style="height: 380px; border-radius: var(--radius-lg); margin-bottom: 1rem;">
+            <img id="main-tour-img" src="" alt="Tour Image" class="card-img">
+          </div>
+          <div id="gallery-thumbnails" style="display: flex; gap: 0.75rem; overflow-x: auto;"></div>
+        </div>
+
+        <div class="card" style="padding: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
+            <div>
+              <span style="font-size: 0.85rem; color: var(--color-text-muted); display: block;">Price per person</span>
+              <span id="tour-price" style="font-size: 2rem; font-weight: 800; color: var(--color-primary);">NZ$0.00</span>
+            </div>
+            <div>
+              <span id="tour-difficulty" class="badge badge-kaitiaki">Easy</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <h4>About This Experience</h4>
+            <p id="tour-description" style="color: var(--color-text); font-size: 0.95rem; line-height: 1.7;"></p>
+          </div>
+
+          <div id="guide-box" style="background: #F8FAF9; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; gap: 1rem; align-items: center;">
+            <div style="font-size: 2.5rem;">🧭</div>
+            <div>
+              <h4 id="guide-name" style="margin-bottom: 0.2rem; font-size: 1rem;">Kaitiaki Guide</h4>
+              <p id="guide-bio" style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.25rem;"></p>
+              <span id="guide-langs" style="font-size: 0.75rem; font-weight: 600; color: var(--color-primary);"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 1.25rem;">Upcoming Departure Dates</h2>
+        <div id="departures-container" class="grid-cols-3"></div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 1.25rem;">Frequently Asked Questions (Tikanga & Safety)</h2>
+        <div id="faqs-container" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+      </section>
+
+      <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2>Customer Reviews</h2>
+          <span id="rating-summary" class="badge badge-tikanga" style="font-size: 0.9rem;">⭐ 5.0 / 5.0</span>
+        </div>
+        <div id="reviews-container" class="grid-cols-2"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/tour-detail.js"></script>
+</body>
+</html>

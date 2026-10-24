@@ -1,0 +1,66 @@
+<!-- Departures Schedule Calendar Screen
+Presents a monthly calendar view of scheduled departures, open seats, and direct booking links.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Departure Calendar — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/departure-calendar.html" class="nav-link active">Calendar</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link" id="nav-bookings" style="display:none;">My Bookings</a>
+        <a href="/frontend/pages/login.html" class="nav-link" id="nav-login">Login</a>
+        <a href="/frontend/pages/profile.html" class="nav-link" id="nav-profile" style="display:none;">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Schedule Explorer</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Monthly Departure Calendar</h1>
+      </div>
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <button id="btn-prev-month" class="btn btn-outline" style="padding: 0.4rem 0.8rem;">← Previous</button>
+        <strong id="current-month-label" style="font-size: 1.15rem; min-width: 140px; text-align: center;">November 2026</strong>
+        <button id="btn-next-month" class="btn btn-outline" style="padding: 0.4rem 0.8rem;">Next →</button>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 1.5rem; overflow-x: auto;">
+      <div id="calendar-days-header" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 700; color: var(--color-primary); padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); margin-bottom: 0.75rem;">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div id="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem;"></div>
+    </div>
+
+    <div id="date-details-panel" class="card" style="margin-top: 2rem; padding: 1.5rem; display: none;">
+      <h3 id="selected-date-label">Departures on Selected Date</h3>
+      <div id="selected-date-tours" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/departure-calendar.js"></script>
+</body>
+</html>
