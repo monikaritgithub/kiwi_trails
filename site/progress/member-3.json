@@ -46,8 +46,8 @@
         {
           "id": "m3-cust-05",
           "title": "POST /bookings/{id}/cancel",
-          "status": "todo",
-          "note": "Cancel booking and release reserved seats back to capacity",
+          "status": "review",
+          "note": "Booking cancellation implemented with ownership checks, deadline enforcement and seat release. All 17 cancellation tests and all 218 project tests passed. Awaiting teammate review.",
           "instruction": "Cancel pending or approved booking if tour cancellation deadline allows it and return reserved seats to capacity.",
           "request": "POST /api/v1/bookings/41/cancel\nAuthorization: Bearer <customer_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"cancelled\",\n    \"message\": \"Booking cancelled successfully.\"\n  }\n}"

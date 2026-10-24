@@ -8,16 +8,19 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.bookings.serializers import (
+    BookingCancelSerializer,
     BookingCreateSerializer,
     BookingQuoteSerializer,
     BookingSerializer,
 )
 from apps.bookings.services import (
     calculate_booking_quote,
+    cancel_booking,
     create_booking,
     get_booking_by_id,
     list_customer_bookings,
 )
+from apps.core.exceptions import Forbidden
 from apps.core.pagination import ApiPagination
 from apps.core.permissions import IsCustomer, IsOwnerOrAdmin
 
@@ -73,5 +76,26 @@ class BookingDetailView(APIView):
     def get(self, request, booking_id):
         booking = get_booking_by_id(booking_id)
         self.check_object_permissions(request, booking)
+
+        return Response(BookingSerializer(booking).data)
+
+
+class BookingCancelView(APIView):
+    permission_classes = [IsAuthenticated, IsCustomer]
+
+    def post(self, request, booking_id):
+        booking = get_booking_by_id(booking_id)
+
+        if booking.user_id != request.user.pk:
+            raise Forbidden("You can only cancel your own bookings.")
+
+        serializer = BookingCancelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        booking = cancel_booking(
+            user=request.user,
+            booking_id=booking_id,
+            **serializer.validated_data,
+        )
 
         return Response(BookingSerializer(booking).data)
