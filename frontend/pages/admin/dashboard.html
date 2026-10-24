@@ -1,0 +1,147 @@
+<!-- Administrator Analytics and Operations Dashboard
+Displays summary operational metrics including gross revenue, booking volumes, and quick action queues.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/reviews.html" class="nav-link">Reviews</a>
+        <a href="/frontend/index.html" class="nav-link" target="_blank">View Site ↗</a>
+        <button id="btn-admin-logout" class="btn btn-outline" style="padding: 0.35rem 0.75rem;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Operations Control</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Platform Overview & Analytics</h1>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="/frontend/pages/admin/tour-form.html" class="btn btn-primary">+ Add New Tour</a>
+        <a href="/frontend/pages/admin/bookings.html" class="btn btn-secondary">Review Pending</a>
+      </div>
+    </div>
+
+    <div class="grid-cols-4" style="margin-bottom: 3rem;">
+      <div class="card" style="padding: 1.5rem; text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Gross Revenue</span>
+        <div id="stat-revenue" style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">NZ$14,850.00</div>
+        <span style="font-size: 0.8rem; color: var(--color-success); font-weight: 600;">↑ 18% vs last month</span>
+      </div>
+
+      <div class="card" style="padding: 1.5rem; text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Total Bookings</span>
+        <div id="stat-bookings" style="font-size: 2rem; font-weight: 800; color: var(--color-text); margin: 0.5rem 0;">45</div>
+        <span style="font-size: 0.8rem; color: var(--color-text-muted);">Across all departures</span>
+      </div>
+
+      <div class="card" style="padding: 1.5rem; text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Pending Approvals</span>
+        <div id="stat-pending" style="font-size: 2rem; font-weight: 800; color: var(--color-warning); margin: 0.5rem 0;">3</div>
+        <a href="/frontend/pages/admin/bookings.html?status=pending" style="font-size: 0.8rem; font-weight: 600;">Requires attention →</a>
+      </div>
+
+      <div class="card" style="padding: 1.5rem; text-align: center;">
+        <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Upcoming Departures</span>
+        <div id="stat-departures" style="font-size: 2rem; font-weight: 800; color: var(--color-info); margin: 0.5rem 0;">12</div>
+        <span style="font-size: 0.8rem; color: var(--color-text-muted);">Scheduled next 30 days</span>
+      </div>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start;">
+      <div class="card" style="padding: 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h3>Quick Management Shortcuts</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <a href="/frontend/pages/admin/tours.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>🏞️ Tour Catalog Management</span>
+            <span>→</span>
+          </a>
+          <a href="/frontend/pages/admin/departures.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>📅 Departure Calendar & Capacity</span>
+            <span>→</span>
+          </a>
+          <a href="/frontend/pages/admin/attendance.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>📋 Passenger Attendance Rosters</span>
+            <span>→</span>
+          </a>
+          <a href="/frontend/pages/admin/coupons.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>🏷️ Promotional Discount Vouchers</span>
+            <span>→</span>
+          </a>
+          <a href="/frontend/pages/admin/guides.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>🧭 Kaitiaki Guides & Categories</span>
+            <span>→</span>
+          </a>
+          <a href="/frontend/pages/admin/reviews.html" class="btn btn-outline" style="justify-content: space-between;">
+            <span>⭐ Customer Review Moderation</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 1.75rem;">
+        <h3>Te Tiriti Compliance & Sustainability</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Kiwi Trails operational checkpoints verifying compliance with New Zealand Department of Conservation (DOC) concessions and Iwi partnership guidelines.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="font-size: 1.25rem;">✅</span>
+            <div>
+              <strong style="display: block; font-size: 0.95rem;">Kaiārahi Cultural Review</strong>
+              <span style="font-size: 0.85rem; color: var(--color-text-muted);">All 15 tour itineraries approved by regional Iwi cultural advisory panels.</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="font-size: 1.25rem;">✅</span>
+            <div>
+              <strong style="display: block; font-size: 0.95rem;">Wāhi Tapu Protection Protocols</strong>
+              <span style="font-size: 0.85rem; color: var(--color-text-muted);">Strict group size limitations adhered to across sacred geological landmarks.</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="font-size: 1.25rem;">✅</span>
+            <div>
+              <strong style="display: block; font-size: 0.95rem;">Carbon Offsetting Verification</strong>
+              <span style="font-size: 0.85rem; color: var(--color-text-muted);">100% of vehicle and boat fuel emissions offset via native forest restoration grants.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). Internal administrative use only.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/dashboard.js"></script>
+</body>
+</html>

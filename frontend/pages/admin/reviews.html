@@ -1,0 +1,65 @@
+<!-- Customer Review Moderation Screen
+Enables staff to inspect customer ratings, verified tour feedback, and moderation flags.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Moderation — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/reviews.html" class="nav-link active">Reviews</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-tikanga">Customer Feedback & Manaakitanga</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Review Moderation Console</h1>
+      </div>
+    </div>
+
+    <div class="card" style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+            <th style="padding: 1rem 1.25rem;">Tour</th>
+            <th style="padding: 1rem 1.25rem;">Reviewer</th>
+            <th style="padding: 1rem 1.25rem;">Rating</th>
+            <th style="padding: 1rem 1.25rem;">Customer Comment</th>
+            <th style="padding: 1rem 1.25rem;">Date</th>
+          </tr>
+        </thead>
+        <tbody id="reviews-table-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/reviews.js"></script>
+</body>
+</html>

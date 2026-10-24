@@ -1,0 +1,115 @@
+<!-- Promotional Voucher & Discount Manager Screen
+Displays active coupons, tracks redemption counts, and creates percentage or fixed discount codes.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon Manager — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link active">Coupons</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Promotional Campaigns</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Discount Coupon Manager</h1>
+      </div>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start; margin-bottom: 2.5rem;">
+      <div class="card" style="padding: 1.75rem;">
+        <h3 style="margin-bottom: 1.25rem;">Create New Promo Voucher</h3>
+        <form id="create-coupon-form">
+          <div class="form-group">
+            <label for="coupon-code" class="form-label">Coupon Code (Uppercase)</label>
+            <input type="text" id="coupon-code" class="form-control" placeholder="e.g. SUMMER10" style="text-transform: uppercase;" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="discount-type" class="form-label">Discount Type</label>
+              <select id="discount-type" class="form-control" required>
+                <option value="percent">Percentage (%)</option>
+                <option value="fixed">Fixed Amount (NZD)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="discount-value" class="form-label">Value (e.g. 15 or 30.00)</label>
+              <input type="number" id="discount-value" class="form-control" step="0.01" min="1" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="max-uses" class="form-label">Max Uses (Limit)</label>
+              <input type="number" id="max-uses" class="form-control" min="1" value="100">
+            </div>
+            <div class="form-group">
+              <label for="expires-at" class="form-label">Expiry Date</label>
+              <input type="date" id="expires-at" class="form-control" required>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-create-coupon" class="btn btn-primary" style="width: 100%;">Create Promo Voucher</button>
+        </form>
+      </div>
+
+      <div class="card" style="padding: 1.75rem; background: #F8FAF9;">
+        <h3>Voucher Usage Policy</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+          Promotional codes are verified automatically through the Kiwi Trails booking checkout engine.
+        </p>
+        <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--color-text); display: flex; flex-direction: column; gap: 0.5rem;">
+          <li>Discounts apply directly to departure subtotal calculations.</li>
+          <li>Expired or exhausted vouchers automatically fail with clear customer messaging.</li>
+          <li>Each booking may apply only one coupon code.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+            <th style="padding: 1rem 1.25rem;">Voucher Code</th>
+            <th style="padding: 1rem 1.25rem;">Discount</th>
+            <th style="padding: 1rem 1.25rem;">Usage / Limit</th>
+            <th style="padding: 1rem 1.25rem;">Expires At</th>
+            <th style="padding: 1rem 1.25rem;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="coupons-table-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/coupons.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!-- Administrator Tour Management Console
+Lists all system tours with active/archived filters, price and duration metadata, and status toggles.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Management — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link active">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/reviews.html" class="nav-link">Reviews</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Tour Catalog Administration</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Tour Management</h1>
+      </div>
+      <a href="/frontend/pages/admin/tour-form.html" class="btn btn-primary">+ Create New Tour</a>
+    </div>
+
+    <div class="card" style="padding: 1rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="filter-all" class="btn btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">All Tours</button>
+        <button id="filter-active" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Active Only</button>
+        <button id="filter-archived" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Archived Only</button>
+      </div>
+    </div>
+
+    <div id="loading-state" style="text-align: center; padding: 3rem 0; color: var(--color-text-muted);">
+      Loading tours inventory...
+    </div>
+
+    <div id="tours-table-container" class="card" style="overflow-x: auto; display: none;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+            <th style="padding: 1rem 1.25rem;">Tour Title</th>
+            <th style="padding: 1rem 1.25rem;">Category</th>
+            <th style="padding: 1rem 1.25rem;">Price / Person</th>
+            <th style="padding: 1rem 1.25rem;">Duration</th>
+            <th style="padding: 1rem 1.25rem;">Status</th>
+            <th style="padding: 1rem 1.25rem; text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tours-table-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/tours.js"></script>
+</body>
+</html>
