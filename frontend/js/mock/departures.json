@@ -1,0 +1,25 @@
+{
+  "month": "2026-11",
+  "items": [
+    {
+      "id": 1,
+      "tour_id": 1,
+      "tour_title": "Taupō Lake Cruise & Rock Carvings",
+      "start_datetime": "2026-11-15T09:00:00Z",
+      "booking_deadline": "2026-11-12T09:00:00Z",
+      "capacity": 20,
+      "seats_left": 14,
+      "status": "scheduled"
+    },
+    {
+      "id": 2,
+      "tour_id": 2,
+      "tour_title": "Milford Sound Eco-Wilderness Cruise",
+      "start_datetime": "2026-11-20T10:00:00Z",
+      "booking_deadline": "2026-11-17T10:00:00Z",
+      "capacity": 15,
+      "seats_left": 8,
+      "status": "scheduled"
+    }
+  ]
+}

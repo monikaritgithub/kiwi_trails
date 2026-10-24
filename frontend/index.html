@@ -1,0 +1,175 @@
+<!-- Kiwi Trails Master Landing Page
+Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and tour discovery.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiwi Trails (Ara Aotearoa) — Authentic New Zealand Tours</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link active">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/departure-calendar.html" class="nav-link">Calendar</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link" id="nav-bookings" style="display:none;">My Bookings</a>
+        <a href="/frontend/pages/login.html" class="nav-link" id="nav-login">Login</a>
+        <a href="/frontend/pages/register.html" class="btn btn-primary" id="nav-register">Sign Up</a>
+        <a href="/frontend/pages/profile.html" class="nav-link" id="nav-profile" style="display:none;">Profile</a>
+        <button class="btn btn-outline" id="nav-logout" style="display:none;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-banner">
+      <h1>Nau Mai, Haere Mai ki Aotearoa</h1>
+      <p>Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <a href="/frontend/pages/tour-list.html" class="btn btn-secondary">Explore All Tours</a>
+        <a href="/frontend/pages/register.html" class="btn btn-outline" style="border-color:#FFF; color:#FFF;">Join Kiwi Trails</a>
+      </div>
+    </section>
+
+    <section style="margin-bottom: 3.5rem;">
+      <div style="text-align:center; max-width:700px; margin:0 auto 2rem;">
+        <span class="badge badge-tikanga">Te Tiriti o Waitangi</span>
+        <h2 style="margin-top:0.5rem;">Guided by Kaitiakitanga & Manaakitanga</h2>
+        <p style="color:var(--color-text-muted);">Every journey respects sacred wāhi tapu heritage, environmental sustainability, and authentic cultural partnership.</p>
+      </div>
+
+      <div class="grid-cols-3">
+        <div class="card" style="padding:1.5rem; text-align:center;">
+          <h3 style="font-size:1.15rem; color:var(--color-primary);">🌿 Tiakitanga (Protection)</h3>
+          <p style="color:var(--color-text-muted); font-size:0.9rem;">Carbon-neutral guided eco-expeditions conserving endemic native wildlife and fragile alpine ecosystems.</p>
+        </div>
+        <div class="card" style="padding:1.5rem; text-align:center;">
+          <h3 style="font-size:1.15rem; color:var(--color-primary);">🤝 Pātuitanga (Partnership)</h3>
+          <p style="color:var(--color-text-muted); font-size:0.9rem;">Direct consultation and partnership with local Iwi advisors (Kaiārahi) honoring authentic historical narratives.</p>
+        </div>
+        <div class="card" style="padding:1.5rem; text-align:center;">
+          <h3 style="font-size:1.15rem; color:var(--color-primary);">💛 Manaakitanga (Hospitality)</h3>
+          <p style="color:var(--color-text-muted); font-size:0.9rem;">Warm New Zealand welcome, passionate storytelling, and certified safety across every departure date.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.5rem;">
+        <div>
+          <span class="badge badge-kaitiaki">Handpicked Journeys</span>
+          <h2 style="margin-top:0.25rem; margin-bottom:0;">Featured Tour Experiences</h2>
+        </div>
+        <a href="/frontend/pages/tour-list.html" class="btn btn-outline" style="font-size:0.9rem;">View Catalog →</a>
+      </div>
+
+      <div class="grid-cols-3" id="featured-tours-container">
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="/media/seed/tours/taupo-lake-cruise-1.jpg" alt="Taupō Lake Cruise" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">Cultural Heritage</span>
+            <h3 class="card-title">Taupō Lake Cruise & Rock Carvings</h3>
+            <p class="card-text">Sail to ancient Māori rock carvings across the tranquil volcanic waters of Lake Taupō.</p>
+            <div class="card-footer">
+              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$165.00</span>
+              <a href="/frontend/pages/tour-detail.html?id=1" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="/media/seed/tours/milford-sound-cruise-1.jpg" alt="Milford Sound Cruise" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=800&q=80'">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-kaitiaki" style="margin-bottom:0.5rem; width:fit-content;">Scenic Cruise</span>
+            <h3 class="card-title">Milford Sound Wilderness Cruise</h3>
+            <p class="card-text">Glacial waterfalls, towering fiord cliffs, and fur seals in Piopiotahi Fiordland.</p>
+            <div class="card-footer">
+              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$240.00</span>
+              <a href="/frontend/pages/tour-detail.html?id=2" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="/media/seed/tours/rotorua-maori-culture-1.jpg" alt="Rotorua Cultural Experience" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">Geothermal & Cultural</span>
+            <h3 class="card-title">Te Puia & Rotorua Geothermal Valley</h3>
+            <p class="card-text">Active Pōhutu geysers, traditional carving schools, and authentic cultural pōwhiri.</p>
+            <div class="card-footer">
+              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$195.00</span>
+              <a href="/frontend/pages/tour-detail.html?id=3" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>Kiwi Trails (Ara Aotearoa)</h4>
+        <p>Premium eco-tourism and guided cultural journeys across New Zealand. Dedicated to kaitiakitanga and sustainable wilderness exploration.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="/frontend/index.html">Home</a>
+        <a href="/frontend/pages/tour-list.html">Tours Catalog</a>
+        <a href="/frontend/pages/departure-calendar.html">Departure Schedule</a>
+        <a href="/frontend/pages/login.html">Customer Sign In</a>
+      </div>
+      <div class="footer-col">
+        <h4>Cultural Commitment</h4>
+        <p>Kiwi Trails acknowledges Tangata Whenua and honours Te Tiriti o Waitangi principles: Pātuitanga (Partnership), Whai Wāhitanga (Participation), and Tiakitanga (Protection).</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { isAuthenticated, getCurrentUser, logout } from '/frontend/js/auth.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLogin = document.getElementById('nav-login');
+      const navRegister = document.getElementById('nav-register');
+      const navProfile = document.getElementById('nav-profile');
+      const navBookings = document.getElementById('nav-bookings');
+      const navLogout = document.getElementById('nav-logout');
+
+      if (isAuthenticated()) {
+        const user = getCurrentUser();
+        if (navLogin) navLogin.style.display = 'none';
+        if (navRegister) navRegister.style.display = 'none';
+        if (navProfile) {
+          navProfile.style.display = 'inline-block';
+          navProfile.textContent = user ? `Kia ora, ${user.full_name}` : 'Profile';
+        }
+        if (navBookings) navBookings.style.display = 'inline-block';
+        if (navLogout) {
+          navLogout.style.display = 'inline-block';
+          navLogout.addEventListener('click', () => logout());
+        }
+      }
+    });
+  </script>
+</body>
+</html>
