@@ -1,0 +1,91 @@
+<!-- Public Tours Catalog Screen
+Lists guided tours with search filtering by name or location, category selector, price sort, and pagination.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Catalog — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link active">Tours</a>
+        <a href="/frontend/pages/departure-calendar.html" class="nav-link">Calendar</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link" id="nav-bookings" style="display:none;">My Bookings</a>
+        <a href="/frontend/pages/login.html" class="nav-link" id="nav-login">Login</a>
+        <a href="/frontend/pages/profile.html" class="nav-link" id="nav-profile" style="display:none;">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="margin-bottom: 2rem;">
+      <span class="badge badge-kaitiaki">Aotearoa Expeditions</span>
+      <h1 style="margin-top: 0.25rem;">Explore Guided Tours</h1>
+      <p style="color: var(--color-text-muted);">Immerse in indigenous storytelling, pristine conservation walks, and coastal waters.</p>
+    </div>
+
+    <div class="card" style="padding: 1.5rem; margin-bottom: 2.5rem; background: var(--color-surface);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: flex-end;">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="search-input" class="form-label">Search Keywords</label>
+          <input type="text" id="search-input" class="form-control" placeholder="e.g. Taupō, Cruise, Milford...">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="category-select" class="form-label">Category</label>
+          <select id="category-select" class="form-control">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="sort-select" class="form-label">Sort By</label>
+          <select id="sort-select" class="form-control">
+            <option value="featured">Featured First</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="title_asc">Title: A to Z</option>
+          </select>
+        </div>
+
+        <div>
+          <button id="btn-apply-filters" class="btn btn-primary" style="width: 100%;">Filter Tours</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="loading-state" style="text-align: center; padding: 3rem 0; color: var(--color-text-muted); font-size: 1.1rem;">
+      Loading tours catalog...
+    </div>
+
+    <div id="empty-state" style="display: none; text-align: center; padding: 4rem 1rem;">
+      <h3>No tours found</h3>
+      <p style="color: var(--color-text-muted);">Try clearing your search query or selecting a different category filter.</p>
+    </div>
+
+    <div id="tours-grid" class="grid-cols-3" style="display: none;"></div>
+
+    <div id="pagination-container" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem;"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/tour-list.js"></script>
+</body>
+</html>

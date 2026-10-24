@@ -1,0 +1,73 @@
+<!-- Customer Profile View and Edit Screen
+Displays authenticated user profile details and allows editing full name and phone.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="/frontend/pages/profile.html" class="nav-link active">Profile</a>
+        <button id="btn-logout" class="btn btn-outline" style="padding: 0.35rem 0.75rem;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="form-card" style="max-width: 600px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
+        <div>
+          <h2>Account Profile</h2>
+          <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 0;">Manage your personal contact details.</p>
+        </div>
+        <span id="role-badge" class="badge badge-kaitiaki">Customer</span>
+      </div>
+
+      <div id="error-banner" style="display: none; background: #FEE2E2; color: #B91C1C; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+      <div id="success-banner" style="display: none; background: #DCFCE7; color: #15803D; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address (Read Only)</label>
+          <input type="email" id="email" class="form-control" style="background: #F1F5F9; cursor: not-allowed;" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="full_name" class="form-label">Full Name</label>
+          <input type="text" id="full_name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Contact Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="021 123 4567">
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Save Changes</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/profile.js"></script>
+</body>
+</html>

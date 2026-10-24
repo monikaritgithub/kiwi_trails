@@ -60,8 +60,8 @@
         {
           "id": "m1-cus-01",
           "title": "Register",
-          "status": "todo",
-          "note": "Customer account registration screen",
+          "status": "done",
+          "note": "Customer registration screen created with client-side validation and /auth/register integration.",
           "instruction": "Build the customer registration form with inputs for full name email password and optional phone number. Validate that password has at least eight characters and send data to register.",
           "request": "POST /api/v1/auth/register\n{\n  \"full_name\": \"Aroha Smith\",\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"021 123 4567\"\n}",
           "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Smith\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 123 4567\",\n    \"role\": \"customer\"\n  }\n}"
@@ -69,8 +69,8 @@
         {
           "id": "m1-cus-02",
           "title": "Login and logout",
-          "status": "todo",
-          "note": "Customer login form and logout button",
+          "status": "done",
+          "note": "Customer login screen and logout controls created with token storage and role redirection.",
           "instruction": "Build the login form for email and password. Store the returned token and user profile in local storage and add a logout button that clears storage and redirects to home.",
           "request": "POST /api/v1/auth/login\n{\n  \"email\": \"aroha@example.com\",\n  \"password\": \"Password123!\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"token\": \"sessiontoken123\",\n    \"user\": {\n      \"id\": 3,\n      \"full_name\": \"Aroha Smith\",\n      \"email\": \"aroha@example.com\",\n      \"role\": \"customer\"\n    }\n  }\n}"
@@ -78,8 +78,8 @@
         {
           "id": "m1-cus-03",
           "title": "Profile",
-          "status": "todo",
-          "note": "Customer profile view and edit screen",
+          "status": "done",
+          "note": "Customer profile view and edit screen created with /users/me query and update handlers.",
           "instruction": "Build a profile screen showing the logged in user details. Allow customers to edit their full name and phone number and submit changes to the update profile endpoint.",
           "request": "PUT /api/v1/users/me\n{\n  \"full_name\": \"Aroha Williams\",\n  \"phone\": \"021 987 6543\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"full_name\": \"Aroha Williams\",\n    \"email\": \"aroha@example.com\",\n    \"phone\": \"021 987 6543\",\n    \"role\": \"customer\"\n  }\n}"
@@ -87,8 +87,8 @@
         {
           "id": "m1-cus-04",
           "title": "Tour list with filters and paging",
-          "status": "todo",
-          "note": "Public tours catalog page with search and category filters",
+          "status": "done",
+          "note": "Tours catalog built with keyword search, category filter, price sorting, and pagination.",
           "instruction": "Build the public tours catalog page with search input category dropdown price range filters and sorting. Display cards with tour title price image seats left and next departure date.",
           "request": "GET /api/v1/tours?search=cruise&category_id=1&sort=price_asc&page=1",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 1,\n        \"title\": \"Taupo Lake Cruise\",\n        \"price_per_person\": 150.00,\n        \"duration_days\": 1,\n        \"category_name\": \"Scenic Walks\"\n      }\n    ],\n    \"page\": 1,\n    \"total\": 1\n  }\n}"
@@ -96,8 +96,8 @@
         {
           "id": "m1-cus-05",
           "title": "Tour page (images, guide, FAQs, reviews, departures)",
-          "status": "todo",
-          "note": "Comprehensive tour detail screen",
+          "status": "done",
+          "note": "Comprehensive tour details screen created with photo gallery, guide bio, FAQs, and departure dates.",
           "instruction": "Build the detailed tour overview page. Render the gallery of tour pictures guide card accordion FAQs list of recent customer reviews and available departure dates with book buttons.",
           "request": "GET /api/v1/tours/1",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"title\": \"Taupo Lake Cruise\",\n    \"description\": \"Scenic cruise across the lake\",\n    \"images\": [],\n    \"faqs\": [],\n    \"guide\": {\n      \"name\": \"Hemi Walker\"\n    }\n  }\n}"
@@ -105,8 +105,8 @@
         {
           "id": "m1-cus-06",
           "title": "Departure calendar",
-          "status": "todo",
-          "note": "Monthly departures availability calendar",
+          "status": "done",
+          "note": "Monthly departures availability calendar built with month navigation and departure bookings.",
           "instruction": "Build a calendar grid showing tour departures across days of the selected month. Highlight open departures and let customers click a date to view available tours and book.",
           "request": "GET /api/v1/departures/calendar?month=2026-11",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"month\": \"2026-11\",\n    \"items\": [\n      {\n        \"id\": 1,\n        \"tour_id\": 1,\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"start_datetime\": \"2026-11-05T09:00:00Z\",\n        \"seats_left\": 12\n      }\n    ]\n  }\n}"
@@ -114,8 +114,8 @@
         {
           "id": "m1-cus-07",
           "title": "Booking form with price quote and coupon",
-          "status": "todo",
-          "note": "Checkout reservation form with price preview",
+          "status": "done",
+          "note": "Reservation checkout screen created with live /bookings/quote preview and final booking submit.",
           "instruction": "Build the reservation checkout form. When traveller count or coupon code changes call the quote endpoint to preview price breakdown before submitting the final booking.",
           "request": "POST /api/v1/bookings/quote\n{\n  \"departure_id\": 1,\n  \"traveller_count\": 2,\n  \"coupon_code\": \"SUMMER10\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"subtotal\": 300.00,\n    \"discount_amount\": 30.00,\n    \"total_price\": 270.00\n  }\n}"
@@ -123,8 +123,8 @@
         {
           "id": "m1-cus-08",
           "title": "My bookings and booking page",
-          "status": "todo",
-          "note": "Customer booking history and detail view",
+          "status": "done",
+          "note": "Customer booking history screen created with PDF invoice, ICS invite, and cancellation actions.",
           "instruction": "Build a customer bookings list showing status pills reference codes and dates. Provide a detail modal with invoice download calendar invite download and cancel booking button.",
           "request": "GET /api/v1/bookings/my",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"status\": \"approved\",\n        \"total_price\": 270.00\n      }\n    ]\n  }\n}"
@@ -132,8 +132,8 @@
         {
           "id": "m1-cus-09",
           "title": "Review form",
-          "status": "todo",
-          "note": "Customer feedback form for completed tours",
+          "status": "done",
+          "note": "Customer feedback form built with 5-star rating selection and /reviews endpoint submission.",
           "instruction": "Build a modal or page for customers to submit feedback on completed bookings. Provide five star rating selection and an optional comment text box.",
           "request": "POST /api/v1/reviews\n{\n  \"booking_id\": 41,\n  \"rating\": 5,\n  \"comment\": \"Wonderful day on the lake.\"\n}",
           "response": "Status 201 Created\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 9,\n    \"tour_id\": 1,\n    \"booking_id\": 41,\n    \"rating\": 5,\n    \"reviewer_name\": \"Aroha S.\"\n  }\n}"

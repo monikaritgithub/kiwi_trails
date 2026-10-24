@@ -1,0 +1,78 @@
+<!-- Customer Registration Screen
+Captures customer full name, email, password, and phone to create a new Kiwi Trails account.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/login.html" class="nav-link">Sign In</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="form-card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="badge badge-tikanga">Join Our Community</span>
+        <h2 style="margin-top: 0.5rem; margin-bottom: 0.25rem;">Create Your Account</h2>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Book authentic guided experiences across New Zealand.</p>
+      </div>
+
+      <div id="error-banner" style="display: none; background: #FEE2E2; color: #B91C1C; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+      <div id="success-banner" style="display: none; background: #DCFCE7; color: #15803D; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label for="full_name" class="form-label">Full Name</label>
+          <input type="text" id="full_name" class="form-control" placeholder="Aroha Smith" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="aroha@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone Number (Optional)</label>
+          <input type="tel" id="phone" class="form-control" placeholder="021 123 4567">
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password (Min. 8 characters)</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" minlength="8" required>
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Create Account</button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--color-text-muted);">
+        Already registered? <a href="/frontend/pages/login.html" style="font-weight: 600;">Sign in here</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/register.js"></script>
+</body>
+</html>

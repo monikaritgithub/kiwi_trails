@@ -1,0 +1,74 @@
+<!-- Customer Tour Feedback & Review Screen
+Submits 5-star ratings and experiential comments to /reviews for completed bookings.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your Feedback — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="/frontend/pages/profile.html" class="nav-link">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="form-card" style="max-width: 580px;">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="badge badge-tikanga">Manaakitanga & Experience</span>
+        <h2 style="margin-top: 0.5rem; margin-bottom: 0.25rem;">Share Your Experience</h2>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem;">Your feedback helps our Kaitiaki guides uphold conservation and cultural excellence.</p>
+      </div>
+
+      <div id="error-banner" style="display: none; background: #FEE2E2; color: #B91C1C; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+      <div id="success-banner" style="display: none; background: #DCFCE7; color: #15803D; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+
+      <form id="review-form">
+        <input type="hidden" id="booking-id-input">
+
+        <div class="form-group" style="text-align: center;">
+          <label class="form-label">How would you rate this expedition?</label>
+          <div id="star-rating" style="font-size: 2.25rem; color: #CBD5E1; cursor: pointer; user-select: none;">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+          </div>
+          <input type="hidden" id="rating-input" value="5">
+        </div>
+
+        <div class="form-group">
+          <label for="comment" class="form-label">Tell us about your journey</label>
+          <textarea id="comment" class="form-control" rows="4" placeholder="What was the highlight of your tour? How did your Kaitiaki guide connect you with the land?" required></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.8rem;">Submit Review</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/review-form.js"></script>
+</body>
+</html>

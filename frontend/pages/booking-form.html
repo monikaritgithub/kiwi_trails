@@ -1,0 +1,105 @@
+<!-- Tour Booking Reservation Checkout Screen
+Computes live price quotes via /bookings/quote, validates promo coupons, and submits reservations.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Reservation — Kiwi Trails</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/index.html" class="brand-link">
+        <span>🌿 Kiwi Trails</span>
+        <span class="brand-badge">Ara Aotearoa</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/index.html" class="nav-link">Home</a>
+        <a href="/frontend/pages/tour-list.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/my-bookings.html" class="nav-link">My Bookings</a>
+        <a href="/frontend/pages/profile.html" class="nav-link" id="nav-profile">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="margin-bottom: 2rem;">
+      <span class="badge badge-kaitiaki">Secure Reservation</span>
+      <h1 style="margin-top: 0.25rem;">Tour Booking Checkout</h1>
+      <p style="color: var(--color-text-muted);">Confirm your passenger count, apply promotional vouchers, and lock in your departure.</p>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start;">
+      <div class="card" style="padding: 2rem;">
+        <h3 style="margin-bottom: 1.5rem;">Passenger & Journey Details</h3>
+
+        <div id="error-banner" style="display: none; background: #FEE2E2; color: #B91C1C; padding: 0.75rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 0.9rem;"></div>
+
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="departure-select" class="form-label">Selected Departure Date & Time</label>
+            <select id="departure-select" class="form-control" required></select>
+          </div>
+
+          <div class="form-group">
+            <label for="traveller-count" class="form-label">Number of Travellers</label>
+            <input type="number" id="traveller-count" class="form-control" min="1" max="10" value="1" required>
+          </div>
+
+          <div class="form-group">
+            <label for="pickup-preference" class="form-label">Pickup Location / Hotel Preference</label>
+            <input type="text" id="pickup-preference" class="form-control" placeholder="e.g. Hotel Grand Chancellor, Queenstown">
+          </div>
+
+          <div class="form-group">
+            <label for="coupon-code" class="form-label">Promotional Voucher Code (Optional)</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="coupon-code" class="form-control" placeholder="e.g. KIWI15">
+              <button type="button" id="btn-apply-coupon" class="btn btn-outline" style="white-space: nowrap;">Apply Code</button>
+            </div>
+            <div id="coupon-feedback" style="font-size: 0.85rem; margin-top: 0.4rem; display: none;"></div>
+          </div>
+
+          <button type="submit" id="btn-submit-booking" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.85rem; font-size: 1.05rem;">Confirm & Reserve Now</button>
+        </form>
+      </div>
+
+      <div class="card" style="padding: 2rem; background: #F8FAF9; border: 1px solid #CBD5E1;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--color-primary);">Price Breakdown Preview</h3>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.95rem;">
+          <span style="color: var(--color-text-muted);">Standard Subtotal:</span>
+          <strong id="quote-subtotal" style="color: var(--color-text);">NZ$0.00</strong>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.95rem;">
+          <span style="color: var(--color-text-muted);">Discount Savings:</span>
+          <strong id="quote-discount" style="color: var(--color-success);">-NZ$0.00</strong>
+        </div>
+
+        <div style="border-top: 2px dashed var(--color-border); margin: 1rem 0; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 1.1rem; font-weight: 700; color: var(--color-primary);">Total Price (NZD):</span>
+          <span id="quote-total" style="font-size: 1.75rem; font-weight: 800; color: var(--color-primary);">NZ$0.00</span>
+        </div>
+
+        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: var(--radius-md); padding: 1rem; font-size: 0.85rem; color: #1E40AF; margin-top: 1.5rem;">
+          🌿 <strong>Kaitiakitanga Guarantee:</strong> Instant seat hold with free cancellation up to 72 hours prior to scheduled departure.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/booking-form.js"></script>
+</body>
+</html>
