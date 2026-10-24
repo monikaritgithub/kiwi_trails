@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Taupō Lake Cruise & Rock Carvings",
+      "slug": "taupo-lake-cruise",
+      "summary": "Sail across Lake Taupō to marvel at Māori rock carvings nestled along secluded volcanic coves.",
+      "description": "Experience the spiritual and scenic serenity of Lake Taupō. Discover ancient Māori rock carvings guided by local kaitiaki who share genealogical legends (whakapapa) of Ngāti Tūwharetoa.",
+      "category_id": 1,
+      "category_name": "Cultural Heritage",
+      "price_per_person": 165.00,
+      "duration_days": 1,
+      "difficulty": "easy",
+      "status": "active",
+      "seats_left": 14,
+      "next_departure_date": "2026-11-15T09:00:00Z",
+      "images": [
+        {
+          "id": 1,
+          "image_url": "/media/seed/tours/taupo-lake-cruise-1.jpg",
+          "caption": "Panoramic lake vista",
+          "is_primary": true
+        }
+      ],
+      "guide": {
+        "id": 1,
+        "name": "Hemi Walker",
+        "bio": "Certified Māori cultural storyteller and lake navigator.",
+        "languages": ["English", "Te Reo Māori"]
+      }
+    },
+    {
+      "id": 2,
+      "title": "Milford Sound Eco-Wilderness Cruise",
+      "slug": "milford-sound-cruise",
+      "summary": "Glacial fjords, thundering waterfalls, and playful fur seals in the heart of Piopiotahi.",
+      "description": "Navigate towering sheer cliffs and cascade waterfalls beneath Mitre Peak in Fiordland National Park.",
+      "category_id": 2,
+      "category_name": "Scenic Cruise",
+      "price_per_person": 240.00,
+      "duration_days": 1,
+      "difficulty": "easy",
+      "status": "active",
+      "seats_left": 8,
+      "next_departure_date": "2026-11-20T10:00:00Z",
+      "images": [
+        {
+          "id": 2,
+          "image_url": "/media/seed/tours/milford-sound-cruise-1.jpg",
+          "caption": "Fjord mist and cliffs",
+          "is_primary": true
+        }
+      ],
+      "guide": {
+        "id": 2,
+        "name": "Sarah Jenkins",
+        "bio": "Fiordland conservation specialist.",
+        "languages": ["English"]
+      }
+    }
+  ],
+  "page": 1,
+  "total": 2
+}

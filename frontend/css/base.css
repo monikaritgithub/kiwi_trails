@@ -1,0 +1,83 @@
+/* Core design system tokens and base element styles for Kiwi Trails.
+Standardizes New Zealand Kaitiakitanga colour palette, typography, and box sizing.
+*/
+
+:root {
+  --color-primary: #1A4329;
+  --color-primary-light: #2D6A4F;
+  --color-primary-dark: #122e1c;
+  --color-secondary: #D4AF37;
+  --color-secondary-light: #f5e6a8;
+  --color-accent: #E9C46A;
+  --color-bg: #F8FAF9;
+  --color-surface: #FFFFFF;
+  --color-text: #1E293B;
+  --color-text-muted: #64748B;
+  --color-border: #E2E8F0;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --transition: all 0.25s ease-in-out;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.15rem; }
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

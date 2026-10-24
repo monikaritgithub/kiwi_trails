@@ -2,7 +2,7 @@
   "member": "Member 1",
   "name": "Gaurani",
   "role": "Frontend and sample pictures",
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "groups": [
     {
       "title": "Setup and request file",
@@ -10,8 +10,8 @@
         {
           "id": "m1-set-1",
           "title": "Frontend folders and config.js (API URL and mock switch)",
-          "status": "todo",
-          "note": "Set up frontend folders and config JavaScript file with mock switch",
+          "status": "done",
+          "note": "Config JavaScript module created with API_BASE_URL and USE_MOCK switch.",
           "instruction": "Create the frontend folder structure with index HTML and config JavaScript. Provide a switch variable named USE MOCK to toggle between local mock data and the live Django backend API.",
           "request": "Open config.js or inspect the window config object in browser",
           "response": "export const CONFIG = { API_BASE_URL: 'http://127.0.0.1:8000/api/v1', USE_MOCK: false };"
@@ -19,8 +19,8 @@
         {
           "id": "m1-set-2",
           "title": "API helper functions in api.js (send requests and receive data)",
-          "status": "todo",
-          "note": "A helper file with fetch functions to talk to backend endpoints",
+          "status": "done",
+          "note": "apiFetch helper implemented with bearer token headers and envelope unwrapping.",
           "instruction": "Write fetch wrapper functions in api JavaScript. Automatically attach the authorization bearer token from browser storage to request headers and unpack the standard backend response envelope.",
           "request": "apiFetch('/tours', { method: 'GET' })",
           "response": "Returns unpacked response data directly or throws an error object when request fails."
@@ -28,8 +28,8 @@
         {
           "id": "m1-set-3",
           "title": "Authentication state and display helpers (auth.js, helpers.js)",
-          "status": "todo",
-          "note": "Helper functions to store user login tokens and format currency",
+          "status": "done",
+          "note": "auth.js token management and helpers.js NZD currency and NZ date formatters completed.",
           "instruction": "Write helper functions to save the auth token to local storage and retrieve the current user role. Add helper functions to format New Zealand currency and New Zealand dates.",
           "request": "formatMoney(150.00) and getAuthToken()",
           "response": "Returns formatted text string NZ$150.00 and the active token string or null."
@@ -37,8 +37,8 @@
         {
           "id": "m1-set-4",
           "title": "Sample mock responses for testing screens offline",
-          "status": "todo",
-          "note": "Sample test data matching backend JSON to preview screens offline",
+          "status": "done",
+          "note": "Offline JSON fixtures created for tours, auth, bookings, departures, and coupons.",
           "instruction": "Copy sample mock JSON files for every endpoint into a mocks folder. Use these offline fixtures when the mock switch is turned on so you can build screens before backend APIs are ready.",
           "request": "apiFetch('/tours/1') with USE MOCK set to true",
           "response": "Returns offline mock tour JSON data without calling the live backend."
@@ -46,8 +46,8 @@
         {
           "id": "m1-set-5",
           "title": "Frontend file download handlers (trigger invoice PDF and calendar .ics download)",
-          "status": "todo",
-          "note": "Click handlers to download invoice PDFs and calendar files",
+          "status": "done",
+          "note": "download.js created for binary blob downloading of PDF invoices and ICS calendars.",
           "instruction": "Write functions to handle binary file downloads. When the customer clicks download invoice or add to calendar fetch the binary blob and trigger a browser file download.",
           "request": "GET /api/v1/bookings/1/invoice or GET /api/v1/bookings/1/calendar",
           "response": "Browser triggers file download for booking 1 invoice PDF or kiwi trails departure calendar ICS."
