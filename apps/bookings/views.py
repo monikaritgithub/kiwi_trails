@@ -2,11 +2,15 @@
 Handles customer quotes, booking creation, history, and booking details.
 """
 
+from django.http import HttpResponse
+from django.utils.http import content_disposition_header
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.bookings.documents import build_booking_invoice
+from apps.bookings.models import BookingStatus
 from apps.bookings.serializers import (
     BookingCancelSerializer,
     BookingCreateSerializer,
@@ -99,3 +103,31 @@ class BookingCancelView(APIView):
         )
 
         return Response(BookingSerializer(booking).data)
+
+
+class BookingInvoiceView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+
+    def get(self, request, booking_id):
+        booking = get_booking_by_id(booking_id)
+        self.check_object_permissions(request, booking)
+
+        if booking.status not in [
+            BookingStatus.APPROVED,
+            BookingStatus.COMPLETED,
+        ]:
+            raise Forbidden("Invoices are available only for approved or completed bookings.")
+
+        pdf_bytes = build_booking_invoice(booking)
+        filename = f"invoice-{booking.booking_reference}.pdf"
+
+        response = HttpResponse(
+            pdf_bytes,
+            content_type="application/pdf",
+        )
+        response["Content-Disposition"] = content_disposition_header(
+            as_attachment=True,
+            filename=filename,
+        )
+        response["Cache-Control"] = "private, no-store"
+        return response

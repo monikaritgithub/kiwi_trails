@@ -55,8 +55,8 @@
         {
           "id": "m3-cust-06",
           "title": "GET /bookings/{id}/invoice",
-          "status": "todo",
-          "note": "Download PDF invoice for approved or completed booking",
+          "status": "review",
+          "note": "PDF invoice implemented for approved or completed bookings with owner or admin access. All 12 invoice tests and all 230 project tests passed. PDF layout and Maori macrons visually checked. Awaiting teammate review.",
           "instruction": "Generate and return downloadable PDF invoice for an approved or completed tour booking.",
           "request": "GET /api/v1/bookings/41/invoice\nAuthorization: Bearer <token>",
           "response": "Status 200 OK\nContent-Type: application/pdf\nContent-Disposition: attachment; filename=\"invoice.pdf\"\n\n<binary PDF data>"
