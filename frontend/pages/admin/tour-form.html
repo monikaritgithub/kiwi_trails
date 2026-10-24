@@ -1,0 +1,109 @@
+<!-- Tour Editor and Creation Screen
+Form for editing tour information, uploading photo galleries, and adding cultural FAQ items.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Editor — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link active">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+      <div>
+        <a href="/frontend/pages/admin/tours.html" style="font-size: 0.85rem; color: var(--color-text-muted);">← Back to Tours</a>
+        <h1 id="page-heading" style="margin-top: 0.25rem; margin-bottom: 0;">Create / Edit Tour</h1>
+      </div>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start;">
+      <div class="card" style="padding: 2rem;">
+        <h3 style="margin-bottom: 1.5rem;">Core Tour Details</h3>
+
+        <form id="tour-form">
+          <div class="form-group">
+            <label for="tour-title" class="form-label">Tour Title</label>
+            <input type="text" id="tour-title" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tour-category" class="form-label">Category</label>
+            <select id="tour-category" class="form-control" required></select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="tour-price" class="form-label">Price per person (NZD)</label>
+              <input type="number" id="tour-price" class="form-control" step="0.01" min="10" required>
+            </div>
+            <div class="form-group">
+              <label for="tour-duration" class="form-label">Duration (Days)</label>
+              <input type="number" id="tour-duration" class="form-control" min="1" value="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tour-summary" class="form-label">Short Summary</label>
+            <input type="text" id="tour-summary" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tour-description" class="form-label">Full Itinerary Description</label>
+            <textarea id="tour-description" class="form-control" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" id="btn-save-tour" class="btn btn-primary" style="width: 100%;">Save Tour Details</button>
+        </form>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="card" style="padding: 1.75rem;">
+          <h3 style="margin-bottom: 1rem;">Tour FAQs Management</h3>
+          <form id="faq-form" style="margin-bottom: 1.25rem;">
+            <div class="form-group">
+              <label for="faq-question" class="form-label">New Question</label>
+              <input type="text" id="faq-question" class="form-control" placeholder="e.g. What clothing is advised?" required>
+            </div>
+            <div class="form-group">
+              <label for="faq-answer" class="form-label">Answer (with Cultural Guidelines)</label>
+              <textarea id="faq-answer" class="form-control" rows="2" placeholder="e.g. Warm waterproof layers..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline" style="width: 100%;">+ Add FAQ Entry</button>
+          </form>
+
+          <div id="faq-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/tour-form.js"></script>
+</body>
+</html>

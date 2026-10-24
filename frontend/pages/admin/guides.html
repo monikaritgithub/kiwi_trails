@@ -1,0 +1,90 @@
+<!-- Kaitiaki Guides & Category Management Screen
+Manages cultural storytelling guides, spoken languages, and eco-tour category taxonomies.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guides & Categories — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/guides.html" class="nav-link active">Guides</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="margin-bottom: 2rem;">
+      <span class="badge badge-tikanga">Cultural Stewardship</span>
+      <h1 style="margin-top: 0.25rem;">Kaitiaki Guides & Tour Categories</h1>
+      <p style="color: var(--color-text-muted);">Manage indigenous certified navigators, linguistic fluencies, and tour categorization.</p>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start;">
+      <div class="card" style="padding: 1.75rem;">
+        <h3 style="margin-bottom: 1.25rem;">Add Certified Kaitiaki Guide</h3>
+        <form id="create-guide-form">
+          <div class="form-group">
+            <label for="guide-name" class="form-label">Full Name</label>
+            <input type="text" id="guide-name" class="form-control" placeholder="e.g. Hemi Walker" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guide-languages" class="form-label">Spoken Languages (Comma separated)</label>
+            <input type="text" id="guide-languages" class="form-control" placeholder="English, Te Reo Māori" value="English, Te Reo Māori" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guide-bio" class="form-label">Cultural Background & Experience</label>
+            <textarea id="guide-bio" class="form-control" rows="3" placeholder="Iwi affiliation, navigational expertise, and conservation storytelling..." required></textarea>
+          </div>
+
+          <button type="submit" id="btn-save-guide" class="btn btn-primary" style="width: 100%;">Add Kaitiaki Guide</button>
+        </form>
+      </div>
+
+      <div class="card" style="padding: 1.75rem;">
+        <h3 style="margin-bottom: 1.25rem;">Create Tour Category</h3>
+        <form id="create-category-form">
+          <div class="form-group">
+            <label for="cat-name" class="form-label">Category Name</label>
+            <input type="text" id="cat-name" class="form-control" placeholder="e.g. Alpine Wilderness" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cat-description" class="form-label">Description</label>
+            <textarea id="cat-description" class="form-control" rows="3" placeholder="Category focus and conservation impact..." required></textarea>
+          </div>
+
+          <button type="submit" id="btn-save-cat" class="btn btn-secondary" style="width: 100%;">Add Tour Category</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/guides.js"></script>
+</body>
+</html>

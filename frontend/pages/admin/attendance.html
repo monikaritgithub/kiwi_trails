@@ -1,0 +1,79 @@
+<!-- Departure Attendance Manifest Screen
+Enables tour guides and staff to mark passenger attendance as present or absent on expedition day.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Roster — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link active">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Field Operations</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Passenger Attendance Roster</h1>
+      </div>
+      <div>
+        <button id="btn-print-manifest" class="btn btn-outline" style="font-size: 0.9rem;">🖨️ Print Manifest</button>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+      <div class="form-group" style="margin-bottom: 0; min-width: 280px;">
+        <label for="select-departure" class="form-label">Active Departure</label>
+        <select id="select-departure" class="form-control"></select>
+      </div>
+      <div id="manifest-summary" style="margin-left: auto; display: flex; gap: 1.5rem; font-size: 0.9rem;">
+        <div>Total Manifest: <strong id="val-manifest-total">--</strong></div>
+        <div>Marked Present: <strong id="val-manifest-present" style="color: var(--color-success);">--</strong></div>
+      </div>
+    </div>
+
+    <div class="card" style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+            <th style="padding: 1rem 1.25rem;">Passenger Name</th>
+            <th style="padding: 1rem 1.25rem;">Booking Reference</th>
+            <th style="padding: 1rem 1.25rem;">Party Size</th>
+            <th style="padding: 1rem 1.25rem;">Pickup Point</th>
+            <th style="padding: 1rem 1.25rem;">Attendance Status</th>
+            <th style="padding: 1rem 1.25rem; text-align: right;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="attendance-table-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/attendance.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!-- Departure Schedule Manager Screen
+Allows administrators to add new departure dates, adjust passenger capacities, and complete or cancel trips.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Departures Schedule — Kiwi Trails Admin</title>
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/layout.css">
+  <link rel="stylesheet" href="/frontend/css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
+        <span>🌿 Kiwi Trails Staff</span>
+        <span class="brand-badge">Kaitiaki Console</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/frontend/pages/admin/dashboard.html" class="nav-link">Dashboard</a>
+        <a href="/frontend/pages/admin/tours.html" class="nav-link">Tours</a>
+        <a href="/frontend/pages/admin/departures.html" class="nav-link active">Departures</a>
+        <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
+        <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
+        <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="badge badge-kaitiaki">Logistics & Scheduling</span>
+        <h1 style="margin-top: 0.25rem; margin-bottom: 0;">Departure Schedule Manager</h1>
+      </div>
+    </div>
+
+    <div class="grid-cols-2" style="align-items: start; margin-bottom: 2.5rem;">
+      <div class="card" style="padding: 1.75rem;">
+        <h3 style="margin-bottom: 1.25rem;">Schedule New Departure</h3>
+        <form id="create-departure-form">
+          <div class="form-group">
+            <label for="dep-tour-select" class="form-label">Select Tour</label>
+            <select id="dep-tour-select" class="form-control" required></select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="dep-datetime" class="form-label">Departure Date & Time</label>
+              <input type="datetime-local" id="dep-datetime" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="dep-capacity" class="form-label">Max Capacity</label>
+              <input type="number" id="dep-capacity" class="form-control" min="2" max="50" value="16" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dep-deadline" class="form-label">Booking Cutoff Deadline</label>
+            <input type="datetime-local" id="dep-deadline" class="form-control" required>
+          </div>
+
+          <button type="submit" id="btn-create-dep" class="btn btn-primary" style="width: 100%;">Create Departure Slot</button>
+        </form>
+      </div>
+
+      <div class="card" style="padding: 1.75rem; background: #F8FAF9;">
+        <h3>Capacity & Safety Rules</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+          In accordance with DOC concessions and Kaitiakitanga environmental protocols:
+        </p>
+        <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--color-text); display: flex; flex-direction: column; gap: 0.5rem;">
+          <li>Alpine track expeditions are strictly capped at 16 passengers per departure.</li>
+          <li>Marine cruises require certified life jackets matching total booked manifest.</li>
+          <li>Booking cutoff deadlines must be set at least 48 hours prior to start.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="overflow-x: auto;">
+      <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0;">Upcoming Departure Slots</h3>
+        <span id="dep-count-badge" class="badge badge-tikanga">Loading...</span>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+            <th style="padding: 1rem 1.25rem;">Tour</th>
+            <th style="padding: 1rem 1.25rem;">Departure Time</th>
+            <th style="padding: 1rem 1.25rem;">Capacity</th>
+            <th style="padding: 1rem 1.25rem;">Seats Left</th>
+            <th style="padding: 1rem 1.25rem;">Status</th>
+            <th style="padding: 1rem 1.25rem; text-align: right;">Action</th>
+          </tr>
+        </thead>
+        <tbody id="departures-table-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Kiwi Trails Staff Portal (Team Qubit). All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/frontend/js/pages/admin/departures.js"></script>
+</body>
+</html>
