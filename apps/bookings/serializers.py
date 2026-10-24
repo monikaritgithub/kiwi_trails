@@ -1,5 +1,5 @@
 """Serializers for booking API requests.
-Validates departure, traveller count, and optional coupon input.
+Validates quote input and optional traveller requirements.
 """
 
 from rest_framework import serializers
@@ -21,3 +21,27 @@ class BookingQuoteSerializer(serializers.Serializer):
         if not value:
             return None
         return value.upper()
+
+
+class BookingCreateSerializer(BookingQuoteSerializer):
+    pickup_preference = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        default=None,
+    )
+    dietary_requirements = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        default=None,
+    )
+    accessibility_needs = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        default=None,
+    )
