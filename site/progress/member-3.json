@@ -64,8 +64,8 @@
         {
           "id": "m3-cust-07",
           "title": "GET /bookings/{id}/calendar",
-          "status": "todo",
-          "note": "Download ICS calendar invite for scheduled departure",
+          "status": "review",
+          "note": "Calendar download implemented with ownership and booking eligibility checks. All 18 calendar tests and all 248 project tests passed, including UTC dates, Maori characters and ICS formatting. Awaiting teammate review.",
           "instruction": "Generate and return ICS calendar file for adding the tour departure schedule to a calendar.",
           "request": "GET /api/v1/bookings/41/calendar\nAuthorization: Bearer <token>",
           "response": "Status 200 OK\nContent-Type: text/calendar; charset=utf-8\nContent-Disposition: attachment; filename=\"departure.ics\"\n\nBEGIN:VCALENDAR\n..."
