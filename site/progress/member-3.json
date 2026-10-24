@@ -28,8 +28,8 @@
         {
           "id": "m3-cust-03",
           "title": "GET /bookings/my",
-          "status": "review",
-          "note": "Customer booking history implemented with ownership checks, status filtering and pagination. All 14 history tests and all 193 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Customer booking history tested, approved, and merged in PR #61.",
           "instruction": "Return list of all bookings belonging to the authenticated customer ordered newest first.",
           "request": "GET /api/v1/bookings/my\nAuthorization: Bearer <customer_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"tour_title\": \"Taupo Lake Cruise\",\n        \"status\": \"approved\",\n        \"total_price\": 270.00\n      }\n    ],\n    \"total\": 1\n  }\n}"
@@ -37,8 +37,8 @@
         {
           "id": "m3-cust-04",
           "title": "GET /bookings/{id}",
-          "status": "review",
-          "note": "Booking details implemented with owner or admin access. All 8 detail tests and all 201 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Booking details tested, approved, and merged in PR #62.",
           "instruction": "Return full booking details. Only the booking owner or an administrator can access this record.",
           "request": "GET /api/v1/bookings/41\nAuthorization: Bearer <token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"booking_reference\": \"BK-0041\",\n    \"status\": \"approved\",\n    \"traveller_count\": 2,\n    \"total_price\": 270.00\n  }\n}"
@@ -46,8 +46,8 @@
         {
           "id": "m3-cust-05",
           "title": "POST /bookings/{id}/cancel",
-          "status": "review",
-          "note": "Booking cancellation implemented with ownership checks, deadline enforcement and seat release. All 17 cancellation tests and all 218 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Booking cancellation tested, approved, and merged in PR #64.",
           "instruction": "Cancel pending or approved booking if tour cancellation deadline allows it and return reserved seats to capacity.",
           "request": "POST /api/v1/bookings/41/cancel\nAuthorization: Bearer <customer_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"cancelled\",\n    \"message\": \"Booking cancelled successfully.\"\n  }\n}"
