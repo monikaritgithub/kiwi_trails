@@ -5,6 +5,7 @@ Routes customer booking actions and the administrator booking list.
 from django.urls import path
 
 from apps.bookings.views import (
+    AdminAttendanceListView,
     AdminBookingListView,
     AdminBookingStatusView,
     BookingCalendarView,
@@ -49,5 +50,10 @@ urlpatterns = [
         "admin/bookings/<int:booking_id>/status",
         AdminBookingStatusView.as_view(),
         name="admin-booking-status",
+    ),
+    path(
+        "admin/departures/<int:departure_id>/attendance",
+        AdminAttendanceListView.as_view(),
+        name="admin-attendance-list",
     ),
 ]

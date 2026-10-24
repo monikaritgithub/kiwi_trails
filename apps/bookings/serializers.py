@@ -222,3 +222,27 @@ class AdminBookingStatusSerializer(serializers.Serializer):
         default=None,
         trim_whitespace=True,
     )
+
+
+class BookingAttendanceSerializer(serializers.ModelSerializer):
+    booking_id = serializers.IntegerField(source="id", read_only=True)
+    customer_name = serializers.CharField(
+        source="user.full_name",
+        read_only=True,
+    )
+    attendance = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = [
+            "booking_id",
+            "booking_reference",
+            "customer_name",
+            "traveller_count",
+            "attendance",
+        ]
+        read_only_fields = fields
+
+    def get_attendance(self, booking):
+        attendance = getattr(booking, "attendance", None)
+        return attendance.status if attendance is not None else None
