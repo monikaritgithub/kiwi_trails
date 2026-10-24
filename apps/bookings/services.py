@@ -187,3 +187,16 @@ def list_customer_bookings(user, status=None):
         bookings = bookings.filter(status=status)
 
     return bookings
+
+
+def get_booking_by_id(booking_id):
+    booking = (
+        Booking.objects.select_related("user", "departure__tour", "coupon")
+        .filter(id=booking_id)
+        .first()
+    )
+
+    if booking is None:
+        raise NotFound("Booking not found.")
+
+    return booking

@@ -37,8 +37,8 @@
         {
           "id": "m3-cust-04",
           "title": "GET /bookings/{id}",
-          "status": "todo",
-          "note": "Retrieve single booking details for owner or admin",
+          "status": "review",
+          "note": "Booking details implemented with owner or admin access. All 8 detail tests and all 201 project tests passed. Awaiting teammate review.",
           "instruction": "Return full booking details. Only the booking owner or an administrator can access this record.",
           "request": "GET /api/v1/bookings/41\nAuthorization: Bearer <token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"booking_reference\": \"BK-0041\",\n    \"status\": \"approved\",\n    \"traveller_count\": 2,\n    \"total_price\": 270.00\n  }\n}"

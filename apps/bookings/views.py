@@ -1,5 +1,5 @@
 """Views for booking API endpoints.
-Handles customer price previews, booking creation, and booking history.
+Handles customer quotes, booking creation, history, and booking details.
 """
 
 from rest_framework import status
@@ -15,10 +15,11 @@ from apps.bookings.serializers import (
 from apps.bookings.services import (
     calculate_booking_quote,
     create_booking,
+    get_booking_by_id,
     list_customer_bookings,
 )
 from apps.core.pagination import ApiPagination
-from apps.core.permissions import IsCustomer
+from apps.core.permissions import IsCustomer, IsOwnerOrAdmin
 
 
 class BookingQuoteView(APIView):
@@ -64,3 +65,13 @@ class BookingMyListView(APIView):
         serializer = BookingSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
+
+
+class BookingDetailView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+
+    def get(self, request, booking_id):
+        booking = get_booking_by_id(booking_id)
+        self.check_object_permissions(request, booking)
+
+        return Response(BookingSerializer(booking).data)
