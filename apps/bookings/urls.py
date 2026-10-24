@@ -8,6 +8,7 @@ from apps.bookings.views import (
     BookingCancelView,
     BookingCreateView,
     BookingDetailView,
+    BookingInvoiceView,
     BookingMyListView,
     BookingQuoteView,
 )
@@ -25,5 +26,10 @@ urlpatterns = [
         "bookings/<int:booking_id>/cancel",
         BookingCancelView.as_view(),
         name="booking-cancel",
+    ),
+    path(
+        "bookings/<int:booking_id>/invoice",
+        BookingInvoiceView.as_view(),
+        name="booking-invoice",
     ),
 ]
