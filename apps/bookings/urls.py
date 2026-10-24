@@ -5,6 +5,7 @@ Routes customer quotes, creation, history, details, and cancellation.
 from django.urls import path
 
 from apps.bookings.views import (
+    BookingCalendarView,
     BookingCancelView,
     BookingCreateView,
     BookingDetailView,
@@ -31,5 +32,10 @@ urlpatterns = [
         "bookings/<int:booking_id>/invoice",
         BookingInvoiceView.as_view(),
         name="booking-invoice",
+    ),
+    path(
+        "bookings/<int:booking_id>/calendar",
+        BookingCalendarView.as_view(),
+        name="booking-calendar",
     ),
 ]
