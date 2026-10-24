@@ -146,3 +146,59 @@ class BookingCancelSerializer(serializers.Serializer):
         default=None,
         trim_whitespace=True,
     )
+
+
+class AdminBookingFilterSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(
+        choices=BookingStatus.choices,
+        required=False,
+    )
+    tour_id = serializers.IntegerField(min_value=1, required=False)
+    departure_id = serializers.IntegerField(min_value=1, required=False)
+    date_from = serializers.DateField(
+        required=False,
+        input_formats=["%Y-%m-%d"],
+    )
+    date_to = serializers.DateField(
+        required=False,
+        input_formats=["%Y-%m-%d"],
+    )
+    search = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        trim_whitespace=True,
+    )
+
+    def validate(self, attrs):
+        date_from = attrs.get("date_from")
+        date_to = attrs.get("date_to")
+
+        if date_from and date_to and date_from > date_to:
+            raise serializers.ValidationError(
+                {"date_to": "End date must be on or after start date."}
+            )
+
+        return attrs
+
+
+class AdminBookingCustomerSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    full_name = serializers.CharField(read_only=True)
+    email = serializers.EmailField(read_only=True)
+    phone = serializers.CharField(read_only=True, allow_null=True)
+
+
+class AdminBookingSerializer(BookingSerializer):
+    customer = AdminBookingCustomerSerializer(source="user", read_only=True)
+    attendance = serializers.SerializerMethodField()
+
+    class Meta(BookingSerializer.Meta):
+        fields = BookingSerializer.Meta.fields + [
+            "customer",
+            "attendance",
+        ]
+        read_only_fields = fields
+
+    def get_attendance(self, booking):
+        attendance = getattr(booking, "attendance", None)
+        return attendance.status if attendance is not None else None

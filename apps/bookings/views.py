@@ -15,6 +15,8 @@ from apps.bookings.documents import (
 )
 from apps.bookings.models import BookingStatus
 from apps.bookings.serializers import (
+    AdminBookingFilterSerializer,
+    AdminBookingSerializer,
     BookingCancelSerializer,
     BookingCreateSerializer,
     BookingQuoteSerializer,
@@ -25,11 +27,12 @@ from apps.bookings.services import (
     cancel_booking,
     create_booking,
     get_booking_by_id,
+    list_admin_bookings,
     list_customer_bookings,
 )
 from apps.core.exceptions import Forbidden
 from apps.core.pagination import ApiPagination
-from apps.core.permissions import IsCustomer, IsOwnerOrAdmin
+from apps.core.permissions import IsAdmin, IsCustomer, IsOwnerOrAdmin
 from apps.departures.models import DepartureStatus
 
 
@@ -170,3 +173,19 @@ class BookingCalendarView(APIView):
         )
         response["Cache-Control"] = "private, no-store"
         return response
+
+
+class AdminBookingListView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get(self, request):
+        filters = AdminBookingFilterSerializer(data=request.query_params)
+        filters.is_valid(raise_exception=True)
+
+        bookings = list_admin_bookings(**filters.validated_data)
+
+        paginator = ApiPagination()
+        page = paginator.paginate_queryset(bookings, request, view=self)
+        serializer = AdminBookingSerializer(page, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
