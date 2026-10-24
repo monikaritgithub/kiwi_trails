@@ -6,7 +6,6 @@ Converts application errors and DRF exceptions into consistent JSON error respon
 from django.http import Http404
 from rest_framework import exceptions, serializers
 from rest_framework.response import Response
-from rest_framework.views import exception_handler as drf_exception_handler
 
 
 class ApiError(Exception):
@@ -160,6 +159,8 @@ def api_exception_handler(exc, context):
             },
             status=404,
         )
+
+    from rest_framework.views import exception_handler as drf_exception_handler
 
     response = drf_exception_handler(exc, context)
     if response is not None:
