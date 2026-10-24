@@ -17,6 +17,7 @@ from apps.bookings.models import BookingStatus
 from apps.bookings.serializers import (
     AdminBookingFilterSerializer,
     AdminBookingSerializer,
+    AdminBookingStatusSerializer,
     BookingCancelSerializer,
     BookingCreateSerializer,
     BookingQuoteSerializer,
@@ -29,6 +30,7 @@ from apps.bookings.services import (
     get_booking_by_id,
     list_admin_bookings,
     list_customer_bookings,
+    update_booking_status,
 )
 from apps.core.exceptions import Forbidden
 from apps.core.pagination import ApiPagination
@@ -189,3 +191,19 @@ class AdminBookingListView(APIView):
         serializer = AdminBookingSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
+
+
+class AdminBookingStatusView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def patch(self, request, booking_id):
+        serializer = AdminBookingStatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        booking = update_booking_status(
+            user=request.user,
+            booking_id=booking_id,
+            **serializer.validated_data,
+        )
+
+        return Response(AdminBookingSerializer(booking).data)

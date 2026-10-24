@@ -318,3 +318,83 @@ def list_admin_bookings(
         )
 
     return bookings
+
+
+def _update_booking_status_once(user, booking_id, status, reason=None):
+    if not user.is_authenticated or getattr(user, "role", None) != "admin":
+        raise Forbidden("Only administrators can change booking status.")
+
+    allowed_targets = {
+        BookingStatus.APPROVED,
+        BookingStatus.REJECTED,
+        BookingStatus.CANCELLED,
+        BookingStatus.COMPLETED,
+    }
+    if status not in allowed_targets:
+        raise ValidationFailed(
+            "Invalid booking status.",
+            {"status": "Use approved, rejected, cancelled, or completed."},
+        )
+
+    allowed_changes = {
+        BookingStatus.PENDING: {
+            BookingStatus.APPROVED,
+            BookingStatus.REJECTED,
+            BookingStatus.CANCELLED,
+        },
+        BookingStatus.APPROVED: {
+            BookingStatus.CANCELLED,
+            BookingStatus.COMPLETED,
+        },
+    }
+
+    with transaction.atomic():
+        matched = Booking.objects.filter(id=booking_id).update(status=F("status"))
+        if not matched:
+            raise NotFound("Booking not found.")
+
+        booking = get_booking_by_id(booking_id)
+
+        if status not in allowed_changes.get(booking.status, set()):
+            raise InvalidStatusChange(
+                f"Cannot change booking status from {booking.status} to {status}."
+            )
+
+        booking.status = status
+        booking.status_reason = reason or ""
+
+        update_fields = ["status", "status_reason", "updated_at"]
+
+        if status == BookingStatus.CANCELLED:
+            booking.cancelled_at = timezone.now()
+            update_fields.append("cancelled_at")
+
+        booking.save(update_fields=update_fields)
+
+        return booking
+
+
+def update_booking_status(user, booking_id, status, reason=None):
+    for attempt in range(6):
+        try:
+            return _update_booking_status_once(
+                user=user,
+                booking_id=booking_id,
+                status=status,
+                reason=reason,
+            )
+        except OperationalError as exc:
+            error_code = getattr(exc.__cause__, "sqlite_errorcode", None)
+            is_lock_error = (
+                connection.vendor == "sqlite"
+                and error_code is not None
+                and (error_code & 255) in (sqlite3.SQLITE_BUSY, sqlite3.SQLITE_LOCKED)
+            )
+
+            if not is_lock_error or connection.in_atomic_block:
+                raise
+
+            if attempt == 5:
+                raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
+
+            sleep(0.05 * (2**attempt))

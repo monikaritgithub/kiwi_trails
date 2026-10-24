@@ -2,7 +2,7 @@
   "member": "Member 3",
   "name": "Mehrin",
   "role": "Bookings, attendance, invoices and dashboard",
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "groups": [
     {
       "title": "Customer booking calls (7)",
@@ -87,8 +87,8 @@
         {
           "id": "m3-adm-02",
           "title": "PATCH /admin/bookings/{id}/status",
-          "status": "todo",
-          "note": "Update booking status to approved or rejected",
+          "status": "review",
+          "note": "Admin booking status updates implemented with allowed transitions, optional reasons, cancellation timestamps and seat release. All 20 endpoint tests and 290 project tests passed. Awaiting teammate review.",
           "instruction": "Change booking status to approved or rejected. When rejected return reserved seats back to capacity.",
           "request": "PATCH /api/v1/admin/bookings/41/status\nAuthorization: Bearer <admin_token>\n{\n  \"status\": \"approved\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"approved\"\n  }\n}"
