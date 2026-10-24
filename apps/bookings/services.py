@@ -7,11 +7,13 @@ import secrets
 import sqlite3
 import string
 from datetime import timedelta
+from datetime import timezone as datetime_timezone
 from decimal import ROUND_HALF_UP, Decimal
 from time import sleep
 
 from django.db import OperationalError, connection, transaction
-from django.db.models import F
+from django.db.models import F, Q
+from django.db.models.functions import TruncDate
 from django.utils import timezone
 
 from apps.bookings.models import Booking, BookingStatus
@@ -269,3 +271,50 @@ def cancel_booking(user, booking_id, reason=None):
                 raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
 
             sleep(0.05 * (2**attempt))
+
+
+def list_admin_bookings(
+    *,
+    status=None,
+    tour_id=None,
+    departure_id=None,
+    date_from=None,
+    date_to=None,
+    search=None,
+):
+    bookings = Booking.objects.select_related(
+        "user",
+        "departure__tour",
+        "coupon",
+        "attendance",
+    ).order_by("-created_at", "-id")
+
+    if status is not None:
+        bookings = bookings.filter(status=status)
+
+    if tour_id is not None:
+        bookings = bookings.filter(departure__tour_id=tour_id)
+
+    if departure_id is not None:
+        bookings = bookings.filter(departure_id=departure_id)
+
+    if date_from is not None or date_to is not None:
+        bookings = bookings.annotate(
+            departure_date=TruncDate(
+                "departure__start_datetime",
+                tzinfo=datetime_timezone.utc,
+            )
+        )
+
+        if date_from is not None:
+            bookings = bookings.filter(departure_date__gte=date_from)
+
+        if date_to is not None:
+            bookings = bookings.filter(departure_date__lte=date_to)
+
+    if search:
+        bookings = bookings.filter(
+            Q(booking_reference__icontains=search) | Q(user__full_name__icontains=search)
+        )
+
+    return bookings

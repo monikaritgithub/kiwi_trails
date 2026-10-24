@@ -75,15 +75,15 @@
     {
       "title": "Admin calls (5)",
       "tasks": [
-        {
+          {
           "id": "m3-adm-01",
           "title": "GET /admin/bookings",
-          "status": "todo",
-          "note": "Admin bookings list with status date and customer filters",
+          "status": "review",
+          "note": "Admin booking list implemented with filters, search, pagination, customer details and attendance. All 22 endpoint tests and 270 project tests passed. Awaiting teammate review.",
           "instruction": "List all customer bookings for administrators with filtering by status departure date range or customer.",
           "request": "GET /api/v1/admin/bookings?status=pending\nAuthorization: Bearer <admin_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"customer_name\": \"Aroha Smith\",\n        \"status\": \"pending\"\n      }\n    ],\n    \"total\": 1\n  }\n}"
-        },
+          },
         {
           "id": "m3-adm-02",
           "title": "PATCH /admin/bookings/{id}/status",

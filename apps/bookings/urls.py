@@ -1,10 +1,11 @@
 """URL configuration for the bookings app.
-Routes customer quotes, creation, history, details, and cancellation.
+Routes customer booking actions and the administrator booking list.
 """
 
 from django.urls import path
 
 from apps.bookings.views import (
+    AdminBookingListView,
     BookingCalendarView,
     BookingCancelView,
     BookingCreateView,
@@ -37,5 +38,10 @@ urlpatterns = [
         "bookings/<int:booking_id>/calendar",
         BookingCalendarView.as_view(),
         name="booking-calendar",
+    ),
+    path(
+        "admin/bookings",
+        AdminBookingListView.as_view(),
+        name="admin-booking-list",
     ),
 ]
