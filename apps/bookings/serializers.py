@@ -202,3 +202,23 @@ class AdminBookingSerializer(BookingSerializer):
     def get_attendance(self, booking):
         attendance = getattr(booking, "attendance", None)
         return attendance.status if attendance is not None else None
+
+
+class AdminBookingStatusSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(
+        choices=[
+            BookingStatus.APPROVED,
+            BookingStatus.REJECTED,
+            BookingStatus.CANCELLED,
+            BookingStatus.COMPLETED,
+        ],
+        required=True,
+    )
+    reason = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        default=None,
+        trim_whitespace=True,
+    )
