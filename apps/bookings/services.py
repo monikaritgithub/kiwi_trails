@@ -398,3 +398,20 @@ def update_booking_status(user, booking_id, status, reason=None):
                 raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
 
             sleep(0.05 * (2**attempt))
+
+
+def list_departure_attendance(departure_id):
+    if not Departure.objects.filter(id=departure_id).exists():
+        raise NotFound("Departure not found.")
+
+    return (
+        Booking.objects.filter(
+            departure_id=departure_id,
+            status__in=[
+                BookingStatus.APPROVED,
+                BookingStatus.COMPLETED,
+            ],
+        )
+        .select_related("user", "attendance")
+        .order_by("user__full_name", "id")
+    )

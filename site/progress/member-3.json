@@ -96,9 +96,8 @@
         {
           "id": "m3-adm-03",
           "title": "GET /admin/departures/{id}/attendance",
-          "status": "todo",
-          "note": "Passenger attendance roster for departure",
-          "instruction": "Return passenger attendance sheet for a departure listing all approved and completed bookings.",
+          "status": "review",
+          "note": "Admin departure attendance roster implemented for approved and completed bookings without pagination. All 14 endpoint tests and 304 project tests passed. Awaiting teammate review.",
           "request": "GET /api/v1/admin/departures/1/attendance\nAuthorization: Bearer <admin_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"departure_id\": 1,\n    \"items\": [\n      {\n        \"booking_id\": 41,\n        \"customer_name\": \"Aroha Smith\",\n        \"attendance\": \"unmarked\"\n      }\n    ]\n  }\n}"
         },

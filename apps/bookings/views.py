@@ -18,6 +18,7 @@ from apps.bookings.serializers import (
     AdminBookingFilterSerializer,
     AdminBookingSerializer,
     AdminBookingStatusSerializer,
+    BookingAttendanceSerializer,
     BookingCancelSerializer,
     BookingCreateSerializer,
     BookingQuoteSerializer,
@@ -30,6 +31,7 @@ from apps.bookings.services import (
     get_booking_by_id,
     list_admin_bookings,
     list_customer_bookings,
+    list_departure_attendance,
     update_booking_status,
 )
 from apps.core.exceptions import Forbidden
@@ -207,3 +209,13 @@ class AdminBookingStatusView(APIView):
         )
 
         return Response(AdminBookingSerializer(booking).data)
+
+
+class AdminAttendanceListView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get(self, request, departure_id):
+        bookings = list_departure_attendance(departure_id)
+        serializer = BookingAttendanceSerializer(bookings, many=True)
+
+        return Response({"items": serializer.data})
