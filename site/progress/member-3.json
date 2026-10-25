@@ -78,8 +78,8 @@
           {
           "id": "m3-adm-01",
           "title": "GET /admin/bookings",
-          "status": "review",
-          "note": "Admin booking list implemented with filters, search, pagination, customer details and attendance. All 22 endpoint tests and 270 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Admin booking list endpoint completed reviewed and merged into main branch. All 22 tests and lint checks passed.",
           "instruction": "List all customer bookings for administrators with filtering by status departure date range or customer.",
           "request": "GET /api/v1/admin/bookings?status=pending\nAuthorization: Bearer <admin_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": 41,\n        \"booking_reference\": \"BK-0041\",\n        \"customer_name\": \"Aroha Smith\",\n        \"status\": \"pending\"\n      }\n    ],\n    \"total\": 1\n  }\n}"
@@ -87,8 +87,8 @@
         {
           "id": "m3-adm-02",
           "title": "PATCH /admin/bookings/{id}/status",
-          "status": "review",
-          "note": "Admin booking status updates implemented with allowed transitions, optional reasons, cancellation timestamps and seat release. All 20 endpoint tests and 290 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Admin booking status update endpoint completed reviewed and merged into main branch. All 20 tests and lint checks passed.",
           "instruction": "Change booking status to approved or rejected. When rejected return reserved seats back to capacity.",
           "request": "PATCH /api/v1/admin/bookings/41/status\nAuthorization: Bearer <admin_token>\n{\n  \"status\": \"approved\"\n}",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"status\": \"approved\"\n  }\n}"
@@ -96,8 +96,9 @@
         {
           "id": "m3-adm-03",
           "title": "GET /admin/departures/{id}/attendance",
-          "status": "review",
-          "note": "Admin departure attendance roster implemented for approved and completed bookings without pagination. All 14 endpoint tests and 304 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Admin departure attendance roster endpoint completed reviewed and merged into main branch. All 14 tests and lint checks passed.",
+          "instruction": "Fetch approved and completed bookings for a single departure to check attendance roster.",
           "request": "GET /api/v1/admin/departures/1/attendance\nAuthorization: Bearer <admin_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"departure_id\": 1,\n    \"items\": [\n      {\n        \"booking_id\": 41,\n        \"customer_name\": \"Aroha Smith\",\n        \"attendance\": \"unmarked\"\n      }\n    ]\n  }\n}"
         },
