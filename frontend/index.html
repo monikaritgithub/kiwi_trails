@@ -33,12 +33,12 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
 
   <main class="main-content">
     <section class="hero-banner">
-      <div style="display:inline-block; margin-bottom:1.2rem; background:rgba(15, 23, 42, 0.65); backdrop-filter:blur(10px); color:var(--color-secondary); padding:0.45rem 1.35rem; border-radius:var(--radius-full); font-weight:700; font-size:0.95rem; letter-spacing:1.5px; text-transform:uppercase; border:1px solid rgba(212, 175, 55, 0.65); box-shadow:0 6px 20px rgba(0,0,0,0.35);">
+      <div class="hero-badge-float">
         ✨ Welcome to New Zealand
       </div>
-      <h1>Nau Mai, Haere Mai ki Aotearoa</h1>
-      <p>Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
-      <div style="display:flex; justify-content:center; gap:1.25rem; flex-wrap:wrap;">
+      <h1 class="hero-title">Nau Mai, Haere Mai ki Aotearoa</h1>
+      <p class="hero-subtitle">Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
+      <div class="hero-actions">
         <a href="/frontend/pages/tour-list.html" class="btn btn-secondary" style="padding:0.85rem 2rem; font-size:1.05rem; font-weight:700; box-shadow:0 8px 24px rgba(212, 175, 55, 0.45);">Explore All Tours</a>
         <a href="/frontend/pages/register.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.85); color:#FFFFFF; padding:0.85rem 2rem; font-size:1.05rem; background:rgba(15, 23, 42, 0.45); backdrop-filter:blur(8px);">Join Kiwi Trails</a>
       </div>
@@ -77,9 +77,9 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
       </div>
 
       <div class="grid-cols-3" id="featured-tours-container">
-        <div style="text-align:center; grid-column:1/-1; padding:2rem; color:var(--color-text-muted);" id="featured-loading">
-          Loading authentic New Zealand tours...
-        </div>
+        <div class="skeleton-card skeleton-shimmer"></div>
+        <div class="skeleton-card skeleton-shimmer"></div>
+        <div class="skeleton-card skeleton-shimmer"></div>
       </div>
     </section>
   </main>

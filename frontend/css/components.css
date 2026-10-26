@@ -1,5 +1,5 @@
 /* Reusable UI component styles for Kiwi Trails.
-Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
+Controls buttons, cards, form inputs, badges, status pills, modals, toasts, and micro-animations.
 */
 
 .btn {
@@ -13,8 +13,12 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: var(--transition);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
   text-align: center;
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-primary {
@@ -25,7 +29,8 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 .btn-primary:hover {
   background: var(--color-primary-light);
   color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(26, 67, 41, 0.25);
+  box-shadow: 0 6px 18px rgba(26, 67, 41, 0.28);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -36,6 +41,8 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 .btn-secondary:hover {
   background: #c59e28;
   color: var(--color-primary-dark);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+  transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -46,6 +53,7 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 
 .btn-outline:hover {
   background: rgba(26, 67, 41, 0.08);
+  transform: translateY(-2px);
 }
 
 .btn-danger {
@@ -55,6 +63,7 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 
 .btn-danger:hover {
   background: #dc2626;
+  transform: translateY(-2px);
 }
 
 .card {
@@ -63,14 +72,15 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
   display: flex;
   flex-direction: column;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(26, 67, 41, 0.14);
+  transform: translateY(-6px);
+  border-color: rgba(45, 106, 79, 0.3);
 }
 
 .card-img-wrap {
@@ -85,11 +95,11 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover .card-img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .card-body {
@@ -120,6 +130,25 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   margin-top: auto;
 }
 
+.skeleton-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: 380px;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f0f3f1 25%, #e1e9e3 50%, #f0f3f1 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .badge {
   display: inline-block;
   padding: 0.25rem 0.65rem;
@@ -128,6 +157,11 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   border-radius: var(--radius-full);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
 }
 
 .badge-tikanga {
@@ -154,6 +188,23 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 .pill-approved { background: #DCFCE7; color: #15803D; }
 .pill-cancelled { background: #FEE2E2; color: #B91C1C; }
 .pill-completed { background: #E0E7FF; color: #4338CA; }
+
+.pill-approved::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #15803D;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
 
 .form-group {
   margin-bottom: 1.25rem;
@@ -195,7 +246,6 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
 }
 
 .hero-banner {
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(26, 67, 41, 0.7) 100%), url('/frontend/assets/hero-queenstown.jpg') center/cover no-repeat;
   color: #FFFFFF;
   padding: 6.5rem 1.5rem;
   border-radius: var(--radius-lg);
@@ -207,22 +257,90 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.hero-banner h1 {
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: -6%;
+  left: -6%;
+  width: 112%;
+  height: 112%;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(26, 67, 41, 0.7) 100%), url('/frontend/assets/hero-queenstown.jpg') center/cover no-repeat;
+  z-index: 1;
+  animation: heroKenBurns 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-banner > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes heroKenBurns {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06) translate(-1%, -1%); }
+  100% { transform: scale(1); }
+}
+
+.hero-badge-float {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  color: var(--color-secondary);
+  padding: 0.45rem 1.35rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  animation: softFloat 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes softFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.hero-title {
   color: #FFFFFF;
   font-size: 3.25rem;
   font-weight: 800;
   margin-bottom: 1.25rem;
   letter-spacing: -0.5px;
   text-shadow: 0 3px 14px rgba(0, 0, 0, 0.75);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-banner p {
+.hero-subtitle {
   color: #F8FAF9;
   font-size: 1.3rem;
   max-width: 760px;
   margin: 0 auto 2.25rem;
   line-height: 1.7;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal-backdrop {
@@ -250,6 +368,18 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .toast-container {
@@ -284,4 +414,13 @@ Controls buttons, cards, form inputs, badges, status pills, modals, and toasts.
   opacity: 0;
   transform: translateX(50%);
   transition: all 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
