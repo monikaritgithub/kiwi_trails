@@ -97,9 +97,14 @@ function createTourCard(tour) {
   const card = document.createElement('div');
   card.className = 'card';
 
-  const primaryImg = tour.image_url
-    || (tour.images && tour.images.length > 0 ? (tour.images.find(img => img.is_primary) || tour.images[0]).image_url : null)
-    || '/media/seed/tours/milford-sound-cruise-1.jpg';
+  let primaryImg = tour.image_url;
+  if (!primaryImg && tour.images && tour.images.length > 0) {
+    const primary = tour.images.find(img => img.is_primary) || tour.images[0];
+    primaryImg = primary.image_url;
+  }
+  if (!primaryImg) {
+    primaryImg = '/media/seed/tours/milford-sound-cruise-1.jpg';
+  }
 
   const departureDate = tour.next_departure || tour.next_departure_date;
   const departureText = departureDate
@@ -113,7 +118,7 @@ function createTourCard(tour) {
 
   card.innerHTML = `
     <div class="card-img-wrap">
-      <img src="${primaryImg}" alt="${tour.title}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
+      <img src="${primaryImg}" alt="${tour.title}" class="card-img" onerror="this.onerror=null; if(!this.src.includes('127.0.0.1:8000')){ this.src='http://127.0.0.1:8000' + '${tour.image_url || ''}'; }">
     </div>
     <div class="card-body">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.25rem;">
