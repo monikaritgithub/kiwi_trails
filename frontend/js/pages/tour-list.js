@@ -62,7 +62,7 @@ async function loadTours() {
 
   const search = document.getElementById('search-input').value.trim();
   const categoryId = document.getElementById('category-select').value;
-  const sort = document.getElementById('sort-select').value;
+  const sort = document.getElementById('sort-select').value || 'newest';
 
   const params = new URLSearchParams();
   if (search) params.append('search', search);
@@ -97,25 +97,34 @@ function createTourCard(tour) {
   const card = document.createElement('div');
   card.className = 'card';
 
-  const primaryImg = (tour.images && tour.images.length > 0)
-    ? (tour.images.find(img => img.is_primary) || tour.images[0]).image_url
-    : '/media/seed/tours/milford-sound-cruise-1.jpg';
+  const primaryImg = tour.image_url
+    || (tour.images && tour.images.length > 0 ? (tour.images.find(img => img.is_primary) || tour.images[0]).image_url : null)
+    || '/media/seed/tours/milford-sound-cruise-1.jpg';
 
-  const departureText = tour.next_departure_date
-    ? `Next: ${formatDate(tour.next_departure_date)}`
+  const departureDate = tour.next_departure || tour.next_departure_date;
+  const departureText = departureDate
+    ? `Next: ${formatDate(departureDate)}`
     : 'Upcoming departures';
+
+  const categoryName = tour.category || tour.category_name || 'Guided Eco-Tour';
+  const ratingHtml = tour.average_rating
+    ? `<span style="font-size:0.85rem; font-weight:700; color:var(--color-secondary);">★ ${Number(tour.average_rating).toFixed(1)}</span>`
+    : '';
 
   card.innerHTML = `
     <div class="card-img-wrap">
       <img src="${primaryImg}" alt="${tour.title}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
     </div>
     <div class="card-body">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-        <span class="badge badge-tikanga">${tour.category_name || 'Guided Eco-Tour'}</span>
-        <span style="font-size:0.8rem; color:var(--color-text-muted);">${departureText}</span>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.25rem;">
+        <span class="badge badge-tikanga">${categoryName}</span>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          ${ratingHtml}
+          <span style="font-size:0.8rem; color:var(--color-text-muted);">${departureText}</span>
+        </div>
       </div>
       <h3 class="card-title">${tour.title}</h3>
-      <p class="card-text">${tour.summary || tour.description || ''}</p>
+      <p class="card-text">${tour.location ? `Experience pristine landscapes and sacred heritage in ${tour.location}.` : 'Authentic guided conservation journey.'} (${tour.duration_days || 1} Day${(tour.duration_days || 1) > 1 ? 's' : ''})</p>
       <div class="card-footer">
         <div>
           <span style="font-size:0.8rem; color:var(--color-text-muted); display:block;">From</span>
