@@ -114,8 +114,8 @@
         {
           "id": "m3-adm-05",
           "title": "GET /admin/dashboard",
-          "status": "review",
-          "note": "Admin dashboard summary implemented with active tours, upcoming departures, all five booking status counts, and approved/completed booking value. All 16 endpoint tests and 320 project tests passed. Awaiting teammate review.",
+          "status": "done",
+          "note": "Admin dashboard summary endpoint completed reviewed and merged into main branch. All 16 tests and lint checks passed.",
           "instruction": "Compute and return key operational metrics including revenue booking status counts and upcoming departures.",
           "request": "GET /api/v1/admin/dashboard\nAuthorization: Bearer <admin_token>",
           "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"active_tours\": 8,\n    \"upcoming_departures\": 14,\n    \"bookings_by_status\": {\n      \"pending\": 5,\n      \"approved\": 21,\n      \"rejected\": 2,\n      \"cancelled\": 4,\n      \"completed\": 9\n    },\n    \"total_value\": 9240.50\n  }\n}"
