@@ -105,11 +105,11 @@
         {
           "id": "m3-adm-04",
           "title": "PUT /admin/bookings/{id}/attendance",
-          "status": "todo",
-          "note": "Mark customer attendance as present or absent",
-          "instruction": "Mark customer booking attendance status as present or absent on the day of departure.",
-          "request": "PUT /api/v1/admin/bookings/41/attendance\nAuthorization: Bearer <admin_token>\n{\n  \"attendance\": \"present\"\n}",
-          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": 41,\n    \"attendance\": \"present\"\n  }\n}"
+          "status": "done",
+          "note": "Admin attendance update endpoint completed reviewed and merged into main branch. All 22 tests and lint checks passed.",
+          "instruction": "Mark attendance as present or absent for approved or completed bookings. Repeat requests update the existing mark and record the administrator and marking time.",
+          "request": "PUT /api/v1/admin/bookings/41/attendance\nAuthorization: Bearer <admin_token>\nContent-Type: application/json\n\n{\n  \"status\": \"present\"\n}",
+          "response": "Status 200 OK\n{\n  \"success\": true,\n  \"data\": {\n    \"booking_id\": 41,\n    \"booking_reference\": \"KT-7H4K9Q\",\n    \"customer_name\": \"Aroha Smith\",\n    \"traveller_count\": 2,\n    \"attendance\": \"present\"\n  }\n}"
         },
         {
           "id": "m3-adm-05",

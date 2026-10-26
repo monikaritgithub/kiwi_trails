@@ -7,7 +7,7 @@ from datetime import timedelta
 from django.utils import timezone
 from rest_framework import serializers
 
-from apps.bookings.models import Booking, BookingStatus
+from apps.bookings.models import AttendanceStatus, Booking, BookingStatus
 
 
 class BookingQuoteSerializer(serializers.Serializer):
@@ -246,3 +246,10 @@ class BookingAttendanceSerializer(serializers.ModelSerializer):
     def get_attendance(self, booking):
         attendance = getattr(booking, "attendance", None)
         return attendance.status if attendance is not None else None
+
+
+class AdminAttendanceUpdateSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(
+        choices=AttendanceStatus.choices,
+        required=True,
+    )

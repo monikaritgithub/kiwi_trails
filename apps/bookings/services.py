@@ -16,7 +16,7 @@ from django.db.models import Count, F, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 
-from apps.bookings.models import Booking, BookingStatus
+from apps.bookings.models import Attendance, AttendanceStatus, Booking, BookingStatus
 from apps.catalog.models import Tour, TourStatus
 from apps.core.exceptions import (
     ApiError,
@@ -444,3 +444,65 @@ def get_admin_dashboard_summary():
         "bookings_by_status": bookings_by_status,
         "total_value": total_value,
     }
+
+
+def _update_booking_attendance_once(user, booking_id, status):
+    if not user.is_authenticated or user.role != "admin":
+        raise Forbidden("Only administrators can mark attendance.")
+
+    if status not in AttendanceStatus.values:
+        raise ValidationFailed(
+            "Invalid attendance status.",
+            {"status": "Use present or absent."},
+        )
+
+    with transaction.atomic():
+        matched = Booking.objects.filter(id=booking_id).update(status=F("status"))
+        if not matched:
+            raise NotFound("Booking not found.")
+
+        booking = get_booking_by_id(booking_id)
+
+        if booking.status not in [
+            BookingStatus.APPROVED,
+            BookingStatus.COMPLETED,
+        ]:
+            raise ValidationFailed(
+                "Attendance can only be marked for approved or completed bookings."
+            )
+
+        attendance, _ = Attendance.objects.update_or_create(
+            booking=booking,
+            defaults={
+                "status": status,
+                "marked_by": user,
+            },
+        )
+
+        booking.attendance = attendance
+        return booking
+
+
+def update_booking_attendance(user, booking_id, status):
+    for attempt in range(6):
+        try:
+            return _update_booking_attendance_once(
+                user=user,
+                booking_id=booking_id,
+                status=status,
+            )
+        except OperationalError as exc:
+            error_code = getattr(exc.__cause__, "sqlite_errorcode", None)
+            is_lock_error = (
+                connection.vendor == "sqlite"
+                and error_code is not None
+                and (error_code & 255) in (sqlite3.SQLITE_BUSY, sqlite3.SQLITE_LOCKED)
+            )
+
+            if not is_lock_error or connection.in_atomic_block:
+                raise
+
+            if attempt == 5:
+                raise BookingBusy("Bookings are busy. Please try again shortly.") from exc
+
+            sleep(0.05 * (2**attempt))

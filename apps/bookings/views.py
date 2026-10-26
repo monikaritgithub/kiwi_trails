@@ -15,6 +15,7 @@ from apps.bookings.documents import (
 )
 from apps.bookings.models import BookingStatus
 from apps.bookings.serializers import (
+    AdminAttendanceUpdateSerializer,
     AdminBookingFilterSerializer,
     AdminBookingSerializer,
     AdminBookingStatusSerializer,
@@ -33,6 +34,7 @@ from apps.bookings.services import (
     list_admin_bookings,
     list_customer_bookings,
     list_departure_attendance,
+    update_booking_attendance,
     update_booking_status,
 )
 from apps.core.exceptions import Forbidden
@@ -220,6 +222,22 @@ class AdminAttendanceListView(APIView):
         serializer = BookingAttendanceSerializer(bookings, many=True)
 
         return Response({"items": serializer.data})
+
+
+class AdminAttendanceUpdateView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def put(self, request, booking_id):
+        serializer = AdminAttendanceUpdateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        booking = update_booking_attendance(
+            user=request.user,
+            booking_id=booking_id,
+            **serializer.validated_data,
+        )
+
+        return Response(BookingAttendanceSerializer(booking).data)
 
 
 class AdminDashboardView(APIView):

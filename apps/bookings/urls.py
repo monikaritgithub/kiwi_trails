@@ -6,6 +6,7 @@ from django.urls import path
 
 from apps.bookings.views import (
     AdminAttendanceListView,
+    AdminAttendanceUpdateView,
     AdminBookingListView,
     AdminBookingStatusView,
     AdminDashboardView,
@@ -58,8 +59,18 @@ urlpatterns = [
         name="admin-attendance-list",
     ),
     path(
+        "admin/bookings/<int:booking_id>/attendance",
+        AdminAttendanceUpdateView.as_view(),
+        name="admin-attendance-update",
+    ),
+    path(
         "admin/dashboard",
         AdminDashboardView.as_view(),
         name="admin-dashboard",
+    ),
+    path(
+        "admin/bookings/<int:booking_id>/attendance",
+        AdminAttendanceUpdateView.as_view(),
+        name="admin-attendance-update",
     ),
 ]
