@@ -6,6 +6,7 @@ exclude = [
     "site",
     ".venv",
     "diagrams",
+    "docs",
 ]
 
 [tool.ruff.lint]
