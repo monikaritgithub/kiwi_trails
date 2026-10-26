@@ -1,5 +1,5 @@
 /* Client script for tour details.
-Fetches /tours/{id}, departures, and reviews, populates gallery, FAQs, and book triggers.
+Fetches /tours/{id}, departures, and reviews, populating gallery, itinerary, meeting coordinates, FAQs, and verified reviews.
 */
 
 import { apiFetch } from '../api.js';
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const tour = await apiFetch(`/tours/${tourId}`);
     renderTourDetails(tour);
+    await loadTourReviews(tourId);
   } catch (err) {
     document.getElementById('loading-state').textContent = 'Unable to load tour details.';
   }
@@ -36,20 +37,61 @@ function renderTourDetails(tour) {
 
   document.title = `${tour.title} — Kiwi Trails`;
   document.getElementById('tour-title').textContent = tour.title;
-  document.getElementById('tour-summary').textContent = tour.summary || '';
+  document.getElementById('tour-category-badge').textContent = tour.category || 'Guided Eco-Tour';
+
+  const locEl = document.getElementById('tour-location-badge');
+  if (locEl) locEl.textContent = tour.location || 'New Zealand';
+
+  const locText = document.getElementById('tour-location-text');
+  if (locText) locText.textContent = tour.location ? `📍 Located in ${tour.location}` : '';
+
+  const durEl = document.getElementById('tour-duration-badge');
+  if (durEl) durEl.textContent = `${tour.duration_days || 1} Day${(tour.duration_days || 1) > 1 ? 's' : ''}`;
+
   document.getElementById('tour-description').textContent = tour.description || '';
   document.getElementById('tour-price').textContent = formatMoney(tour.price_per_person);
-  document.getElementById('tour-difficulty').textContent = (tour.difficulty || 'Easy').toUpperCase();
-  document.getElementById('tour-category-badge').textContent = tour.category_name || 'Guided Eco-Tour';
+
+  const cancelDays = tour.cancellation_days !== undefined ? tour.cancellation_days : 3;
+  const cancelEl = document.getElementById('tour-cancellation-badge');
+  if (cancelEl) {
+    cancelEl.textContent = cancelDays > 0 ? `Free Cancellation (${cancelDays}d window)` : 'Non-refundable';
+  }
+
+  const itinEl = document.getElementById('tour-itinerary');
+  if (itinEl) {
+    itinEl.textContent = tour.itinerary || 'Daily itinerary schedule provided upon booking confirmation.';
+  }
+
+  if (tour.meeting_point && tour.meeting_point.name) {
+    document.getElementById('meeting-point-name').textContent = tour.meeting_point.name;
+    const coords = (tour.meeting_point.lat !== null && tour.meeting_point.lng !== null)
+      ? `GPS Coordinates: ${tour.meeting_point.lat.toFixed(5)}, ${tour.meeting_point.lng.toFixed(5)}`
+      : '';
+    document.getElementById('meeting-point-coords').textContent = coords;
+  } else {
+    document.getElementById('meeting-point-name').textContent = 'Meeting point details communicated prior to departure.';
+  }
+
+  const accessEl = document.getElementById('tour-accessibility');
+  if (accessEl && tour.accessibility_info) {
+    accessEl.textContent = tour.accessibility_info;
+  }
+
+  const guideEl = document.getElementById('tour-guidelines');
+  if (guideEl && tour.visitor_guidelines) {
+    guideEl.textContent = tour.visitor_guidelines;
+  }
 
   const images = tour.images || [];
   const mainImg = document.getElementById('main-tour-img');
   if (images.length > 0) {
     mainImg.src = images[0].image_url;
     const thumbContainer = document.getElementById('gallery-thumbnails');
+    thumbContainer.innerHTML = '';
     images.forEach(img => {
       const thumb = document.createElement('img');
       thumb.src = img.image_url;
+      thumb.alt = img.alt_text || 'Tour preview';
       thumb.style.width = '80px';
       thumb.style.height = '60px';
       thumb.style.objectFit = 'cover';
@@ -66,15 +108,29 @@ function renderTourDetails(tour) {
   }
 
   if (tour.guide) {
-    document.getElementById('guide-name').textContent = tour.guide.name;
+    document.getElementById('guide-name').textContent = tour.guide.full_name || tour.guide.name || 'Kaitiaki Guide';
     document.getElementById('guide-bio').textContent = tour.guide.bio || 'Professional Kaitiaki Wilderness Guide';
     const langs = tour.guide.languages || ['English', 'Te Reo Māori'];
-    document.getElementById('guide-langs').textContent = `Languages: ${langs.join(', ')}`;
+    const langsArr = Array.isArray(langs) ? langs : [langs];
+    document.getElementById('guide-langs').textContent = `Languages: ${langsArr.join(', ')}`;
+  }
+
+  const ratingEl = document.getElementById('rating-summary');
+  if (ratingEl) {
+    if (tour.average_rating !== null && tour.average_rating !== undefined) {
+      ratingEl.textContent = `⭐ ${parseFloat(tour.average_rating).toFixed(1)} / 5.0`;
+    } else {
+      ratingEl.textContent = '⭐ No ratings yet';
+    }
+  }
+
+  const countEl = document.getElementById('review-count-text');
+  if (countEl) {
+    countEl.textContent = `${tour.review_count || 0} verified customer review${(tour.review_count || 0) === 1 ? '' : 's'}`;
   }
 
   renderDepartures(tour.departures || [], tour.id);
   renderFaqs(tour.faqs || []);
-  renderReviews(tour.reviews || []);
 }
 
 function renderDepartures(departures, tourId) {
@@ -83,8 +139,8 @@ function renderDepartures(departures, tourId) {
 
   if (departures.length === 0) {
     container.innerHTML = `
-      <div class="card" style="padding:1.5rem; grid-column: 1 / -1;">
-        <p style="color:var(--color-text-muted); margin:0;">No departures currently scheduled for this tour.</p>
+      <div class="card" style="padding:1.5rem; grid-column: 1 / -1; text-align:center;">
+        <p style="color:var(--color-text-muted); margin:0;">No upcoming departures currently scheduled for this tour.</p>
       </div>
     `;
     return;
@@ -99,7 +155,7 @@ function renderDepartures(departures, tourId) {
         ${formatDateTime(dep.start_datetime)}
       </div>
       <div style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom:1rem;">
-        Seats remaining: <strong style="color:var(--color-text);">${dep.seats_left || dep.capacity}</strong>
+        Seats remaining: <strong style="color:var(--color-text);">${dep.seats_left !== undefined ? dep.seats_left : dep.capacity}</strong>
       </div>
       <a href="/frontend/pages/booking-form.html?departure_id=${dep.id}&tour_id=${tourId}" class="btn btn-primary" style="width:100%; padding:0.45rem;">Book This Date</a>
     `;
@@ -111,12 +167,16 @@ function renderFaqs(faqs) {
   const container = document.getElementById('faqs-container');
   container.innerHTML = '';
 
-  const defaultFaqs = faqs.length > 0 ? faqs : [
-    { question: 'What equipment and clothing should I bring?', answer: 'Sturdy walking shoes, warm breathable layers, waterproof jacket, sunblock, and a personal reusable water bottle.' },
-    { question: 'What cultural tikanga guidelines apply on this tour?', answer: 'We practice Kaitiakitanga: respect tapu cultural landmarks, preserve native flora, and follow the Kaiārahi guide instructions.' }
-  ];
+  if (!faqs || faqs.length === 0) {
+    container.innerHTML = `
+      <div class="card" style="padding:1.5rem; text-align:center;">
+        <p style="color:var(--color-text-muted); margin:0;">No frequently asked questions currently listed for this tour.</p>
+      </div>
+    `;
+    return;
+  }
 
-  defaultFaqs.forEach(faq => {
+  faqs.forEach(faq => {
     const details = document.createElement('details');
     details.className = 'card';
     details.style.padding = '1rem 1.25rem';
@@ -129,27 +189,44 @@ function renderFaqs(faqs) {
   });
 }
 
-function renderReviews(reviews) {
+async function loadTourReviews(tourId) {
   const container = document.getElementById('reviews-container');
-  container.innerHTML = '';
+  container.innerHTML = '<p style="grid-column:1/-1; color:var(--color-text-muted);">Loading traveler reviews...</p>';
 
-  const defaultReviews = reviews.length > 0 ? reviews : [
-    { rating: 5, reviewer_name: 'Aroha S.', comment: 'Incredible journey! The storytelling and cultural respect for the land made this unforgettable.', created_at: '2026-10-18T12:00:00Z' },
-    { rating: 5, reviewer_name: 'Liam T.', comment: 'Superb guide and pristine landscape. Five stars all the way!', created_at: '2026-10-14T09:30:00Z' }
-  ];
+  try {
+    const data = await apiFetch(`/tours/${tourId}/reviews`);
+    const reviews = data.items || [];
+    container.innerHTML = '';
 
-  defaultReviews.forEach(rev => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.padding = '1.25rem';
-    card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-        <strong style="color:var(--color-text);">${rev.reviewer_name || 'Verified Explorer'}</strong>
-        <span style="color:var(--color-secondary); font-size:0.9rem;">${'★'.repeat(rev.rating)}</span>
+    if (reviews.length === 0) {
+      container.innerHTML = `
+        <div class="card" style="padding:2rem; grid-column:1/-1; text-align:center;">
+          <p style="color:var(--color-text-muted); margin:0;">No customer reviews have been submitted for this tour yet.</p>
+        </div>
+      `;
+      return;
+    }
+
+    reviews.forEach(rev => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.padding = '1.25rem';
+      const stars = '⭐'.repeat(Math.max(1, Math.min(5, rev.rating || 5)));
+      card.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+          <strong style="color:var(--color-text);">${rev.reviewer_name || 'Verified Explorer'}</strong>
+          <span style="font-size:0.85rem;">${stars}</span>
+        </div>
+        <p style="color:var(--color-text-muted); font-size:0.9rem; margin-bottom:0.5rem; line-height:1.6;">${rev.comment || 'Authentic Aotearoa experience.'}</p>
+        <span style="font-size:0.75rem; color:var(--color-text-muted);">${formatDate(rev.created_at)}</span>
+      `;
+      container.appendChild(card);
+    });
+  } catch (err) {
+    container.innerHTML = `
+      <div class="card" style="padding:1.5rem; grid-column:1/-1; text-align:center;">
+        <p style="color:var(--color-text-muted); margin:0;">No customer reviews submitted yet.</p>
       </div>
-      <p style="color:var(--color-text-muted); font-size:0.9rem; margin-bottom:0.5rem;">${rev.comment || ''}</p>
-      <span style="font-size:0.75rem; color:var(--color-text-muted);">${formatDate(rev.created_at)}</span>
     `;
-    container.appendChild(card);
-  });
+  }
 }

@@ -37,18 +37,23 @@ Manages cultural storytelling guides, spoken languages, and eco-tour category ta
       <p style="color: var(--color-text-muted);">Manage indigenous certified navigators, linguistic fluencies, and tour categorization.</p>
     </div>
 
-    <div class="grid-cols-2" style="align-items: start;">
+    <div class="grid-cols-2" style="align-items: start; margin-bottom: 3rem;">
       <div class="card" style="padding: 1.75rem;">
         <h3 style="margin-bottom: 1.25rem;">Add Certified Kaitiaki Guide</h3>
         <form id="create-guide-form">
           <div class="form-group">
             <label for="guide-name" class="form-label">Full Name</label>
-            <input type="text" id="guide-name" class="form-control" placeholder="e.g. Hemi Walker" required>
+            <input type="text" id="guide-name" class="form-control" placeholder="e.g. Hemi Walker" maxlength="100" required>
           </div>
 
           <div class="form-group">
             <label for="guide-languages" class="form-label">Spoken Languages (Comma separated)</label>
             <input type="text" id="guide-languages" class="form-control" placeholder="English, Te Reo Māori" value="English, Te Reo Māori" required>
+          </div>
+
+          <div class="form-group">
+            <label for="guide-photo" class="form-label">Photo URL (Optional)</label>
+            <input type="text" id="guide-photo" class="form-control" placeholder="/media/seed/guides/hemi-walker.jpg" maxlength="255">
           </div>
 
           <div class="form-group">
@@ -70,11 +75,52 @@ Manages cultural storytelling guides, spoken languages, and eco-tour category ta
 
           <div class="form-group">
             <label for="cat-description" class="form-label">Description</label>
-            <textarea id="cat-description" class="form-control" rows="3" placeholder="Category focus and conservation impact..." required></textarea>
+            <textarea id="cat-description" class="form-control" rows="5" placeholder="Category focus and conservation impact..."></textarea>
           </div>
 
           <button type="submit" id="btn-save-cat" class="btn btn-secondary" style="width: 100%;">Add Tour Category</button>
         </form>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+      <div class="card" style="padding: 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h3 style="margin: 0;">Certified Kaitiaki Guides</h3>
+          <span id="guides-count" class="badge badge-kaitiaki">--</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+              <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+                <th style="padding: 1rem 1.25rem; width: 60px;">ID</th>
+                <th style="padding: 1rem 1.25rem;">Guide</th>
+                <th style="padding: 1rem 1.25rem;">Languages</th>
+                <th style="padding: 1rem 1.25rem;">Cultural Background & Bio</th>
+              </tr>
+            </thead>
+            <tbody id="guides-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 1.75rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h3 style="margin: 0;">Tour Categories</h3>
+          <span id="categories-count" class="badge badge-kaitiaki">--</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+              <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
+                <th style="padding: 1rem 1.25rem; width: 60px;">ID</th>
+                <th style="padding: 1rem 1.25rem; width: 220px;">Category Name</th>
+                <th style="padding: 1rem 1.25rem;">Description</th>
+              </tr>
+            </thead>
+            <tbody id="categories-table-body"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </main>

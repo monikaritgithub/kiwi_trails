@@ -1,5 +1,5 @@
 <!-- Comprehensive Tour Detail Screen
-Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming departures, FAQs, and reviews.
+Displays tour photos, itinerary, certified Kaitiaki guide, meeting point coordinates, upcoming departures, FAQs, and verified customer reviews.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -36,15 +36,19 @@ Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming 
 
     <div id="tour-content" style="display: none;">
       <div style="margin-bottom: 1.5rem;">
-        <span id="tour-category-badge" class="badge badge-tikanga">Cultural Heritage</span>
-        <h1 id="tour-title" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Tour Title</h1>
-        <p id="tour-summary" style="color: var(--color-text-muted); font-size: 1.15rem; max-width: 800px;"></p>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <span id="tour-category-badge" class="badge badge-tikanga">Cultural Heritage</span>
+          <span id="tour-location-badge" class="badge badge-kaitiaki">Aotearoa</span>
+          <span id="tour-duration-badge" class="badge badge-outline">1 Day</span>
+        </div>
+        <h1 id="tour-title" style="margin-top: 0.75rem; margin-bottom: 0.5rem;">Tour Title</h1>
+        <p id="tour-location-text" style="color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 0.25rem;"></p>
       </div>
 
       <div class="grid-cols-2" style="margin-bottom: 3rem; align-items: start;">
         <div>
           <div class="card-img-wrap" style="height: 380px; border-radius: var(--radius-lg); margin-bottom: 1rem;">
-            <img id="main-tour-img" src="" alt="Tour Image" class="card-img">
+            <img id="main-tour-img" src="" alt="Tour Image" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
           </div>
           <div id="gallery-thumbnails" style="display: flex; gap: 0.75rem; overflow-x: auto;"></div>
         </div>
@@ -55,8 +59,8 @@ Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming 
               <span style="font-size: 0.85rem; color: var(--color-text-muted); display: block;">Price per person</span>
               <span id="tour-price" style="font-size: 2rem; font-weight: 800; color: var(--color-primary);">NZ$0.00</span>
             </div>
-            <div>
-              <span id="tour-difficulty" class="badge badge-kaitiaki">Easy</span>
+            <div style="text-align: right;">
+              <span id="tour-cancellation-badge" class="badge badge-tikanga">Free Cancellation</span>
             </div>
           </div>
 
@@ -65,8 +69,14 @@ Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming 
             <p id="tour-description" style="color: var(--color-text); font-size: 0.95rem; line-height: 1.7;"></p>
           </div>
 
+          <div id="meeting-point-box" style="margin-bottom: 1.5rem; padding: 1rem; background: #F8FAF9; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+            <strong style="color: var(--color-primary); display: block; margin-bottom: 0.25rem;">📍 Departure Meeting Point:</strong>
+            <span id="meeting-point-name" style="font-weight: 600;">Standard Tour Base</span>
+            <span id="meeting-point-coords" style="font-family: monospace; font-size: 0.85rem; color: var(--color-text-muted); display: block; margin-top: 0.25rem;"></span>
+          </div>
+
           <div id="guide-box" style="background: #F8FAF9; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.25rem; display: flex; gap: 1rem; align-items: center;">
-            <div style="font-size: 2.5rem;">🧭</div>
+            <div style="font-size: 2.5rem;">🌿</div>
             <div>
               <h4 id="guide-name" style="margin-bottom: 0.2rem; font-size: 1rem;">Kaitiaki Guide</h4>
               <p id="guide-bio" style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.25rem;"></p>
@@ -75,6 +85,27 @@ Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming 
           </div>
         </div>
       </div>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 1.25rem;">Tour Itinerary & Daily Schedule</h2>
+        <div class="card" style="padding: 2rem;">
+          <div id="tour-itinerary" style="white-space: pre-line; line-height: 1.8; color: var(--color-text);"></div>
+        </div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="margin-bottom: 1.25rem;">Accessibility & Cultural Guidelines</h2>
+        <div class="grid-cols-2">
+          <div class="card" style="padding: 1.5rem;">
+            <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">♿ Accessibility & Physical Demands</h4>
+            <p id="tour-accessibility" style="margin: 0; font-size: 0.95rem; color: var(--color-text); line-height: 1.6;">Suitable for guests with standard mobility. Please contact us for specialized requirements.</p>
+          </div>
+          <div class="card" style="padding: 1.5rem;">
+            <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">🌿 Cultural Tikanga & Wāhi Tapu Guidelines</h4>
+            <p id="tour-guidelines" style="margin: 0; font-size: 0.95rem; color: var(--color-text); line-height: 1.6;">Please respect sacred landmarks and follow your Kaiārahi wilderness guide at all times.</p>
+          </div>
+        </div>
+      </section>
 
       <section style="margin-bottom: 3rem;">
         <h2 style="margin-bottom: 1.25rem;">Upcoming Departure Dates</h2>
@@ -87,9 +118,12 @@ Displays tour photos, itinerary description, certified Kaitiaki guide, upcoming 
       </section>
 
       <section>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2>Customer Reviews</h2>
-          <span id="rating-summary" class="badge badge-tikanga" style="font-size: 0.9rem;">⭐ 5.0 / 5.0</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <h2 style="margin-bottom: 0.25rem;">Customer Reviews</h2>
+            <span id="review-count-text" style="font-size: 0.85rem; color: var(--color-text-muted);">Verified traveler feedback</span>
+          </div>
+          <span id="rating-summary" class="badge badge-tikanga" style="font-size: 0.9rem;">⭐ No ratings yet</span>
         </div>
         <div id="reviews-container" class="grid-cols-2"></div>
       </section>

@@ -1,12 +1,12 @@
-<!-- Tour Editor and Creation Screen
-Form for editing tour information, uploading photo galleries, and adding cultural FAQ items.
+<!-- Tour Definition & Administration Form
+Provides input controls for tour catalog metadata, pricing, itineraries, cultural protocols, and gallery assets.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tour Editor — Kiwi Trails Admin</title>
+  <title>Tour Form — Kiwi Trails Staff</title>
   <link rel="stylesheet" href="/frontend/css/base.css">
   <link rel="stylesheet" href="/frontend/css/layout.css">
   <link rel="stylesheet" href="/frontend/css/components.css">
@@ -25,6 +25,7 @@ Form for editing tour information, uploading photo galleries, and adding cultura
         <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
         <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
         <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/guides.html" class="nav-link">Guides</a>
       </nav>
     </div>
   </header>
@@ -38,46 +39,118 @@ Form for editing tour information, uploading photo galleries, and adding cultura
     </div>
 
     <div class="grid-cols-2" style="align-items: start;">
-      <div class="card" style="padding: 2rem;">
-        <h3 style="margin-bottom: 1.5rem;">Core Tour Details</h3>
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.5rem;">Core Tour Details</h3>
 
-        <form id="tour-form">
-          <div class="form-group">
-            <label for="tour-title" class="form-label">Tour Title</label>
-            <input type="text" id="tour-title" class="form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="tour-category" class="form-label">Category</label>
-            <select id="tour-category" class="form-control" required></select>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <form id="tour-form">
             <div class="form-group">
-              <label for="tour-price" class="form-label">Price per person (NZD)</label>
-              <input type="number" id="tour-price" class="form-control" step="0.01" min="10" required>
+              <label for="tour-title" class="form-label">Tour Title</label>
+              <input type="text" id="tour-title" class="form-control" maxlength="150" required>
             </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="tour-category" class="form-label">Category</label>
+                <select id="tour-category" class="form-control" required></select>
+              </div>
+              <div class="form-group">
+                <label for="tour-location" class="form-label">Location / Region</label>
+                <input type="text" id="tour-location" class="form-control" maxlength="100" placeholder="e.g. Queenstown, Fiordland" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="tour-price" class="form-label">Price / Person (NZD)</label>
+                <input type="number" id="tour-price" class="form-control" step="0.01" min="1" required>
+              </div>
+              <div class="form-group">
+                <label for="tour-duration" class="form-label">Duration (Days)</label>
+                <input type="number" id="tour-duration" class="form-control" min="1" value="1" required>
+              </div>
+              <div class="form-group">
+                <label for="tour-cancellation" class="form-label">Refund Window (Days)</label>
+                <input type="number" id="tour-cancellation" class="form-control" min="0" value="7" required>
+              </div>
+            </div>
+
             <div class="form-group">
-              <label for="tour-duration" class="form-label">Duration (Days)</label>
-              <input type="number" id="tour-duration" class="form-control" min="1" value="1" required>
+              <label for="tour-guide" class="form-label">Assigned Kaitiaki Guide</label>
+              <select id="tour-guide" class="form-control">
+                <option value="">-- No Guide Assigned --</option>
+              </select>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="tour-summary" class="form-label">Short Summary</label>
-            <input type="text" id="tour-summary" class="form-control" required>
-          </div>
+            <div class="form-group">
+              <label for="tour-description" class="form-label">Overview Description</label>
+              <textarea id="tour-description" class="form-control" rows="4" placeholder="Comprehensive tour description and environmental context..." required></textarea>
+            </div>
 
-          <div class="form-group">
-            <label for="tour-description" class="form-label">Full Itinerary Description</label>
-            <textarea id="tour-description" class="form-control" rows="5" required></textarea>
-          </div>
+            <div class="form-group">
+              <label for="tour-itinerary" class="form-label">Detailed Itinerary</label>
+              <textarea id="tour-itinerary" class="form-control" rows="5" placeholder="Step-by-step or day-by-day expedition route and activities..." required></textarea>
+            </div>
 
-          <button type="submit" id="btn-save-tour" class="btn btn-primary" style="width: 100%;">Save Tour Details</button>
-        </form>
+            <h3 style="margin: 2rem 0 1rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">Meeting Point & Cultural Protocols</h3>
+
+            <div class="form-group">
+              <label for="meeting-point-name" class="form-label">Meeting Point Location Name</label>
+              <input type="text" id="meeting-point-name" class="form-control" maxlength="150" placeholder="e.g. Steamer Wharf, Beach Street, Queenstown">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="meeting-lat" class="form-label">Latitude Coordinate</label>
+                <input type="number" id="meeting-lat" class="form-control" step="0.000001" min="-90" max="90" placeholder="-45.03116">
+              </div>
+              <div class="form-group">
+                <label for="meeting-lng" class="form-label">Longitude Coordinate</label>
+                <input type="number" id="meeting-lng" class="form-control" step="0.000001" min="-180" max="180" placeholder="168.66264">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="accessibility-info" class="form-label">Accessibility Information</label>
+              <textarea id="accessibility-info" class="form-control" rows="3" placeholder="Wheelchair access, physical fitness requirements, sensory considerations..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="visitor-guidelines" class="form-label">Cultural Visitor Guidelines (Tikanga)</label>
+              <textarea id="visitor-guidelines" class="form-control" rows="3" placeholder="Sacred site protocols, photography restrictions, and environmental stewardship..."></textarea>
+            </div>
+
+            <button type="submit" id="btn-save-tour" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Tour Details</button>
+          </form>
+        </div>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <div class="card" style="padding: 1.75rem;">
+          <h3 style="margin-bottom: 1rem;">Tour Gallery Images</h3>
+          <div id="image-upload-section">
+            <p id="image-upload-notice" style="color: var(--color-text-muted); font-size: 0.9rem;">
+              Save the tour details first to upload gallery images.
+            </p>
+            <form id="image-upload-form" style="display: none; margin-bottom: 1.5rem;">
+              <div class="form-group">
+                <label for="tour-image-file" class="form-label">Select Image File</label>
+                <input type="file" id="tour-image-file" class="form-control" accept="image/*" required>
+              </div>
+              <div class="form-group">
+                <label for="tour-image-alt" class="form-label">Alt / Description Text</label>
+                <input type="text" id="tour-image-alt" class="form-control" placeholder="Descriptive label for accessibility">
+              </div>
+              <div class="form-group">
+                <label for="tour-image-order" class="form-label">Display Sort Order</label>
+                <input type="number" id="tour-image-order" class="form-control" value="1" min="0">
+              </div>
+              <button type="submit" id="btn-upload-image" class="btn btn-secondary" style="width: 100%;">Upload Gallery Image</button>
+            </form>
+            <div id="tour-images-preview" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1rem;"></div>
+          </div>
+        </div>
+
         <div class="card" style="padding: 1.75rem;">
           <h3 style="margin-bottom: 1rem;">Tour FAQs Management</h3>
           <form id="faq-form" style="margin-bottom: 1.25rem;">

@@ -23,24 +23,19 @@ async function loadCoupons() {
     const items = data.items || [];
 
     if (items.length === 0) {
-      renderDefaultCoupons();
+      renderEmptyCoupons('No promotional coupons found. Create your first coupon using the form above.');
       return;
     }
 
     items.forEach(c => renderRow(c, tbody));
   } catch (err) {
-    renderDefaultCoupons();
+    renderEmptyCoupons('No promotional coupons found or unable to load vouchers.');
   }
 }
 
-function renderDefaultCoupons() {
+function renderEmptyCoupons(message) {
   const tbody = document.getElementById('coupons-table-body');
-  tbody.innerHTML = '';
-  const defaults = [
-    { code: 'KIWI15', discount_type: 'percent', discount_value: 15.00, uses_count: 14, max_uses: 100, expires_at: '2027-01-01T00:00:00Z', is_active: true },
-    { code: 'WELCOME10', discount_type: 'percent', discount_value: 10.00, uses_count: 28, max_uses: 50, expires_at: '2027-01-01T00:00:00Z', is_active: true }
-  ];
-  defaults.forEach(c => renderRow(c, tbody));
+  tbody.innerHTML = `<tr><td colspan="5" style="padding: 2.5rem; text-align: center; color: var(--color-text-muted);">${message}</td></tr>`;
 }
 
 function renderRow(c, tbody) {
@@ -84,7 +79,7 @@ async function handleCreateCoupon(e) {
     });
     showToast(`Voucher ${code} created successfully!`, 'success');
     document.getElementById('create-coupon-form').reset();
-    loadCoupons();
+    await loadCoupons();
   } catch (err) {
     alert(err.message || 'Failed to create coupon.');
   } finally {

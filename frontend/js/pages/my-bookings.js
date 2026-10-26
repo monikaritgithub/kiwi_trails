@@ -71,6 +71,8 @@ function createBookingRow(b) {
   row.style.gap = '1rem';
 
   const statusClass = `pill-${b.status || 'pending'}`;
+  const tourTitle = (b.tour && b.tour.title) ? b.tour.title : (b.tour_title || 'New Zealand Guided Tour');
+  const depTime = (b.departure && b.departure.start_datetime) ? b.departure.start_datetime : (b.departure_date || b.created_at);
 
   row.innerHTML = `
     <div>
@@ -78,9 +80,9 @@ function createBookingRow(b) {
         <span class="pill-status ${statusClass}">${(b.status || 'Pending').toUpperCase()}</span>
         <span style="font-family:monospace; font-size:0.85rem; color:var(--color-text-muted);">${b.booking_reference}</span>
       </div>
-      <h3 style="margin-bottom:0.25rem; font-size:1.15rem;">${b.tour_title || 'New Zealand Tour'}</h3>
+      <h3 style="margin-bottom:0.25rem; font-size:1.15rem;">${tourTitle}</h3>
       <p style="font-size:0.85rem; color:var(--color-text-muted); margin:0;">
-        Departure: <strong>${formatDateTime(b.departure_date || b.created_at)}</strong> &bull; Total: <strong>${formatMoney(b.total_price)}</strong>
+        Departure: <strong>${formatDateTime(depTime)}</strong> &bull; Total: <strong>${formatMoney(b.total_price)}</strong>
       </p>
     </div>
     <div style="display:flex; gap:0.5rem;">
@@ -97,29 +99,63 @@ async function openModal(b) {
   const modal = document.getElementById('booking-modal');
   modal.style.display = 'flex';
 
-  document.getElementById('modal-tour-title').textContent = b.tour_title || 'Tour Reservation';
+  const tourTitle = (b.tour && b.tour.title) ? b.tour.title : (b.tour_title || 'New Zealand Tour');
+  const depTime = (b.departure && b.departure.start_datetime) ? b.departure.start_datetime : (b.departure_date || b.created_at);
+
+  document.getElementById('modal-tour-title').textContent = tourTitle;
   document.getElementById('modal-reference').textContent = b.booking_reference;
-  document.getElementById('modal-departure-time').textContent = formatDateTime(b.departure_date || b.created_at);
+  document.getElementById('modal-departure-time').textContent = formatDateTime(depTime);
   document.getElementById('modal-travellers').textContent = `${b.traveller_count || 1} Person(s)`;
+  document.getElementById('modal-pickup').textContent = b.pickup_preference || 'None specified';
+  document.getElementById('modal-dietary').textContent = b.dietary_requirements || 'None';
+  document.getElementById('modal-accessibility').textContent = b.accessibility_needs || 'None';
+  document.getElementById('modal-discount').textContent = `-${formatMoney(b.discount_amount || 0)}`;
+  document.getElementById('modal-coupon').textContent = b.coupon_code || 'None';
   document.getElementById('modal-total-price').textContent = formatMoney(b.total_price);
+
+  const reasonRow = document.getElementById('modal-reason-row');
+  if (b.status_reason) {
+    reasonRow.style.display = 'flex';
+    document.getElementById('modal-reason').textContent = b.status_reason;
+  } else {
+    reasonRow.style.display = 'none';
+  }
 
   const pill = document.getElementById('modal-status-pill');
   pill.className = `pill-status pill-${b.status || 'pending'}`;
   pill.textContent = (b.status || 'Pending').toUpperCase();
 
-  const cancelBtn = document.getElementById('btn-cancel-booking');
-  const reviewBtn = document.getElementById('btn-leave-review');
-
-  if (b.status === 'cancelled') {
-    cancelBtn.style.display = 'none';
+  const invoiceBtn = document.getElementById('btn-download-invoice');
+  if (b.status === 'approved' || b.status === 'completed') {
+    invoiceBtn.style.display = 'block';
   } else {
-    cancelBtn.style.display = 'block';
+    invoiceBtn.style.display = 'none';
   }
 
+  const cancelBtn = document.getElementById('btn-cancel-booking');
+  const deadlineEl = document.getElementById('modal-cancel-deadline');
+
+  if (b.status === 'cancelled' || b.status === 'rejected') {
+    cancelBtn.style.display = 'none';
+    deadlineEl.textContent = '';
+  } else if (b.can_cancel === false) {
+    cancelBtn.style.display = 'block';
+    cancelBtn.disabled = true;
+    cancelBtn.textContent = 'Cancellation Window Closed';
+    deadlineEl.textContent = b.cancel_deadline ? `Free cancellation closed on ${formatDateTime(b.cancel_deadline)}` : 'Past cancellation window';
+  } else {
+    cancelBtn.style.display = 'block';
+    cancelBtn.disabled = false;
+    cancelBtn.textContent = 'Cancel Reservation';
+    deadlineEl.textContent = b.cancel_deadline ? `Free cancellation available until ${formatDateTime(b.cancel_deadline)}` : '';
+  }
+
+  const reviewBtn = document.getElementById('btn-leave-review');
   if (b.status === 'completed' || b.status === 'approved') {
     reviewBtn.style.display = 'block';
+    const tourId = (b.tour && b.tour.id) ? b.tour.id : (b.tour_id || 1);
     reviewBtn.onclick = () => {
-      window.location.href = `/frontend/pages/review-form.html?booking_id=${b.id}&tour_id=${b.tour_id || 1}`;
+      window.location.href = `/frontend/pages/review-form.html?booking_id=${b.id}&tour_id=${tourId}`;
     };
   } else {
     reviewBtn.style.display = 'none';
