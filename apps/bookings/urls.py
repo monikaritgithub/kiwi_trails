@@ -9,6 +9,7 @@ from apps.bookings.views import (
     AdminAttendanceUpdateView,
     AdminBookingListView,
     AdminBookingStatusView,
+    AdminDashboardView,
     BookingCalendarView,
     BookingCancelView,
     BookingCreateView,
@@ -56,6 +57,16 @@ urlpatterns = [
         "admin/departures/<int:departure_id>/attendance",
         AdminAttendanceListView.as_view(),
         name="admin-attendance-list",
+    ),
+    path(
+        "admin/bookings/<int:booking_id>/attendance",
+        AdminAttendanceUpdateView.as_view(),
+        name="admin-attendance-update",
+    ),
+    path(
+        "admin/dashboard",
+        AdminDashboardView.as_view(),
+        name="admin-dashboard",
     ),
     path(
         "admin/bookings/<int:booking_id>/attendance",

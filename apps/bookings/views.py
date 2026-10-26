@@ -29,6 +29,7 @@ from apps.bookings.services import (
     calculate_booking_quote,
     cancel_booking,
     create_booking,
+    get_admin_dashboard_summary,
     get_booking_by_id,
     list_admin_bookings,
     list_customer_bookings,
@@ -237,3 +238,11 @@ class AdminAttendanceUpdateView(APIView):
         )
 
         return Response(BookingAttendanceSerializer(booking).data)
+
+
+class AdminDashboardView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get(self, request):
+        summary = get_admin_dashboard_summary()
+        return Response(summary)

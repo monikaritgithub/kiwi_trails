@@ -12,12 +12,12 @@ from decimal import ROUND_HALF_UP, Decimal
 from time import sleep
 
 from django.db import OperationalError, connection, transaction
-from django.db.models import F, Q
+from django.db.models import Count, F, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 
 from apps.bookings.models import Attendance, AttendanceStatus, Booking, BookingStatus
-from apps.catalog.models import TourStatus
+from apps.catalog.models import Tour, TourStatus
 from apps.core.exceptions import (
     ApiError,
     BookingClosed,
@@ -415,6 +415,35 @@ def list_departure_attendance(departure_id):
         .select_related("user", "attendance")
         .order_by("user__full_name", "id")
     )
+
+
+def get_admin_dashboard_summary():
+    now = timezone.now()
+
+    bookings_by_status = {booking_status: 0 for booking_status in BookingStatus.values}
+
+    status_counts = Booking.objects.order_by().values("status").annotate(total=Count("id"))
+    for row in status_counts:
+        bookings_by_status[row["status"]] = row["total"]
+
+    total_value = Booking.objects.filter(
+        status__in=[
+            BookingStatus.APPROVED,
+            BookingStatus.COMPLETED,
+        ]
+    ).aggregate(total=Sum("total_price", default=Decimal("0.00")))["total"]
+
+    return {
+        "active_tours": Tour.objects.filter(
+            status=TourStatus.ACTIVE,
+        ).count(),
+        "upcoming_departures": Departure.objects.filter(
+            status=DepartureStatus.SCHEDULED,
+            start_datetime__gt=now,
+        ).count(),
+        "bookings_by_status": bookings_by_status,
+        "total_value": total_value,
+    }
 
 
 def _update_booking_attendance_once(user, booking_id, status):
