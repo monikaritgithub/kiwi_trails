@@ -5,6 +5,7 @@ exclude = [
     "gemini",
     "site",
     ".venv",
+    "diagrams",
 ]
 
 [tool.ruff.lint]
