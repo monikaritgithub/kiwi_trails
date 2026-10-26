@@ -9,3 +9,7 @@ site/docs/
 .idea/
 .vscode/
 .ruff_cache/
+.postman/
+postman/
+Kiwi Trails API/
+*.environment.yaml
