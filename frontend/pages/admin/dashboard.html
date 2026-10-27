@@ -1,12 +1,12 @@
-<!-- Administrator Analytics and Operations Dashboard
-Displays summary operational metrics including gross revenue, booking volumes, and quick action queues.
+<!-- Operations Dashboard Screen
+Staff management portal presenting booking analytics, departure schedules, and conservation metrics.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard — Kiwi Trails</title>
+  <title>Staff Dashboard — Kiwi Trails Operations</title>
   <link rel="stylesheet" href="/frontend/css/base.css">
   <link rel="stylesheet" href="/frontend/css/layout.css">
   <link rel="stylesheet" href="/frontend/css/components.css">
@@ -25,7 +25,7 @@ Displays summary operational metrics including gross revenue, booking volumes, a
         <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
         <a href="/frontend/pages/admin/attendance.html" class="nav-link">Attendance</a>
         <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
-        <a href="/frontend/pages/admin/reviews.html" class="nav-link">Reviews</a>
+        <a href="/frontend/pages/admin/guides.html" class="nav-link">Guides</a>
         <a href="/frontend/index.html" class="nav-link" target="_blank">View Site ↗</a>
         <button id="btn-admin-logout" class="btn btn-outline" style="padding: 0.35rem 0.75rem;">Logout</button>
       </nav>
@@ -47,25 +47,25 @@ Displays summary operational metrics including gross revenue, booking volumes, a
     <div class="grid-cols-4" style="margin-bottom: 3rem;">
       <div class="card" style="padding: 1.5rem; text-align: center;">
         <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Gross Revenue</span>
-        <div id="stat-revenue" style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">NZ$14,850.00</div>
-        <span style="font-size: 0.8rem; color: var(--color-success); font-weight: 600;">↑ 18% vs last month</span>
+        <div id="stat-revenue" style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">—</div>
+        <span style="font-size: 0.8rem; color: var(--color-success); font-weight: 600;">Approved booking total</span>
       </div>
 
       <div class="card" style="padding: 1.5rem; text-align: center;">
         <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Total Bookings</span>
-        <div id="stat-bookings" style="font-size: 2rem; font-weight: 800; color: var(--color-text); margin: 0.5rem 0;">45</div>
+        <div id="stat-bookings" style="font-size: 2rem; font-weight: 800; color: var(--color-text); margin: 0.5rem 0;">—</div>
         <span style="font-size: 0.8rem; color: var(--color-text-muted);">Across all departures</span>
       </div>
 
       <div class="card" style="padding: 1.5rem; text-align: center;">
         <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Pending Approvals</span>
-        <div id="stat-pending" style="font-size: 2rem; font-weight: 800; color: var(--color-warning); margin: 0.5rem 0;">3</div>
+        <div id="stat-pending" style="font-size: 2rem; font-weight: 800; color: var(--color-warning); margin: 0.5rem 0;">—</div>
         <a href="/frontend/pages/admin/bookings.html?status=pending" style="font-size: 0.8rem; font-weight: 600;">Requires attention →</a>
       </div>
 
       <div class="card" style="padding: 1.5rem; text-align: center;">
         <span style="font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; font-weight: 700;">Upcoming Departures</span>
-        <div id="stat-departures" style="font-size: 2rem; font-weight: 800; color: var(--color-info); margin: 0.5rem 0;">12</div>
+        <div id="stat-departures" style="font-size: 2rem; font-weight: 800; color: var(--color-info); margin: 0.5rem 0;">—</div>
         <span style="font-size: 0.8rem; color: var(--color-text-muted);">Scheduled next 30 days</span>
       </div>
     </div>

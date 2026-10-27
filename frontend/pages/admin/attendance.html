@@ -1,5 +1,5 @@
-<!-- Departure Attendance Manifest Screen
-Enables tour guides and staff to mark passenger attendance as present or absent on expedition day.
+<!-- Passenger Attendance Roster Screen
+Manages departure attendance manifests and passenger check-in statuses.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +25,25 @@ Enables tour guides and staff to mark passenger attendance as present or absent 
         <a href="/frontend/pages/admin/bookings.html" class="nav-link">Bookings</a>
         <a href="/frontend/pages/admin/attendance.html" class="nav-link active">Attendance</a>
         <a href="/frontend/pages/admin/coupons.html" class="nav-link">Coupons</a>
+        <a href="/frontend/pages/admin/guides.html" class="nav-link">Guides</a>
       </nav>
     </div>
   </header>
 
   <main class="main-content">
+    <div class="print-header">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #1A4329; padding-bottom: 0.75rem;">
+        <div>
+          <h2 style="margin: 0; color: #1A4329; font-size: 1.5rem;">🌿 Kiwi Trails (Ara Aotearoa)</h2>
+          <p style="margin: 0.2rem 0 0; font-size: 0.9rem; color: #555;">Official Departure Passenger Manifest & Attendance Roster</p>
+        </div>
+        <div style="text-align: right; font-size: 0.85rem;">
+          <p style="margin: 0;"><strong>DOC Concession: #DOC-NZ-2026-KT</strong></p>
+          <p style="margin: 0.2rem 0 0;">Certified Kaitiaki Environmental Stewardship</p>
+        </div>
+      </div>
+    </div>
+
     <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
       <div>
         <span class="badge badge-kaitiaki">Field Operations</span>
@@ -41,11 +55,11 @@ Enables tour guides and staff to mark passenger attendance as present or absent 
     </div>
 
     <div class="card" style="padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-      <div class="form-group" style="margin-bottom: 0; min-width: 280px;">
+      <div class="form-group" style="margin-bottom: 0; min-width: 280px; flex: 1;">
         <label for="select-departure" class="form-label">Active Departure</label>
         <select id="select-departure" class="form-control"></select>
       </div>
-      <div id="manifest-summary" style="margin-left: auto; display: flex; gap: 1.5rem; font-size: 0.9rem;">
+      <div id="manifest-summary" style="margin-left: auto; display: flex; gap: 1.5rem; font-size: 0.9rem; align-items: center;">
         <div>Total Manifest: <strong id="val-manifest-total">--</strong></div>
         <div>Marked Present: <strong id="val-manifest-present" style="color: var(--color-success);">--</strong></div>
       </div>
@@ -57,8 +71,7 @@ Enables tour guides and staff to mark passenger attendance as present or absent 
           <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
             <th style="padding: 1rem 1.25rem;">Passenger Name</th>
             <th style="padding: 1rem 1.25rem;">Booking Reference</th>
-            <th style="padding: 1rem 1.25rem;">Party Size</th>
-            <th style="padding: 1rem 1.25rem;">Pickup Point</th>
+            <th style="padding: 1rem 1.25rem;">Travellers</th>
             <th style="padding: 1rem 1.25rem;">Attendance Status</th>
             <th style="padding: 1rem 1.25rem; text-align: right;">Action</th>
           </tr>

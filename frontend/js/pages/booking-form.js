@@ -1,5 +1,5 @@
 /* Client script for reservation checkout flow.
-Dispatches live price quote calculations and submits confirmed reservations to /bookings.
+Dispatches live price quote calculations and submits confirmed reservations to /bookings with dietary and accessibility needs.
 */
 
 import { apiFetch } from '../api.js';
@@ -38,14 +38,14 @@ async function loadDepartures(tourId, initialDepartureId) {
       const tour = await apiFetch(`/tours/${tourId}`);
       departures = tour.departures || [];
     } else {
-      const data = await apiFetch('/departures/calendar?month=2026-11');
+      const data = await apiFetch('/departures/calendar');
       departures = data.items || [];
     }
 
     if (departures.length === 0) {
       const opt = document.createElement('option');
       opt.value = initialDepartureId || '1';
-      opt.textContent = 'Standard Upcoming Departure (2026-11-15 09:00 NZDT)';
+      opt.textContent = 'Standard Upcoming Departure';
       select.appendChild(opt);
       selectedDepartureId = opt.value;
     } else {
@@ -53,7 +53,7 @@ async function loadDepartures(tourId, initialDepartureId) {
         const opt = document.createElement('option');
         opt.value = dep.id;
         const tourName = dep.tour_title ? `${dep.tour_title} — ` : '';
-        opt.textContent = `${tourName}${formatDateTime(dep.start_datetime)} (${dep.seats_left || dep.capacity} seats left)`;
+        opt.textContent = `${tourName}${formatDateTime(dep.start_datetime)} (${dep.seats_left !== undefined ? dep.seats_left : dep.capacity} seats left)`;
         if (initialDepartureId && String(dep.id) === String(initialDepartureId)) {
           opt.selected = true;
           selectedDepartureId = dep.id;
@@ -70,7 +70,7 @@ async function loadDepartures(tourId, initialDepartureId) {
   } catch (err) {
     const opt = document.createElement('option');
     opt.value = initialDepartureId || '1';
-    opt.textContent = 'Scheduled Departure #1 (Lake Taupō Cruise)';
+    opt.textContent = 'Scheduled Departure';
     select.appendChild(opt);
     selectedDepartureId = opt.value;
     fetchLiveQuote();
@@ -100,7 +100,7 @@ async function fetchLiveQuote() {
 
     if (coupon_code) {
       if (quote.discount_amount > 0) {
-        feedback.textContent = `Promo code "${coupon_code}" applied successfully!`;
+        feedback.textContent = `Promo voucher "${coupon_code}" applied successfully!`;
         feedback.style.color = 'var(--color-success)';
       } else {
         feedback.textContent = `Coupon code "${coupon_code}" is invalid or expired.`;
@@ -128,7 +128,9 @@ async function handleBookingSubmit(e) {
   const departure_id = parseInt(depSelect.value) || 1;
   const traveller_count = parseInt(document.getElementById('traveller-count').value) || 1;
   const coupon_code = document.getElementById('coupon-code').value.trim();
-  const pickup_preference = document.getElementById('pickup-preference').value.trim();
+  const pickup_preference = document.getElementById('pickup-preference').value.trim() || undefined;
+  const dietary_requirements = document.getElementById('dietary-requirements').value.trim() || undefined;
+  const accessibility_needs = document.getElementById('accessibility-needs').value.trim() || undefined;
 
   submitBtn.disabled = true;
   submitBtn.textContent = 'Processing reservation...';
@@ -139,8 +141,10 @@ async function handleBookingSubmit(e) {
       body: {
         departure_id,
         traveller_count,
-        coupon_code: coupon_code || undefined,
-        pickup_preference: pickup_preference || undefined
+        coupon_code,
+        pickup_preference,
+        dietary_requirements,
+        accessibility_needs
       }
     });
 

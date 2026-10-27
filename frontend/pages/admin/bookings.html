@@ -1,5 +1,5 @@
 <!-- Administrator Bookings Moderation Screen
-Displays customer bookings with status filtering, passenger totals, and approval/rejection actions.
+Displays customer bookings with status filtering, passenger requirements, rejection reason inputs, and approval actions.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +45,37 @@ Displays customer bookings with status filtering, passenger totals, and approval
     </div>
 
     <div class="card" style="overflow-x: auto;">
-      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
         <thead>
           <tr style="background: #F8FAF9; border-bottom: 1px solid var(--color-border); color: var(--color-primary);">
             <th style="padding: 1rem 1.25rem;">Reference</th>
-            <th style="padding: 1rem 1.25rem;">Customer</th>
-            <th style="padding: 1rem 1.25rem;">Tour</th>
-            <th style="padding: 1rem 1.25rem;">Travellers</th>
+            <th style="padding: 1rem 1.25rem;">Customer Details</th>
+            <th style="padding: 1rem 1.25rem;">Tour & Departure</th>
+            <th style="padding: 1rem 1.25rem;">Pax & Requirements</th>
             <th style="padding: 1rem 1.25rem;">Amount</th>
-            <th style="padding: 1rem 1.25rem;">Status</th>
+            <th style="padding: 1rem 1.25rem;">Status / Attendance</th>
             <th style="padding: 1rem 1.25rem; text-align: right;">Decision</th>
           </tr>
         </thead>
         <tbody id="bookings-table-body"></tbody>
       </table>
+    </div>
+
+    <div id="reject-modal" class="modal-backdrop" style="display: none;">
+      <div class="modal-box" style="max-width: 480px;">
+        <h3 style="margin-bottom: 0.5rem; color: var(--color-danger);">Reject Booking Request</h3>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+          Provide an optional status reason for rejecting this reservation (e.g. overcapacity, weather hazard, or schedule mismatch).
+        </p>
+        <div class="form-group">
+          <label for="reject-reason" class="form-label">Rejection Reason (Optional, max 255 chars)</label>
+          <textarea id="reject-reason" class="form-control" rows="3" maxlength="255" placeholder="Reason communicated to customer..."></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button id="btn-cancel-reject" class="btn btn-outline">Cancel</button>
+          <button id="btn-confirm-reject" class="btn btn-danger">Confirm Rejection</button>
+        </div>
+      </div>
     </div>
   </main>
 

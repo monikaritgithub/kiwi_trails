@@ -1,5 +1,5 @@
 <!-- Tour Booking Reservation Checkout Screen
-Computes live price quotes via /bookings/quote, validates promo coupons, and submits reservations.
+Computes live price quotes via /bookings/quote, validates promo coupons, and submits reservations with dietary and accessibility needs.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@ Computes live price quotes via /bookings/quote, validates promo coupons, and sub
     <div style="margin-bottom: 2rem;">
       <span class="badge badge-kaitiaki">Secure Reservation</span>
       <h1 style="margin-top: 0.25rem;">Tour Booking Checkout</h1>
-      <p style="color: var(--color-text-muted);">Confirm your passenger count, apply promotional vouchers, and lock in your departure.</p>
+      <p style="color: var(--color-text-muted);">Confirm your passenger count, special requirements, apply promotional vouchers, and lock in your departure.</p>
     </div>
 
     <div class="grid-cols-2" style="align-items: start;">
@@ -52,8 +52,18 @@ Computes live price quotes via /bookings/quote, validates promo coupons, and sub
           </div>
 
           <div class="form-group">
-            <label for="pickup-preference" class="form-label">Pickup Location / Hotel Preference</label>
-            <input type="text" id="pickup-preference" class="form-control" placeholder="e.g. Hotel Grand Chancellor, Queenstown">
+            <label for="pickup-preference" class="form-label">Pickup Location / Hotel Preference (Optional)</label>
+            <input type="text" id="pickup-preference" class="form-control" maxlength="255" placeholder="e.g. Hotel Grand Chancellor, Queenstown">
+          </div>
+
+          <div class="form-group">
+            <label for="dietary-requirements" class="form-label">Dietary Requirements (Optional, max 255 chars)</label>
+            <input type="text" id="dietary-requirements" class="form-control" maxlength="255" placeholder="e.g. Vegetarian, Gluten-free, Halal, Nut allergy">
+          </div>
+
+          <div class="form-group">
+            <label for="accessibility-needs" class="form-label">Accessibility Needs (Optional, max 255 chars)</label>
+            <input type="text" id="accessibility-needs" class="form-control" maxlength="255" placeholder="e.g. Wheelchair access, step-free boarding, mobility support">
           </div>
 
           <div class="form-group">
@@ -88,7 +98,7 @@ Computes live price quotes via /bookings/quote, validates promo coupons, and sub
         </div>
 
         <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: var(--radius-md); padding: 1rem; font-size: 0.85rem; color: #1E40AF; margin-top: 1.5rem;">
-          🌿 <strong>Kaitiakitanga Guarantee:</strong> Instant seat hold with free cancellation up to 72 hours prior to scheduled departure.
+          🌿 <strong>Kaitiakitanga Guarantee:</strong> Instant seat hold with free cancellation up to departure policy deadline.
         </div>
       </div>
     </div>
