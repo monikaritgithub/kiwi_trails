@@ -1,5 +1,5 @@
 <!-- Kiwi Trails Master Landing Page
-Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and tour discovery.
+Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and dynamic tour discovery.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -33,11 +33,14 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
 
   <main class="main-content">
     <section class="hero-banner">
-      <h1>Nau Mai, Haere Mai ki Aotearoa</h1>
-      <p>Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
-      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-        <a href="/frontend/pages/tour-list.html" class="btn btn-secondary">Explore All Tours</a>
-        <a href="/frontend/pages/register.html" class="btn btn-outline" style="border-color:#FFF; color:#FFF;">Join Kiwi Trails</a>
+      <div class="hero-badge-float">
+        ✨ Welcome to New Zealand
+      </div>
+      <h1 class="hero-title">Nau Mai, Haere Mai ki Aotearoa</h1>
+      <p class="hero-subtitle">Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
+      <div class="hero-actions">
+        <a href="/frontend/pages/tour-list.html" class="btn btn-secondary" style="padding:0.85rem 2rem; font-size:1.05rem; font-weight:700; box-shadow:0 8px 24px rgba(212, 175, 55, 0.45);">Explore All Tours</a>
+        <a href="/frontend/pages/register.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.85); color:#FFFFFF; padding:0.85rem 2rem; font-size:1.05rem; background:rgba(15, 23, 42, 0.45); backdrop-filter:blur(8px);">Join Kiwi Trails</a>
       </div>
     </section>
 
@@ -58,7 +61,7 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
           <p style="color:var(--color-text-muted); font-size:0.9rem;">Direct consultation and partnership with local Iwi advisors (Kaiārahi) honoring authentic historical narratives.</p>
         </div>
         <div class="card" style="padding:1.5rem; text-align:center;">
-          <h3 style="font-size:1.15rem; color:var(--color-primary);">💛 Manaakitanga (Hospitality)</h3>
+          <h3 style="font-size:1.15rem; color:var(--color-primary);">☀️ Manaakitanga (Hospitality)</h3>
           <p style="color:var(--color-text-muted); font-size:0.9rem;">Warm New Zealand welcome, passionate storytelling, and certified safety across every departure date.</p>
         </div>
       </div>
@@ -74,50 +77,9 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
       </div>
 
       <div class="grid-cols-3" id="featured-tours-container">
-        <div class="card">
-          <div class="card-img-wrap">
-            <img src="/media/seed/tours/taupo-lake-cruise-1.jpg" alt="Taupō Lake Cruise" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
-          </div>
-          <div class="card-body">
-            <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">Cultural Heritage</span>
-            <h3 class="card-title">Taupō Lake Cruise & Rock Carvings</h3>
-            <p class="card-text">Sail to ancient Māori rock carvings across the tranquil volcanic waters of Lake Taupō.</p>
-            <div class="card-footer">
-              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$165.00</span>
-              <a href="/frontend/pages/tour-detail.html?id=1" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-img-wrap">
-            <img src="/media/seed/tours/milford-sound-cruise-1.jpg" alt="Milford Sound Cruise" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=800&q=80'">
-          </div>
-          <div class="card-body">
-            <span class="badge badge-kaitiaki" style="margin-bottom:0.5rem; width:fit-content;">Scenic Cruise</span>
-            <h3 class="card-title">Milford Sound Wilderness Cruise</h3>
-            <p class="card-text">Glacial waterfalls, towering fiord cliffs, and fur seals in Piopiotahi Fiordland.</p>
-            <div class="card-footer">
-              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$240.00</span>
-              <a href="/frontend/pages/tour-detail.html?id=2" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-img-wrap">
-            <img src="/media/seed/tours/rotorua-maori-culture-1.jpg" alt="Rotorua Cultural Experience" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'">
-          </div>
-          <div class="card-body">
-            <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">Geothermal & Cultural</span>
-            <h3 class="card-title">Te Puia & Rotorua Geothermal Valley</h3>
-            <p class="card-text">Active Pōhutu geysers, traditional carving schools, and authentic cultural pōwhiri.</p>
-            <div class="card-footer">
-              <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">NZ$195.00</span>
-              <a href="/frontend/pages/tour-detail.html?id=3" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
-            </div>
-          </div>
-        </div>
+        <div class="skeleton-card skeleton-shimmer"></div>
+        <div class="skeleton-card skeleton-shimmer"></div>
+        <div class="skeleton-card skeleton-shimmer"></div>
       </div>
     </section>
   </main>
@@ -147,8 +109,15 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
 
   <script type="module">
     import { isAuthenticated, getCurrentUser, logout } from '/frontend/js/auth.js';
+    import { apiFetch } from '/frontend/js/api.js';
+    import { formatMoney } from '/frontend/js/helpers.js';
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupNavbar();
+      await loadFeaturedTours();
+    });
+
+    function setupNavbar() {
       const navLogin = document.getElementById('nav-login');
       const navRegister = document.getElementById('nav-register');
       const navProfile = document.getElementById('nav-profile');
@@ -169,7 +138,45 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
           navLogout.addEventListener('click', () => logout());
         }
       }
-    });
+    }
+
+    async function loadFeaturedTours() {
+      const container = document.getElementById('featured-tours-container');
+      if (!container) return;
+
+      try {
+        const data = await apiFetch('/tours?page_size=3');
+        const items = data.items || [];
+        if (items.length === 0) {
+          container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--color-text-muted);">No tours currently available.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        items.slice(0, 3).forEach(tour => {
+          const imgUrl = tour.image_url || '/media/seed/tours/milford-sound-cruise-1.jpg';
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="card-img-wrap">
+              <img src="${imgUrl}" alt="${tour.title}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div class="card-body">
+              <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">${tour.category || 'Eco-Tour'}</span>
+              <h3 class="card-title">${tour.title}</h3>
+              <p class="card-text">${tour.location ? `Experience breathtaking beauty in ${tour.location}.` : ''} Certified Kaitiaki guidance.</p>
+              <div class="card-footer">
+                <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">${formatMoney(tour.price_per_person)}</span>
+                <a href="/frontend/pages/tour-detail.html?id=${tour.id}" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--color-text-muted);">Explore all tours in our catalog.</p>';
+      }
+    }
   </script>
 </body>
 </html>
