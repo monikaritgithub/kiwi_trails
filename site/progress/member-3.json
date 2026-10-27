@@ -128,8 +128,8 @@
         {
           "id": "m3-seed-01",
           "title": "seed_bookings: create test bookings and attendance data",
-          "status": "review",
-          "note": "Implemented 16 sample bookings across all five statuses, coupon pricing, and attendance: 2 present, 1 absent, and 1 completed booking unmarked. Repeat runs avoid duplicates. Reset preserves unrelated bookings and stops when seed bookings have reviews. All 18 seed tests and 360 project tests passed after rebasing onto main. Awaiting teammate review.",
+          "status": "done",
+          "note": "Seed bookings management command completed reviewed and merged into main branch. All 18 tests and lint checks passed.",
           "instruction": "Write the Django management command seed bookings to populate sample reservations across all statuses.",
           "request": "python manage.py seed_bookings --reset",
           "response": "Successfully seeded bookings and attendance records."
