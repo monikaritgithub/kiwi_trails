@@ -13,5 +13,6 @@ site/docs/
 postman/
 Kiwi Trails API/
 *.environment.yaml
+*.zip
 
 frontend/media/
