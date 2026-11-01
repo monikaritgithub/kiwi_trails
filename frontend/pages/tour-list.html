@@ -6,7 +6,7 @@ Lists guided tours with search filtering by name or location, category selector,
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tour Catalog — Kiwi Trails</title>
+  <title>Tour Catalog | Kiwi Trails Guided Expeditions</title>
   <link rel="stylesheet" href="/frontend/css/base.css">
   <link rel="stylesheet" href="/frontend/css/layout.css">
   <link rel="stylesheet" href="/frontend/css/components.css">
@@ -15,7 +15,7 @@ Lists guided tours with search filtering by name or location, category selector,
   <header class="site-header">
     <div class="header-container">
       <a href="/frontend/index.html" class="brand-link">
-        <span>🌿 Kiwi Trails</span>
+        <span style="display:inline-flex; align-items:center; gap:0.4rem;"><svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13a7 7 0 0 1 7-7c2.5 0 4.8 1.3 6.1 3.3.4.6.9 1 1.6 1.1 2 .4 3.3 2.1 3.3 4.1a4.5 4.5 0 0 1-4.5 4.5c-1.3 0-2.5-.5-3.5-1.4M11 20v-9"/></svg> Kiwi Trails</span>
         <span class="brand-badge">Ara Aotearoa</span>
       </a>
       <nav class="site-nav">
@@ -36,7 +36,20 @@ Lists guided tours with search filtering by name or location, category selector,
       <p style="color: var(--color-text-muted);">Immerse in indigenous storytelling, pristine conservation walks, and coastal waters.</p>
     </div>
 
-    <div class="card" style="padding: 1.5rem; margin-bottom: 2.5rem; background: var(--color-surface);">
+        <div class="trip-match-banner">
+      <div class="trip-match-banner-content">
+        <span class="badge" style="background: rgba(255, 255, 255, 0.2); color: #FFFFFF; margin-bottom: 0.5rem;">Interactive Trip Match</span>
+        <h2>Find Your Ideal Journey with Trip Match</h2>
+        <p>Select your journey preferences to receive explainable recommendations with transparent reasons showing how each tour fits your budget, schedule, and passions.</p>
+      </div>
+      <div>
+        <button id="btn-open-trip-match" class="btn btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);">
+          <svg class="icon icon-stroke" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg> Start Trip Match Quiz
+        </button>
+      </div>
+    </div>
+
+<div class="card" style="padding: 1.5rem; margin-bottom: 2.5rem; background: var(--color-surface);">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: flex-end;">
         <div class="form-group" style="margin-bottom: 0;">
           <label for="search-input" class="form-label">Search Keywords</label>
@@ -62,6 +75,15 @@ Lists guided tours with search filtering by name or location, category selector,
         <div>
           <button id="btn-apply-filters" class="btn btn-primary" style="width: 100%;">Filter Tours</button>
         </div>
+        <div style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+          <label style="display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; font-weight: 600; color: var(--color-primary); user-select: none;">
+            <input type="checkbox" id="maori-led-filter" style="width: 1.2rem; height: 1.2rem; accent-color: var(--color-primary); cursor: pointer;">
+            <span>Māori led Experiences only</span>
+          </label>
+          <span class="badge badge-maori">
+            <svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Verified Māori Operators
+          </span>
+        </div>
       </div>
     </div>
 
@@ -77,6 +99,80 @@ Lists guided tours with search filtering by name or location, category selector,
     <div id="tours-grid" class="grid-cols-3" style="display: none;"></div>
 
     <div id="pagination-container" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem;"></div>
+      <div id="quiz-modal" class="quiz-modal" style="display: none;">
+      <div class="quiz-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge badge-kaitiaki">Personalized Guide</span>
+            <h2 style="margin: 0; font-size: 1.4rem;">Trip Match Quiz</h2>
+          </div>
+          <button id="btn-close-quiz" class="btn btn-outline" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">Close</button>
+        </div>
+
+        <form id="trip-match-form">
+          <div class="form-group">
+            <label class="form-label">What experiences interest you? (Select all that apply)</label>
+            <div class="quiz-pill-group" id="quiz-interests-group">
+              <div class="quiz-pill" data-interest="Culture">Culture & Heritage</div>
+              <div class="quiz-pill" data-interest="Water">Water & Cruises</div>
+              <div class="quiz-pill" data-interest="Hiking">Hiking & Treks</div>
+              <div class="quiz-pill" data-interest="Wildlife">Wildlife Encounters</div>
+              <div class="quiz-pill" data-interest="Adventure">Adventure & Thrills</div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="form-group">
+              <label for="quiz-budget" class="form-label">Budget per Person (NZD)</label>
+              <input type="number" id="quiz-budget" class="form-control" placeholder="e.g. 250" min="50" step="10">
+            </div>
+            <div class="form-group">
+              <label for="quiz-travellers" class="form-label">Number of Travellers</label>
+              <input type="number" id="quiz-travellers" class="form-control" value="2" min="1" max="20">
+            </div>
+            <div class="form-group">
+              <label for="quiz-days" class="form-label">Maximum Duration (Days)</label>
+              <input type="number" id="quiz-days" class="form-control" placeholder="e.g. 2" min="1" max="14">
+            </div>
+            <div class="form-group">
+              <label for="quiz-month" class="form-label">Preferred Travel Month</label>
+              <select id="quiz-month" class="form-control">
+                <option value="">Any Upcoming Month</option>
+                <option value="2026-11">November 2026</option>
+                <option value="2026-12">December 2026</option>
+                <option value="2027-01">January 2027</option>
+                <option value="2027-02">February 2027</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin: 1.25rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem; font-weight: 600;">
+              <input type="checkbox" id="quiz-accessibility" style="width: 1.15rem; height: 1.15rem; accent-color: var(--color-primary); cursor: pointer;">
+              <span>I require accessible facilities / wheelchair accommodations</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem; font-weight: 600; color: #92400E;">
+              <input type="checkbox" id="quiz-maori-led" style="width: 1.15rem; height: 1.15rem; accent-color: #92400E; cursor: pointer;">
+              <span>Prioritize authentic Māori led experiences</span>
+            </label>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+            <button type="button" id="btn-cancel-quiz" class="btn btn-outline">Cancel</button>
+            <button type="submit" id="btn-submit-quiz" class="btn btn-primary" style="padding: 0.75rem 2rem;">Calculate My Matches</button>
+          </div>
+        </form>
+
+        <div id="quiz-results-container" style="display: none; margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <h3 style="margin: 0;">Top Matching Recommendations</h3>
+            <button id="btn-retake-quiz" class="btn btn-outline" style="font-size: 0.85rem;">Modify Preferences</button>
+          </div>
+          <div id="quiz-results-list"></div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <footer class="site-footer">

@@ -95,6 +95,10 @@ async function loadTourData(id) {
 
     document.getElementById('accessibility-info').value = tour.accessibility_info || '';
     document.getElementById('visitor-guidelines').value = tour.visitor_guidelines || '';
+    document.getElementById('operator-name').value = tour.operator_name || '';
+    document.getElementById('operator-story').value = tour.operator_story || '';
+    document.getElementById('maori-led').checked = Boolean(tour.maori_led);
+    document.getElementById('operator-verified').checked = Boolean(tour.operator_verified);
 
     renderImagesPreview(tour.images || []);
     renderFaqs(tour.faqs || []);
@@ -188,7 +192,11 @@ async function handleSaveTour(e) {
     meeting_lat: latVal ? parseFloat(latVal) : null,
     meeting_lng: lngVal ? parseFloat(lngVal) : null,
     accessibility_info: document.getElementById('accessibility-info').value.trim() || null,
-    visitor_guidelines: document.getElementById('visitor-guidelines').value.trim() || null
+    visitor_guidelines: document.getElementById('visitor-guidelines').value.trim() || null,
+    operator_name: document.getElementById('operator-name').value.trim(),
+    operator_story: document.getElementById('operator-story').value.trim(),
+    maori_led: document.getElementById('maori-led').checked,
+    operator_verified: document.getElementById('operator-verified').checked
   };
 
   try {

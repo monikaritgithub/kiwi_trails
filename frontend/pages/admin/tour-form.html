@@ -6,7 +6,7 @@ Provides input controls for tour catalog metadata, pricing, itineraries, cultura
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tour Form — Kiwi Trails Staff</title>
+  <title>Tour Form | Kiwi Trails Staff</title>
   <link rel="stylesheet" href="/frontend/css/base.css">
   <link rel="stylesheet" href="/frontend/css/layout.css">
   <link rel="stylesheet" href="/frontend/css/components.css">
@@ -15,7 +15,7 @@ Provides input controls for tour catalog metadata, pricing, itineraries, cultura
   <header class="site-header">
     <div class="header-container">
       <a href="/frontend/pages/admin/dashboard.html" class="brand-link">
-        <span>🌿 Kiwi Trails Staff</span>
+        <span style="display:inline-flex; align-items:center; gap:0.4rem;"><svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Kiwi Trails Staff</span>
         <span class="brand-badge">Kaitiaki Console</span>
       </a>
       <nav class="site-nav">
@@ -119,6 +119,31 @@ Provides input controls for tour catalog metadata, pricing, itineraries, cultura
               <label for="visitor-guidelines" class="form-label">Cultural Visitor Guidelines (Tikanga)</label>
               <textarea id="visitor-guidelines" class="form-control" rows="3" placeholder="Sacred site protocols, photography restrictions, and environmental stewardship..."></textarea>
             </div>
+
+            <h3 style="margin: 2rem 0 1rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem;">Indigenous Operator & Māori-Led Verification</h3>
+
+            <div class="form-group">
+              <label for="operator-name" class="form-label">Operator / Whānau Business Name</label>
+              <input type="text" id="operator-name" class="form-control" maxlength="150" placeholder="e.g. Taupō Moana Heritage Journeys">
+            </div>
+
+            <div class="form-group">
+              <label for="operator-story" class="form-label">Operator Story (in their own words)</label>
+              <textarea id="operator-story" class="form-control" rows="4" placeholder="Share the whānau origins, ancestral connection to the land, and cultural kaupapa..."></textarea>
+            </div>
+
+            <div style="background: #FEF3C7; border: 1px solid #FDE68A; border-radius: var(--radius-md); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+              <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem; font-weight: 600; color: #92400E;">
+                <input type="checkbox" id="maori-led" style="width: 1.2rem; height: 1.2rem; accent-color: #92400E; cursor: pointer;">
+                <span>Operator Claims Māori-Led Experience</span>
+              </label>
+
+              <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem; font-weight: 700; color: #15803D; padding-top: 0.5rem; border-top: 1px dashed #F59E0B;">
+                <input type="checkbox" id="operator-verified" style="width: 1.2rem; height: 1.2rem; accent-color: #15803D; cursor: pointer;">
+                <span>Admin Verified Māori Operator Badge (Required for badge to display publicly)</span>
+              </label>
+            </div>
+
 
             <button type="submit" id="btn-save-tour" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Tour Details</button>
           </form>

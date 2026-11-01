@@ -5,28 +5,30 @@ Standardizes New Zealand Kaitiakitanga colour palette, typography, accessibility
 :root {
   --color-primary: #1A4329;
   --color-primary-light: #2D6A4F;
-  --color-primary-dark: #122e1c;
-  --color-secondary: #D4AF37;
-  --color-secondary-light: #f5e6a8;
-  --color-accent: #E9C46A;
-  --color-bg: #F8FAF9;
+  --color-primary-dark: #112D1C;
+  --color-secondary: #C88A2C;
+  --color-secondary-light: #FDF4E6;
+  --color-accent: #E29538;
+  --color-bg: #F9F8F5;
   --color-surface: #FFFFFF;
-  --color-text: #1E293B;
-  --color-text-muted: #64748B;
-  --color-border: #E2E8F0;
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-danger: #EF4444;
-  --color-info: #3B82F6;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --color-text: #1B2420;
+  --color-text-muted: #5A6960;
+  --color-border: #E5E2DA;
+  --color-success: #15803D;
+  --color-warning: #B45309;
+  --color-danger: #B91C1C;
+  --color-info: #0369A1;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-full: 9999px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
-  --transition: all 0.25s ease-in-out;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-sm: 0 1px 2px rgba(27, 36, 32, 0.05);
+  --shadow-md: 0 4px 12px rgba(27, 36, 32, 0.08);
+  --shadow-lg: 0 12px 28px rgba(27, 36, 32, 0.12);
+  --transition: all 0.2s ease-in-out;
+  --font-serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family: var(--font-sans);
 }
 
 * {
@@ -48,19 +50,31 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
+  font-family: var(--font-serif);
   color: var(--color-primary);
-  line-height: 1.3;
+  line-height: 1.25;
   margin-bottom: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--color-primary);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
   font-weight: 700;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.75rem; }
+h1 { font-size: 2.35rem; }
+h2 { font-size: 1.85rem; }
 h3 { font-size: 1.35rem; }
-h4 { font-size: 1.15rem; }
+h4 { font-size: 1.1rem; }
 
 p {
   margin-bottom: 1rem;

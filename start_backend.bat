@@ -7,9 +7,9 @@ echo ===================================================
 echo     KIWI TRAILS BACKEND (DJANGO REST API)
 echo ===================================================
 echo.
-echo Running at: http://127.0.0.1:8000/
-echo Admin panel: http://127.0.0.1:8000/admin/
-echo API root:    http://127.0.0.1:8000/api/v1/
+echo Running at:   http://127.0.0.1:8000/
+echo Admin panel:  http://127.0.0.1:8000/django-admin/
+echo API root:     http://127.0.0.1:8000/api/v1/
 echo.
 echo Press Ctrl+C to stop the server.
 echo.

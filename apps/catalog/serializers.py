@@ -103,6 +103,9 @@ class TourSummarySerializer(serializers.ModelSerializer):
     seats_left = serializers.IntegerField(
         source="annotated_seats_left", default=None, allow_null=True
     )
+    maori_led = serializers.SerializerMethodField()
+    operator_name = serializers.CharField(default="", allow_blank=True)
+    operator_story = serializers.CharField(default="", allow_blank=True)
 
     class Meta:
         model = Tour
@@ -119,8 +122,14 @@ class TourSummarySerializer(serializers.ModelSerializer):
             "review_count",
             "next_departure",
             "seats_left",
+            "operator_name",
+            "maori_led",
+            "operator_story",
             "status",
         ]
+
+    def get_maori_led(self, obj):
+        return bool(obj.maori_led and obj.operator_verified)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -144,6 +153,10 @@ class TourDetailSerializer(serializers.ModelSerializer):
     average_rating = serializers.FloatField(read_only=True, default=None, allow_null=True)
     review_count = serializers.IntegerField(read_only=True, default=0)
     departures = serializers.SerializerMethodField()
+    maori_led = serializers.SerializerMethodField()
+    operator_verified = serializers.BooleanField(read_only=True)
+    operator_name = serializers.CharField(default="", allow_blank=True)
+    operator_story = serializers.CharField(default="", allow_blank=True)
 
     class Meta:
         model = Tour
@@ -161,6 +174,10 @@ class TourDetailSerializer(serializers.ModelSerializer):
             "visitor_guidelines",
             "meeting_point",
             "cancellation_days",
+            "operator_name",
+            "maori_led",
+            "operator_verified",
+            "operator_story",
             "status",
             "images",
             "guide",
@@ -169,6 +186,9 @@ class TourDetailSerializer(serializers.ModelSerializer):
             "review_count",
             "departures",
         ]
+
+    def get_maori_led(self, obj):
+        return bool(obj.maori_led and obj.operator_verified)
 
     def get_accessibility_info(self, obj):
         return obj.accessibility_info or None
@@ -216,6 +236,12 @@ class TourWriteSerializer(serializers.Serializer):
     )
     guide_id = serializers.IntegerField(required=False, allow_null=True)
     cancellation_days = serializers.IntegerField(required=False)
+    operator_name = serializers.CharField(
+        max_length=150, required=False, allow_blank=True, default=""
+    )
+    operator_story = serializers.CharField(required=False, allow_blank=True, default="")
+    maori_led = serializers.BooleanField(required=False, default=False)
+    operator_verified = serializers.BooleanField(required=False, default=False)
 
     def validate_category_id(self, value):
         if not Category.objects.filter(id=value).exists():

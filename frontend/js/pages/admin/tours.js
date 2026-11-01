@@ -66,11 +66,22 @@ function createTourTableRow(tour) {
     ? '<span class="badge" style="background:#E2E8F0; color:#475569;">Archived</span>'
     : '<span class="badge badge-kaitiaki">Active</span>';
 
+  let operatorCell = '<span style="color:var(--color-text-muted); font-size:0.85rem;">Standard</span>';
+  if (tour.maori_led && tour.operator_verified) {
+    operatorCell = `<span class="badge badge-maori"><svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Verified Māori-Led</span>`;
+  } else if (tour.maori_led && !tour.operator_verified) {
+    operatorCell = `<span class="badge" style="background:#FEF3C7; color:#92400E;">Pending Verification</span>`;
+  }
+  if (tour.operator_name) {
+    operatorCell += `<div style="font-size:0.8rem; font-weight:600; color:var(--color-primary); margin-top:0.25rem;">${tour.operator_name}</div>`;
+  }
+
   tr.innerHTML = `
     <td style="padding: 1rem 1.25rem; font-weight:600;">
       <a href="/frontend/pages/tour-detail.html?id=${tour.id}" target="_blank" style="color:var(--color-primary);">${tour.title}</a>
     </td>
     <td style="padding: 1rem 1.25rem; color:var(--color-text-muted);">${tour.category_name || 'Standard'}</td>
+    <td style="padding: 1rem 1.25rem;">${operatorCell}</td>
     <td style="padding: 1rem 1.25rem; font-weight:700;">${formatMoney(tour.price_per_person)}</td>
     <td style="padding: 1rem 1.25rem;">${tour.duration_days || 1} Day(s)</td>
     <td style="padding: 1rem 1.25rem;">${statusBadge}</td>

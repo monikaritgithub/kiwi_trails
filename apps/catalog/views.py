@@ -55,6 +55,7 @@ class TourListView(APIView):
             "category_id": request.query_params.get("category_id"),
             "min_price": request.query_params.get("min_price"),
             "max_price": request.query_params.get("max_price"),
+            "maori_led": request.query_params.get("maori_led"),
             "sort": request.query_params.get("sort", "newest"),
         }
         tours = list_tours(filters)
