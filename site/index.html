@@ -7,7 +7,7 @@
 <!--
   Kiwi Trails team tracker.
   Shows the progress of each member (from progress/member-N.json) and the five
-  team documents (from docs/ on GitHub Pages, or ../gemini/ when served locally).
+  team documents (from docs/ on GitHub Pages, served locally).
   To try it on your laptop: run "python -m http.server 8000" in the repository
   root and open http://localhost:8000/site/
 -->
@@ -123,11 +123,7 @@ const MEMBERS = [
   { id: "member-3", label: "Member 3", file: "progress/member-3.json" }
 ];
 const DOCS = [
-  { file: "kiwi-trails-01-database-design.md", title: "1. Database design" },
-  { file: "kiwi-trails-02-api-design.md", title: "2. API design" },
-  { file: "kiwi-trails-03-coding-rules-and-folders.md", title: "3. Coding rules and folders" },
-  { file: "kiwi-trails-04-success-criteria.md", title: "4. Success criteria" },
-  { file: "kiwi-trails-05-member2-gemini-guide.md", title: "5. Member 2 build guide" }
+  { file: "Kiwi_Trails_MSE800_Documentation.md", title: "Project Specification and Architecture" }
 ];
 const STATUSES = ["todo", "doing", "review", "done"];
 const STATUS_LABEL = { todo: "To do", doing: "Doing", review: "Review", done: "Done" };
@@ -295,7 +291,7 @@ function slug(text) {
 }
 
 async function fetchDoc(file) {
-  for (const base of ["docs/", "../gemini/"]) {
+  for (const base of ["docs/"]) {
     try {
       const res = await fetch(base + file, { cache: "no-store" });
       if (res.ok) return await res.text();

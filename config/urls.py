@@ -16,6 +16,7 @@ urlpatterns = [
     path("api/v1/", include("apps.coupons.urls")),
     path("api/v1/", include("apps.reviews.urls")),
     path("api/v1/", include("apps.bookings.urls")),
+    path("api/v1/", include("apps.matching.urls")),
 ]
 
 if settings.DEBUG:

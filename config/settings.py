@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "apps.coupons",
     "apps.reviews",
     "apps.bookings",
+    "apps.matching",
     "apps.seeds",
 ]
 

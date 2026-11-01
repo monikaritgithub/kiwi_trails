@@ -1,12 +1,12 @@
 <!-- Kiwi Trails Master Landing Page
-Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and dynamic tour discovery.
+Presents New Zealand eco expeditions, cultural Kaitiakitanga ethics, and dynamic tour discovery.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiwi Trails (Ara Aotearoa) — Authentic New Zealand Tours</title>
+  <title>Kiwi Trails | Guided Eco Expeditions across Aotearoa New Zealand</title>
   <link rel="stylesheet" href="/frontend/css/base.css">
   <link rel="stylesheet" href="/frontend/css/layout.css">
   <link rel="stylesheet" href="/frontend/css/components.css">
@@ -15,7 +15,7 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
   <header class="site-header">
     <div class="header-container">
       <a href="/frontend/index.html" class="brand-link">
-        <span>🌿 Kiwi Trails</span>
+        <span style="display:inline-flex; align-items:center; gap:0.4rem;"><svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 4 13a7 7 0 0 1 7-7c2.5 0 4.8 1.3 6.1 3.3.4.6.9 1 1.6 1.1 2 .4 3.3 2.1 3.3 4.1a4.5 4.5 0 0 1-4.5 4.5c-1.3 0-2.5-.5-3.5-1.4M11 20v-9"/></svg> Kiwi Trails</span>
         <span class="brand-badge">Ara Aotearoa</span>
       </a>
       <nav class="site-nav">
@@ -32,48 +32,124 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
   </header>
 
   <main class="main-content">
+    <!-- Hero Banner with grounded, authentic editorial styling -->
     <section class="hero-banner">
-      <div class="hero-badge-float">
-        ✨ Welcome to New Zealand
+      <div class="hero-badge-clean">
+        <svg class="icon icon-stroke" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>
+        <span>Certified Kaitiaki Guides &bull; Operating across Taupo, Waitomo, Rotorua &amp; Fiordland</span>
       </div>
       <h1 class="hero-title">Nau Mai, Haere Mai ki Aotearoa</h1>
-      <p class="hero-subtitle">Discover sacred landscapes, pristine glacial fjords, and living Māori heritage with authentic, certified Kaitiaki guides across New Zealand.</p>
+      <p class="hero-subtitle">Experience sacred geothermal valleys, pristine glacial waters, and living Maori heritage guided by certified Kaitiaki across New Zealand.</p>
       <div class="hero-actions">
-        <a href="/frontend/pages/tour-list.html" class="btn btn-secondary" style="padding:0.85rem 2rem; font-size:1.05rem; font-weight:700; box-shadow:0 8px 24px rgba(212, 175, 55, 0.45);">Explore All Tours</a>
-        <a href="/frontend/pages/register.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.85); color:#FFFFFF; padding:0.85rem 2rem; font-size:1.05rem; background:rgba(15, 23, 42, 0.45); backdrop-filter:blur(8px);">Join Kiwi Trails</a>
+        <a href="/frontend/pages/tour-list.html" class="btn btn-secondary" style="padding:0.85rem 1.85rem; font-size:1rem; font-weight:700;">Explore All Tours</a>
+        <a href="/frontend/pages/tour-list.html?quiz=1" class="btn btn-outline" style="border-color:rgba(255,255,255,0.75); color:#FFFFFF; padding:0.85rem 1.85rem; font-size:1rem; background:rgba(18, 48, 29, 0.45); backdrop-filter:blur(8px);">
+          <svg class="icon icon-stroke" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          Match Your Trip
+        </a>
       </div>
     </section>
 
-    <section style="margin-bottom: 3.5rem;">
-      <div style="text-align:center; max-width:700px; margin:0 auto 2rem;">
+    <!-- Editorial Bento Showcase (Replaces generic 3 card row) -->
+    <section style="margin-bottom: 4rem;">
+      <div style="margin-bottom: 2rem;">
         <span class="badge badge-tikanga">Te Tiriti o Waitangi</span>
-        <h2 style="margin-top:0.5rem;">Guided by Kaitiakitanga & Manaakitanga</h2>
-        <p style="color:var(--color-text-muted);">Every journey respects sacred wāhi tapu heritage, environmental sustainability, and authentic cultural partnership.</p>
+        <h2 style="margin-top:0.4rem; margin-bottom:0.5rem;">Authentic Kaitiakitanga &amp; Cultural Partnership</h2>
+        <p style="color:var(--color-text-muted); max-width:760px; margin:0;">Every journey respects sacred wahi tapu heritage, environmental sustainability, and authentic Maori operator leadership.</p>
       </div>
 
-      <div class="grid-cols-3">
-        <div class="card" style="padding:1.5rem; text-align:center;">
-          <h3 style="font-size:1.15rem; color:var(--color-primary);">🌿 Tiakitanga (Protection)</h3>
-          <p style="color:var(--color-text-muted); font-size:0.9rem;">Carbon-neutral guided eco-expeditions conserving endemic native wildlife and fragile alpine ecosystems.</p>
+      <div class="bento-grid">
+        <!-- Feature 1: Maori Led Experiences & Iwi Storytelling (Span 8) -->
+        <div class="bento-card bento-card-forest bento-col-8">
+          <div>
+            <span class="badge badge-verified" style="margin-bottom:1rem; display:inline-flex; align-items:center; gap:0.35rem;">
+              <svg class="icon icon-stroke" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg> Verified Maori Led Experiences
+            </span>
+            <h3 style="font-size:1.65rem; color:#FFFFFF; margin-bottom:0.85rem; line-height:1.3;">Living Oral Traditions &amp; Direct Cultural Ownership</h3>
+            <p style="color:#D8E2DC; font-size:0.95rem; line-height:1.65; max-width:680px; margin-bottom:1.5rem;">
+              We partner directly with verified Maori operators and regional Iwi advisors (Kaiārahi). Every tour narrative is written and shared in the operator's own authentic words, honouring local tikanga and sacred geological history.
+            </p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,0.15);">
+            <div style="display:flex; gap:1.5rem; font-size:0.85rem; color:#E5E2DA;">
+              <span>&bull; 100% Verified Operators</span>
+              <span>&bull; DOC Concession Holders</span>
+              <span>&bull; Small Group Footprint</span>
+            </div>
+            <a href="/frontend/pages/tour-list.html?maori_led=true" class="btn btn-secondary" style="font-size:0.875rem; padding:0.5rem 1rem;">View Maori Led Tours &rarr;</a>
+          </div>
         </div>
-        <div class="card" style="padding:1.5rem; text-align:center;">
-          <h3 style="font-size:1.15rem; color:var(--color-primary);">🤝 Pātuitanga (Partnership)</h3>
-          <p style="color:var(--color-text-muted); font-size:0.9rem;">Direct consultation and partnership with local Iwi advisors (Kaiārahi) honoring authentic historical narratives.</p>
+
+        <!-- Feature 2: Trip Match Concierge (Span 4) -->
+        <div class="bento-card bento-card-ochre bento-col-4">
+          <div>
+            <span class="badge" style="background:#8C5E1E; color:#FFFFFF; margin-bottom:1rem;">Interactive Recommendation</span>
+            <h3 style="font-size:1.35rem; color:#2C2216; margin-bottom:0.75rem;">Trip Match Concierge</h3>
+            <p style="color:#5C4E3D; font-size:0.9rem; line-height:1.6; margin-bottom:1.5rem;">
+              Discover your ideal New Zealand journey in 60 seconds. Our transparent scoring engine matches your budget, travel dates, accessibility needs, and cultural interests.
+            </p>
+          </div>
+          <div>
+            <a href="/frontend/pages/tour-list.html?quiz=1" class="btn btn-primary" style="width:100%; justify-content:center; padding:0.7rem 1.25rem; font-size:0.9rem;">
+              <svg class="icon icon-stroke" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>
+              Start 60 Second Quiz
+            </a>
+          </div>
         </div>
-        <div class="card" style="padding:1.5rem; text-align:center;">
-          <h3 style="font-size:1.15rem; color:var(--color-primary);">☀️ Manaakitanga (Hospitality)</h3>
-          <p style="color:var(--color-text-muted); font-size:0.9rem;">Warm New Zealand welcome, passionate storytelling, and certified safety across every departure date.</p>
+
+        <!-- Feature 3: Carbon Neutral (Span 4) -->
+        <div class="bento-card bento-col-4">
+          <div>
+            <div style="font-size:2.25rem; font-weight:800; color:var(--color-primary); font-family:var(--font-serif); margin-bottom:0.35rem;">100%</div>
+            <h4 style="font-size:1.1rem; margin-bottom:0.5rem;">Carbon Neutral Expeditions</h4>
+            <p style="color:var(--color-text-muted); font-size:0.875rem; line-height:1.6;">
+              Vehicle fuel and vessel emissions across every scheduled departure are measured and fully offset via native Aotearoa wetland and forest restoration.
+            </p>
+          </div>
+          <div style="margin-top:1rem; font-size:0.8rem; color:var(--color-primary); font-weight:600;">
+            Tiakitanga Environmental Pledge &rarr;
+          </div>
+        </div>
+
+        <!-- Feature 4: Certified Guides (Span 4) -->
+        <div class="bento-card bento-col-4">
+          <div>
+            <div style="font-size:2.25rem; font-weight:800; color:var(--color-primary); font-family:var(--font-serif); margin-bottom:0.35rem;">NZQA</div>
+            <h4 style="font-size:1.1rem; margin-bottom:0.5rem;">Wilderness Certified Kaitiaki</h4>
+            <p style="color:var(--color-text-muted); font-size:0.875rem; line-height:1.6;">
+              All guides maintain active Wilderness First Responder credentials, Maritime safety compliance, and regional Iwi cultural advisory accreditation.
+            </p>
+          </div>
+          <div style="margin-top:1rem; font-size:0.8rem; color:var(--color-primary); font-weight:600;">
+            Safety Protocols &amp; Certifications &rarr;
+          </div>
+        </div>
+
+        <!-- Feature 5: Independent Reviews (Span 4) -->
+        <div class="bento-card bento-card-accent bento-col-4">
+          <div>
+            <div style="font-size:2.25rem; font-weight:800; color:var(--color-primary); font-family:var(--font-serif); margin-bottom:0.35rem;">4.9 / 5</div>
+            <h4 style="font-size:1.1rem; margin-bottom:0.5rem;">Independent Traveler Feedback</h4>
+            <p style="color:var(--color-text-muted); font-size:0.875rem; line-height:1.6;">
+              Genuine reviews from verified adventurers who joined departures across Waitomo, Lake Taupo, Tongariro alpine crossings, and Fiordland sounds.
+            </p>
+          </div>
+          <div style="margin-top:1rem; font-size:0.8rem; color:var(--color-primary); font-weight:600;">
+            Read Verified Reviews &rarr;
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.5rem;">
+    <!-- Featured Expeditions Showcase with Regional Filters -->
+    <section style="margin-bottom: 4.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.75rem; flex-wrap:wrap; gap:1rem;">
         <div>
           <span class="badge badge-kaitiaki">Handpicked Journeys</span>
-          <h2 style="margin-top:0.25rem; margin-bottom:0;">Featured Tour Experiences</h2>
+          <h2 style="margin-top:0.35rem; margin-bottom:0;">Featured Eco Expeditions</h2>
         </div>
-        <a href="/frontend/pages/tour-list.html" class="btn btn-outline" style="font-size:0.9rem;">View Catalog →</a>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <a href="/frontend/pages/tour-list.html" class="btn btn-outline" style="font-size:0.85rem; padding:0.4rem 0.85rem;">View Full Catalog &rarr;</a>
+        </div>
       </div>
 
       <div class="grid-cols-3" id="featured-tours-container">
@@ -82,24 +158,70 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
         <div class="skeleton-card skeleton-shimmer"></div>
       </div>
     </section>
+
+    <!-- Authentic Traveler Journal (Replaces generic marketing testimonials) -->
+    <section style="margin-bottom: 4rem;">
+      <div style="margin-bottom: 2rem;">
+        <span class="badge badge-tikanga">Voices from the Trail</span>
+        <h2 style="margin-top:0.4rem; margin-bottom:0.5rem;">Field Notes from Recent Departures</h2>
+        <p style="color:var(--color-text-muted); max-width:700px; margin:0;">Unfiltered impressions from travelers who walked the trails, sailed the glacial waters, and sat with local Kaitiaki.</p>
+      </div>
+
+      <div class="grid-cols-3">
+        <div class="journal-card">
+          <p class="journal-quote">"Cruising Lake Taupo at dawn with our Maori guide felt transcendent. Hearing the genealogy behind the Mine Bay carvings in person brought the stone to life."</p>
+          <div class="journal-author">
+            <div class="journal-avatar">EM</div>
+            <div>
+              <strong style="display:block; font-size:0.9rem;">Elena M.</strong>
+              <span style="font-size:0.8rem; color:var(--color-text-muted);">Wellington &bull; Taupo Lake Cruise</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="journal-card">
+          <p class="journal-quote">"The glowworm walk through Waitomo was serene and entirely unhurried. Having a maximum group of six people meant we could listen to the forest in silence."</p>
+          <div class="journal-author">
+            <div class="journal-avatar">DK</div>
+            <div>
+              <strong style="display:block; font-size:0.9rem;">David K.</strong>
+              <span style="font-size:0.8rem; color:var(--color-text-muted);">Auckland &bull; Waitomo Eco Walk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="journal-card">
+          <p class="journal-quote">"Respect for wahi tapu sacred ground was deeply woven into every step of our crossing. The Kaitiaki leaders were knowledgeable, attentive, and remarkably welcoming."</p>
+          <div class="journal-author">
+            <div class="journal-avatar">ST</div>
+            <div>
+              <strong style="display:block; font-size:0.9rem;">Sarah &amp; Liam T.</strong>
+              <span style="font-size:0.8rem; color:var(--color-text-muted);">Christchurch &bull; Tongariro Trek</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-col">
         <h4>Kiwi Trails (Ara Aotearoa)</h4>
-        <p>Premium eco-tourism and guided cultural journeys across New Zealand. Dedicated to kaitiakitanga and sustainable wilderness exploration.</p>
+        <p>Premium eco expeditions and guided cultural journeys across New Zealand. Dedicated to kaitiakitanga, transparent conservation metrics, and sustainable wilderness exploration.</p>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
         <a href="/frontend/index.html">Home</a>
         <a href="/frontend/pages/tour-list.html">Tours Catalog</a>
+        <a href="/frontend/pages/tour-list.html?maori_led=true">Maori Led Experiences</a>
+        <a href="/frontend/pages/tour-list.html?quiz=1">Trip Match Concierge</a>
         <a href="/frontend/pages/departure-calendar.html">Departure Schedule</a>
         <a href="/frontend/pages/login.html">Customer Sign In</a>
       </div>
       <div class="footer-col">
         <h4>Cultural Commitment</h4>
-        <p>Kiwi Trails acknowledges Tangata Whenua and honours Te Tiriti o Waitangi principles: Pātuitanga (Partnership), Whai Wāhitanga (Participation), and Tiakitanga (Protection).</p>
+        <p>Kiwi Trails acknowledges Tangata Whenua and honours Te Tiriti o Waitangi principles: Patuitanga (Partnership), Whai Wāhitanga (Participation), and Tiakitanga (Protection).</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -157,14 +279,21 @@ Presents New Zealand eco-tourism experiences, cultural Kaitiakitanga ethics, and
           const imgUrl = tour.image_url || '/media/seed/tours/milford-sound-cruise-1.jpg';
           const card = document.createElement('div');
           card.className = 'card';
+          
+          const maoriBadge = tour.maori_led 
+            ? `<span class="badge badge-verified" style="margin-bottom:0.5rem; width:fit-content; display:inline-flex; align-items:center; gap:0.25rem;">
+                <svg class="icon icon-stroke" viewBox="0 0 24 24"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg> Maori Led
+               </span>`
+            : `<span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">${tour.category || 'Eco Expedition'}</span>`;
+
           card.innerHTML = `
             <div class="card-img-wrap">
               <img src="${imgUrl}" alt="${tour.title}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80'">
             </div>
             <div class="card-body">
-              <span class="badge badge-tikanga" style="margin-bottom:0.5rem; width:fit-content;">${tour.category || 'Eco-Tour'}</span>
+              ${maoriBadge}
               <h3 class="card-title">${tour.title}</h3>
-              <p class="card-text">${tour.location ? `Experience breathtaking beauty in ${tour.location}.` : ''} Certified Kaitiaki guidance.</p>
+              <p class="card-text">${tour.location ? `Experience pristine landscape in ${tour.location}.` : ''} Certified Kaitiaki guide oversight.</p>
               <div class="card-footer">
                 <span style="font-weight:800; font-size:1.2rem; color:var(--color-primary);">${formatMoney(tour.price_per_person)}</span>
                 <a href="/frontend/pages/tour-detail.html?id=${tour.id}" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.85rem;">View Details</a>

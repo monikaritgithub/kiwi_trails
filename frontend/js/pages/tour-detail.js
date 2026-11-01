@@ -35,18 +35,54 @@ function renderTourDetails(tour) {
   document.getElementById('loading-state').style.display = 'none';
   document.getElementById('tour-content').style.display = 'block';
 
-  document.title = `${tour.title} — Kiwi Trails`;
+  document.title = `${tour.title} | Kiwi Trails`;
   document.getElementById('tour-title').textContent = tour.title;
-  document.getElementById('tour-category-badge').textContent = tour.category || 'Guided Eco-Tour';
+  const breadcrumbEl = document.getElementById('breadcrumb-title');
+  if (breadcrumbEl) breadcrumbEl.textContent = tour.title;
+  document.getElementById('tour-category-badge').textContent = tour.category || 'Guided Eco Tour';
 
   const locEl = document.getElementById('tour-location-badge');
   if (locEl) locEl.textContent = tour.location || 'New Zealand';
 
   const locText = document.getElementById('tour-location-text');
-  if (locText) locText.textContent = tour.location ? `📍 Located in ${tour.location}` : '';
+  if (locText) locText.innerHTML = tour.location ? `<svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Located in ${tour.location}` : '';
 
   const durEl = document.getElementById('tour-duration-badge');
   if (durEl) durEl.textContent = `${tour.duration_days || 1} Day${(tour.duration_days || 1) > 1 ? 's' : ''}`;
+
+  // Maori led badge in header
+  const maoriBadgeEl = document.getElementById('tour-maori-badge');
+  if (maoriBadgeEl) {
+    if (tour.maori_led) {
+      maoriBadgeEl.style.display = 'inline-flex';
+    } else {
+      maoriBadgeEl.style.display = 'none';
+    }
+  }
+
+  // Operator Story section
+  const storySection = document.getElementById('operator-story-section');
+  if (storySection) {
+    if (tour.operator_story || tour.operator_name) {
+      storySection.style.display = 'block';
+      const nameEl = document.getElementById('operator-story-name');
+      if (nameEl) {
+        nameEl.textContent = tour.operator_name || 'Indigenous Operator';
+      }
+      const textEl = document.getElementById('operator-story-text');
+      if (textEl) {
+        textEl.textContent = tour.operator_story || 'Committed to authentic Kaitiakitanga and cultural storytelling in Aotearoa.';
+      }
+      const badgeContainer = document.getElementById('operator-badge-container');
+      if (badgeContainer) {
+        badgeContainer.innerHTML = tour.maori_led
+          ? '<span class="badge badge-maori"><svg class="icon icon-stroke" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Māori Led Verified</span>'
+          : '';
+      }
+    } else {
+      storySection.style.display = 'none';
+    }
+  }
 
   document.getElementById('tour-description').textContent = tour.description || '';
   document.getElementById('tour-price').textContent = formatMoney(tour.price_per_person);
@@ -118,9 +154,9 @@ function renderTourDetails(tour) {
   const ratingEl = document.getElementById('rating-summary');
   if (ratingEl) {
     if (tour.average_rating !== null && tour.average_rating !== undefined) {
-      ratingEl.textContent = `⭐ ${parseFloat(tour.average_rating).toFixed(1)} / 5.0`;
+      ratingEl.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ${parseFloat(tour.average_rating).toFixed(1)} / 5.0`;
     } else {
-      ratingEl.textContent = '⭐ No ratings yet';
+      ratingEl.innerHTML = `<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> No ratings yet`;
     }
   }
 
@@ -211,7 +247,7 @@ async function loadTourReviews(tourId) {
       const card = document.createElement('div');
       card.className = 'card';
       card.style.padding = '1.25rem';
-      const stars = '⭐'.repeat(Math.max(1, Math.min(5, rev.rating || 5)));
+      const stars = '<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'.repeat(Math.max(1, Math.min(5, rev.rating || 5)));
       card.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
           <strong style="color:var(--color-text);">${rev.reviewer_name || 'Verified Explorer'}</strong>

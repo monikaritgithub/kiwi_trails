@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - "site/**"
-      - "gemini/**"
+      - "docs/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -26,10 +26,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Copy the team documents into the site
+      - name: Copy documentation into the site
         run: |
           mkdir -p site/docs
-          cp gemini/*.md site/docs/
+          if [ -d "docs" ]; then cp docs/*.md site/docs/ 2>/dev/null || true; fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

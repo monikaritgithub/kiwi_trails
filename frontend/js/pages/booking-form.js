@@ -52,7 +52,7 @@ async function loadDepartures(tourId, initialDepartureId) {
       departures.forEach(dep => {
         const opt = document.createElement('option');
         opt.value = dep.id;
-        const tourName = dep.tour_title ? `${dep.tour_title} — ` : '';
+        const tourName = dep.tour_title ? `${dep.tour_title} - ` : '';
         opt.textContent = `${tourName}${formatDateTime(dep.start_datetime)} (${dep.seats_left !== undefined ? dep.seats_left : dep.capacity} seats left)`;
         if (initialDepartureId && String(dep.id) === String(initialDepartureId)) {
           opt.selected = true;

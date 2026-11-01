@@ -144,6 +144,10 @@ def list_tours(filters):
                 {"max_price": "Maximum price must be a valid number."},
             )
 
+    maori_led = filters.get("maori_led")
+    if maori_led is not None and str(maori_led).lower() in ("true", "1", "yes"):
+        qs = qs.filter(maori_led=True, operator_verified=True)
+
     sort = filters.get("sort") or "newest"
     allowed_sorts = {
         "newest": ("-created_at", "-id"),
@@ -195,6 +199,10 @@ def create_tour(data, user=None):
         meeting_lng=data.get("meeting_lng"),
         guide_id=data.get("guide_id"),
         cancellation_days=data.get("cancellation_days", 7),
+        operator_name=data.get("operator_name") or "",
+        operator_story=data.get("operator_story") or "",
+        maori_led=bool(data.get("maori_led", False)),
+        operator_verified=bool(data.get("operator_verified", False)),
         status=TourStatus.ACTIVE,
     )
     return get_tour(tour.id, user=user)

@@ -55,6 +55,10 @@ class Tour(models.Model):
         related_name="tours",
     )
     cancellation_days = models.PositiveIntegerField(default=7)
+    operator_name = models.CharField(max_length=150, blank=True, default="")
+    operator_story = models.TextField(blank=True, default="")
+    maori_led = models.BooleanField(default=False)
+    operator_verified = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=TourStatus.choices,

@@ -196,6 +196,14 @@ class Command(BaseCommand):
                 "guide": "Hemi Walker",
                 "cancellation_days": 7,
                 "status": TourStatus.ACTIVE,
+                "operator_name": "Taupō Moana Heritage Journeys",
+                "operator_story": (
+                    "Taupō Moana Heritage Journeys is a collective of Ngāti Tūwharetoa "
+                    "descendant watermen sharing oral histories and sacred lake "
+                    "traditions across generations."
+                ),
+                "maori_led": True,
+                "operator_verified": True,
                 "images": [
                     (
                         "/media/seed/tours/taupo-lake-cruise-1.jpg",
@@ -434,6 +442,14 @@ class Command(BaseCommand):
                 "guide": "Hemi Walker",
                 "cancellation_days": 5,
                 "status": TourStatus.ACTIVE,
+                "operator_name": "Mitai Whānau Cultural Experiences",
+                "operator_story": (
+                    "Founded and hosted by the Mitai whānau of Rotorua, we welcome guests "
+                    "into our sacred clearing with ancient waiata, traditional kapa "
+                    "haka, and earth baked hāngi meals."
+                ),
+                "maori_led": True,
+                "operator_verified": True,
                 "images": [
                     (
                         "/media/seed/tours/rotorua-maori-culture-1.jpg",
@@ -1002,6 +1018,14 @@ class Command(BaseCommand):
                 "guide": "Hemi Walker",
                 "cancellation_days": 3,
                 "status": TourStatus.ACTIVE,
+                "operator_name": "Te Puia & New Zealand Māori Arts and Crafts Institute",
+                "operator_story": (
+                    "For more than a century, our kaitiaki custodians have preserved "
+                    "ancient geothermal knowledge and traditional carving and weaving "
+                    "traditions in Te Whakarewarewa valley."
+                ),
+                "maori_led": True,
+                "operator_verified": True,
                 "images": [
                     (
                         "/media/seed/tours/te-puia-geothermal-1.jpg",
@@ -1121,6 +1145,10 @@ class Command(BaseCommand):
                     guide=guide,
                     cancellation_days=item["cancellation_days"],
                     status=item["status"],
+                    operator_name=item.get("operator_name", ""),
+                    operator_story=item.get("operator_story", ""),
+                    maori_led=item.get("maori_led", False),
+                    operator_verified=item.get("operator_verified", False),
                 )
             else:
                 tour.description = item["description"]
@@ -1137,6 +1165,10 @@ class Command(BaseCommand):
                 tour.guide = guide
                 tour.cancellation_days = item["cancellation_days"]
                 tour.status = item["status"]
+                tour.operator_name = item.get("operator_name", "")
+                tour.operator_story = item.get("operator_story", "")
+                tour.maori_led = item.get("maori_led", False)
+                tour.operator_verified = item.get("operator_verified", False)
                 tour.save()
             tours_count += 1
 
