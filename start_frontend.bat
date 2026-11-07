@@ -11,6 +11,6 @@ echo Running at: http://127.0.0.1:5500/frontend/
 echo.
 echo Press Ctrl+C to stop the server.
 echo.
-"%PYTHON_EXE%" serve_frontend.py
+"%PYTHON_EXE%" "%~dp0serve_frontend.py"
 echo.
 pause

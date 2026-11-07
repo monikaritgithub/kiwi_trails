@@ -13,6 +13,6 @@ echo API root:     http://127.0.0.1:8000/api/v1/
 echo.
 echo Press Ctrl+C to stop the server.
 echo.
-"%PYTHON_EXE%" manage.py runserver 127.0.0.1:8000
+"%PYTHON_EXE%" "%~dp0manage.py" runserver 127.0.0.1:8000
 echo.
 pause
